@@ -8,7 +8,8 @@ const RandomWord = () => {
     const fetchRandomWord = async () => {
         setLoading(true);
         try {
-            const response = await fetch('https://random-word-api.herokuapp.com/word?lang=fr');
+            // const response = await fetch('https://random-word-api.herokuapp.com/word?lang=fr');
+            const response = await fetch('https://random-word-api.vercel.app/api?words=1');
             const data = await response.json();
             setWord(data[0]); // API renvoie un tableau de 1 mot
         } catch (error) {
