@@ -35,6 +35,7 @@ function TutorielScreen() {
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}
         showsHorizontalScrollIndicator={false}
+        snapToAlignment="center"
       />
 
       <View style={styles.dotsContainer}>

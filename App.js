@@ -32,9 +32,20 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="WordPress" component={WelcomeScreen} />
+        <Stack.Screen name="WordPress" component={WelcomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Game" component={GameScreen} />
-        <Stack.Screen name="Tutoriel" component={TutorielScreen} />
+        <Stack.Screen
+          name="Tutoriel"
+          component={TutorielScreen}
+          options={{
+            headerStyle: {
+              backgroundColor: '#fefff1',
+              elevation: 0,
+              shadowOpacity: 0,
+            },
+            headerTintColor: '#e8663d',
+          }}
+        />
         <Stack.Screen name="Settings" component={SettingsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
