@@ -1,41 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, Image } from 'react-native';
+import { StyleSheet, View, Image, Text } from 'react-native';
 import { useState, useEffect } from 'react';
-import RandomWord from './RandomWord';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import WelcomeScreen from './screens/WelcomeScreen';
+import GameScreen from './screens/GameScreen';
+import TutorielScreen from './screens/TutorielScreen';
+
 const Stack = createStackNavigator();
-
-function WelcomeScreen({ navigation }) {
-  return (
-    <View style={styles.container}>
-      <Image source={require('./assets/icon.png')} style={styles.image} />
-      <Text style={styles.title}>Bienvenue sur WordPress !</Text>
-      <Button title="Nouvelle partie" onPress={() => navigation.navigate('Game')} />
-      <Button title="Continuer" onPress={() => navigation.navigate('Game')} />
-      <Button title="Tutoriel" onPress={() => navigation.navigate('Tutoriel')} />
-    </View>
-  );
-}
-
-function GameScreen() {
-  return (
-    <View style={styles.container}>
-      <RandomWord />
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-function TutorielScreen() {
-  return (
-    <View style={styles.container}>
-      <Text>Pour jouer, il faut bkabakbkabkaa</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
 
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(true);
@@ -82,10 +55,5 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-  },
-  link: {
-    fontSize: 18,
-    color: 'blue',
-    marginTop: 20,
   },
 });
