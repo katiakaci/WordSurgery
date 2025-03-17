@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import WelcomeScreen from './screens/WelcomeScreen';
 import GameScreen from './screens/GameScreen';
 import TutorielScreen from './screens/TutorielScreen';
+import SettingsScreen from './screens/SettingsScreen';
 
 const Stack = createStackNavigator();
 
@@ -34,6 +35,7 @@ export default function App() {
         <Stack.Screen name="WordPress" component={WelcomeScreen} />
         <Stack.Screen name="Game" component={GameScreen} />
         <Stack.Screen name="Tutoriel" component={TutorielScreen} />
+        <Stack.Screen name="Settings" component={SettingsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

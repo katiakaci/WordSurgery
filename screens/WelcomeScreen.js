@@ -9,6 +9,7 @@ function WelcomeScreen({ navigation }) {
       <Button title="Nouvelle partie" onPress={() => navigation.navigate('Game')} />
       <Button title="Continuer" onPress={() => navigation.navigate('Game')} />
       <Button title="Tutoriel" onPress={() => navigation.navigate('Tutoriel')} />
+      <Button title="Paramètres" onPress={() => navigation.navigate('Settings')} />
     </View>
   );
 }
