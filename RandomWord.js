@@ -39,7 +39,7 @@ const RandomWord = () => {
                     </View>
                 ))
             )}
-            <Button title="Générer des mots" onPress={fetchRandomWords} />
+            <Button title="Recommencer" onPress={fetchRandomWords} />
         </View>
     );
 };
