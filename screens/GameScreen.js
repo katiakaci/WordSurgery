@@ -13,10 +13,11 @@ function GameScreen() {
 
 const styles = StyleSheet.create({
   container: {
+    // paddingHorizontal: 30,
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#fefff1',
   },
 });
 

@@ -32,8 +32,23 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="WordPress" component={WelcomeScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Game" component={GameScreen} />
+        <Stack.Screen 
+          name="WordPress" 
+          component={WelcomeScreen} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="Game" 
+          component={GameScreen} 
+          options={{
+            headerStyle: {
+              backgroundColor: '#fefff1',
+              elevation: 0,
+              shadowOpacity: 0,
+            },
+            headerTintColor: '#e8663d',
+          }}
+        />
         <Stack.Screen
           name="Tutoriel"
           component={TutorielScreen}
