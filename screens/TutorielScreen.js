@@ -7,9 +7,12 @@ function TutorielScreen() {
   const [currentPage, setCurrentPage] = useState(0);
 
   const images = [
-    require('../assets/instruction 1.jpg'),
-    require('../assets/instruction 2.jpg'),
-    require('../assets/instruction 3.jpg'),
+    require('../assets/tutoriel/instruction 1.png'),
+    require('../assets/tutoriel/instruction 2.png'),
+    require('../assets/tutoriel/instruction 3.png'),
+    require('../assets/tutoriel/instruction 4.png'),
+    require('../assets/tutoriel/instruction 5.png'),
+    require('../assets/tutoriel/instruction 6.png')
   ];
 
   const onViewableItemsChanged = ({ viewableItems }) => {
@@ -40,13 +43,13 @@ function TutorielScreen() {
             key={index}
             style={[
               styles.dot,
-              { backgroundColor: currentPage === index ? 'orange' : 'gray' },
+              { backgroundColor: currentPage === index ? '#ed9125' : 'gray' },
             ]}
           />
         ))}
       </View>
 
-      {currentPage === 2 && (
+      {currentPage === 5 && (
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate('WordPress')}
@@ -63,19 +66,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#fefff1',
   },
   image: {
-    width: 300,
+    width: 400,
     height: 400,
-    marginHorizontal: 10,
+    marginHorizontal: 0,
     resizeMode: 'contain',
+    alignSelf: 'center',
   },
   dotsContainer: {
+    position: 'absolute',
+    bottom: 30,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
   },
   dot: {
     width: 10,
@@ -84,9 +89,10 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   button: {
-    marginTop: 20,
+    position: 'absolute',
+    top: 500,
     padding: 10,
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#e8663d',
     borderRadius: 5,
   },
   buttonText: {
