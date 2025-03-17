@@ -1,23 +1,29 @@
 import React from 'react';
 import { View, Text, StatusBar, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
+import i18n from '../languages/i18n';
 
 function SettingsScreen({ navigation }) {
+
+  const changeLanguage = () => {
+    const currentLang = i18n.language;
+    const newLang = currentLang === 'fr' ? 'en' : 'fr';
+    i18n.changeLanguage(newLang);
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
 
-      <TouchableOpacity style={[styles.button]} onPress={() => {
-        // TODO Code pour changer la langue ici
-      }}
+      <TouchableOpacity style={[styles.button]} onPress={changeLanguage}
       >
-        <Text style={styles.buttonText}>Langue</Text>
+        <Text style={styles.buttonText}>{i18n.t('language')}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={[styles.button]} onPress={() => {
         // TODO Code pour changer le dictionnaire ici
       }}
       >
-        <Text style={styles.buttonText}>Changer de dictionnaire</Text>
+        <Text style={styles.buttonText}>{i18n.t('dictionnary')}</Text>
       </TouchableOpacity>
     </View>
   );
