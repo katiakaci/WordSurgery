@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 function WelcomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Image source={require('./assets/app_icon.png')} style={styles.image} />
+      <Image source={require('./assets/icon.png')} style={styles.image} />
       <Text style={styles.title}>Bienvenue sur WordPress !</Text>
       <Button title="Nouvelle partie" onPress={() => navigation.navigate('Game')} />
       <Button title="Continuer" onPress={() => navigation.navigate('Game')} />
@@ -49,8 +49,8 @@ export default function App() {
   if (showWelcome) {
     return (
       <View style={styles.container}>
-        <Image source={require('./assets/app_icon.png')} style={styles.image} />
-        <Text style={styles.title}>Accueil</Text>
+        <Image source={require('./assets/icon.png')} style={styles.image} />
+        <Text style={styles.title}>WordPress</Text>
       </View>
     );
   }
