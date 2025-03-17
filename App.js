@@ -24,7 +24,7 @@ export default function App() {
     return (
       <View style={styles.container}>
         <Image source={require('./assets/icon.png')} style={styles.image} />
-        <Text style={styles.title}>WordPress</Text>
+        <Text style={styles.title}>WordSurgery</Text>
       </View>
     );
   }
@@ -33,7 +33,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen 
-          name="WordPress" 
+          name="WordSurgery" 
           component={WelcomeScreen} 
           options={{ headerShown: false }} 
         />
