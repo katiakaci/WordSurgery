@@ -2,24 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Button, ActivityIndicator, StyleSheet } from 'react-native';
 
 const RandomWord = () => {
-    const [word, setWord] = useState(null);
+    const [words, setWords] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const fetchRandomWord = async () => {
+    const fetchRandomWords = async () => {
         setLoading(true);
         try {
             // const response = await fetch('https://random-word-api.herokuapp.com/word?lang=fr');
-            const response = await fetch('https://random-word-api.vercel.app/api?words=1');
+            const response = await fetch('https://random-word-api.vercel.app/api?words=2');
             const data = await response.json();
-            setWord(data[0].toUpperCase());
+            setWords(data); // API renvoie un tableau avec 2 mots
         } catch (error) {
-            console.error('Erreur récupération du mot:', error);
+            console.error('Erreur récupération des mots:', error);
         }
         setLoading(false);
     };
 
     useEffect(() => {
-        fetchRandomWord();
+        fetchRandomWords();
     }, []);
 
     return (
@@ -27,17 +27,19 @@ const RandomWord = () => {
             {loading ? (
                 <ActivityIndicator size="large" color="blue" />
             ) : (
-                word !== null && (
-                    <View style={styles.wordContainer}>
-                        {word.split('').map((letter, index) => (
-                            <View key={index} style={styles.letterBox}>
-                                <Text style={styles.letter}>{letter}</Text>
-                            </View>
-                        ))}
+                words.map((word, index) => (
+                    <View key={index} style={styles.wordContainer}>
+                        <View style={styles.letterContainer}>
+                            {word.split('').map((letter, i) => (
+                                <View key={i} style={styles.letterBox}>
+                                    <Text style={styles.letter}>{letter.toUpperCase()}</Text>
+                                </View>
+                            ))}
+                        </View>
                     </View>
-                )
+                ))
             )}
-            <Button title="Générer un mot" onPress={fetchRandomWord} />
+            <Button title="Générer des mots" onPress={fetchRandomWords} />
         </View>
     );
 };
@@ -48,17 +50,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     wordContainer: {
+        marginVertical: 10,
+    },
+    letterContainer: {
         flexDirection: 'row',
-        marginBottom: 20,
     },
     letterBox: {
-        width: 40,
+        width: 43,
         height: 50,
-        margin: 5,
         borderWidth: 2,
         borderColor: '#5f3f31',
         justifyContent: 'center',
         alignItems: 'center',
+        margin: 3,
         borderRadius: 8
     },
     letter: {
