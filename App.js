@@ -33,7 +33,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen 
-          name="WordSurgery" 
+          name="Accueil" 
           component={WelcomeScreen} 
           options={{ headerShown: false }} 
         />

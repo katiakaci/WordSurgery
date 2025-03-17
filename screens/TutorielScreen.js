@@ -53,7 +53,7 @@ function TutorielScreen() {
       {currentPage === 5 && (
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('WordSurgery')}
+          onPress={() => navigation.navigate('Accueil')}
         >
           <Text style={styles.buttonText}>Jouer !</Text>
         </TouchableOpacity>
