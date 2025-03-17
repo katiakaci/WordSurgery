@@ -1,7 +1,6 @@
 import { StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
 import Header from './Header'
-import ManFigure from './ManFigure'
 import WordBox from './WordBox'
 import { WordsArray } from './data'
 import InputBox from './InputBox'
@@ -67,7 +66,6 @@ const index = () => {
     <View style={styles.container}>
       <Header />
       <View style={styles.row}>
-        <ManFigure wrongWord={wrongLetters.length} />
         <WordBox wordData={WordsArray[currentIndex]} />
       </View>
       <InputBox correctLetters={correctLetters} answer={correctWord} />
