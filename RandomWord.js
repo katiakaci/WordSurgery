@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, ActivityIndicator, StyleSheet, TouchableOpacity } from 'react-native';
+import i18n from './languages/i18n';
 
 const RandomWord = () => {
     const [words, setWords] = useState([]);
@@ -84,7 +85,7 @@ const RandomWord = () => {
                     </View>
                 </>
             )}
-            <Button title="Recommencer" onPress={fetchRandomWords} />
+            <Button title={i18n.t('again')} onPress={fetchRandomWords} />
         </View>
     );
 };

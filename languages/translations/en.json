@@ -1,5 +1,12 @@
 {
-    "Greet": "Welcome to WordSurgery!",
+    "welcome": "Welcome to WordSurgery!",
     "language": "Language",
-    "dictionnary": "Change dictionnary"
+    "dictionnary": "Change dictionnary",
+    "home": "Home",
+    "continue": "Continue",
+    "new game": "New game",
+    "settings": "Settings",
+    "play": "Play!",
+    "tutoriel": "Tutoriel",
+    "again": "Try again"
 }

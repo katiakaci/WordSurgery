@@ -9,6 +9,8 @@ import GameScreen from './screens/GameScreen';
 import TutorielScreen from './screens/TutorielScreen';
 import SettingsScreen from './screens/SettingsScreen';
 
+import i18n from './languages/i18n';
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -32,14 +34,14 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen 
-          name="Accueil" 
-          component={WelcomeScreen} 
-          options={{ headerShown: false }} 
+        <Stack.Screen
+          name={i18n.t('home')}
+          component={WelcomeScreen}
+          options={{ headerShown: false }}
         />
-        <Stack.Screen 
-          name="Game" 
-          component={GameScreen} 
+        <Stack.Screen
+          name="Game"
+          component={GameScreen}
           options={{
             headerStyle: {
               backgroundColor: '#fefff1',
@@ -61,7 +63,7 @@ export default function App() {
             headerTintColor: '#e8663d',
           }}
         />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
+        <Stack.Screen name={i18n.t('settings')} component={SettingsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

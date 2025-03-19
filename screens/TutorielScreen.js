@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StatusBar, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import i18n from '../languages/i18n';
 
 function TutorielScreen() {
   const navigation = useNavigation();
@@ -53,9 +54,9 @@ function TutorielScreen() {
       {currentPage === 5 && (
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('Accueil')}
+          onPress={() => navigation.navigate(i18n.t('home'))}
         >
-          <Text style={styles.buttonText}>Jouer !</Text>
+          <Text style={styles.buttonText}>{i18n.t('play')}</Text>
         </TouchableOpacity>
       )}
     </View>

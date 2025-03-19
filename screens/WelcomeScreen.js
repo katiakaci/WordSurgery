@@ -1,26 +1,27 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import i18n from '../languages/i18n';
 
 function WelcomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Image source={require('../assets/icon.png')} style={styles.image} />
-      <Text style={styles.title}>Bienvenue sur WordSurgery !</Text>
+      <Text style={styles.title}>{i18n.t('welcome')}</Text>
 
       <TouchableOpacity style={[styles.button, { backgroundColor: '#9be69d' }]} onPress={() => navigation.navigate('Game')}>
-        <Text style={styles.buttonText}>Nouvelle partie</Text>
+        <Text style={styles.buttonText}>{i18n.t('new game')}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={[styles.button, { backgroundColor: '#fe73c5' }]} onPress={() => navigation.navigate('Game')}>
-        <Text style={styles.buttonText}>Continuer</Text>
+        <Text style={styles.buttonText}>{i18n.t('continue')}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={[styles.button, { backgroundColor: '#ffe270' }]} onPress={() => navigation.navigate('Tutoriel')}>
-        <Text style={styles.buttonText}>Tutoriel</Text>
+        <Text style={styles.buttonText}>{i18n.t('tutoriel')}</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.button, { backgroundColor: '#fd9468' }]} onPress={() => navigation.navigate('Settings')}>
-        <Text style={styles.buttonText}>Paramètres</Text>
+      <TouchableOpacity style={[styles.button, { backgroundColor: '#fd9468' }]} onPress={() => navigation.navigate(i18n.t('settings'))}>
+        <Text style={styles.buttonText}>{i18n.t('settings')}</Text>
       </TouchableOpacity>
     </View>
   );

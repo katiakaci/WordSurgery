@@ -4,6 +4,7 @@ import i18n from '../languages/i18n';
 
 function SettingsScreen({ navigation }) {
 
+  // à améliorer:
   const changeLanguage = () => {
     const currentLang = i18n.language;
     const newLang = currentLang === 'fr' ? 'en' : 'fr';
