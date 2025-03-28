@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, ActivityIndicator, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Button, ActivityIndicator, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import i18n from './languages/i18n';
 
 const RandomWord = () => {
-    const [words, setWords] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [selectedIndices, setSelectedIndices] = useState([]);
-    const [history, setHistory] = useState([]);
+    const [words, setWords] = useState([]); // Contient les deux mots
+    const [loading, setLoading] = useState(false); // Indicateur de chargement
+    const [selectedIndices, setSelectedIndices] = useState([]); // Indices des lettres sélectionnées dans le premier mot
+    const [validWordIndices, setValidWordIndices] = useState([]); // Indices des lettres sélectionnées dans le second mot
+    const [history, setHistory] = useState([]); // Historique des actions pour annuler
 
     const fetchRandomWords = async () => {
         setLoading(true);
@@ -14,8 +15,9 @@ const RandomWord = () => {
             // const response = await fetch('https://random-word-api.herokuapp.com/word?lang=fr');
             const response = await fetch('https://random-word-api.vercel.app/api?words=2');
             const data = await response.json();
-            setWords(data); // API renvoie un tableau avec 2 mots
-            setSelectedIndices([]);
+            setWords(data); // API renvoie deux mots
+            setSelectedIndices([]); // Réinitialisation des indices sélectionnés
+            setValidWordIndices([]); // Réinitialisation des indices des mots validés
         } catch (error) {
             console.error('Erreur récupération des mots:', error);
         }
@@ -54,10 +56,38 @@ const RandomWord = () => {
         const newWords = [newFirstWord.join(''), newSecondWord.join('')];
         const newHistory = [...history, { words: [...words], selectedIndices: [...selectedIndices] }];
 
-        // setWords([newFirstWord.join(''), newSecondWord.join('')]);  
         setWords(newWords);
         setSelectedIndices([]); // Réinitialise la sélection
+        setValidWordIndices([]); // Réinitialise les indices du mot valide
         setHistory(newHistory);
+    };
+
+    const checkWord = () => {
+        const secondWord = words[1];
+        const selectedLetters = validWordIndices.map(i => secondWord[i]).join('');
+
+        // Vérifie si le mot sélectionné existe dans le dictionnaire
+        fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${selectedLetters}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.title === 'No Definitions Found') {
+                    Alert.alert('Mot non valide', `${selectedLetters} n'est pas un mot valide.`);
+                    setValidWordIndices([]); // Réinitialise la sélection des lettres après l'alerte
+                } else {
+                    // Si le mot est valide
+                    Alert.alert('Mot trouvé', `${selectedLetters} est un mot valide.`);
+                    const newSecondWord = secondWord.split('')
+                        .filter((_, i) => !validWordIndices.includes(i))
+                        .join('');
+                    setWords([words[0], newSecondWord]);
+                    setValidWordIndices([]); // Réinitialise les indices des lettres validées après l'alerte
+                }
+            })
+            .catch(error => {
+                console.error('Erreur API de vérification de mot:', error);
+                Alert.alert('Erreur', 'Une erreur est survenue lors de la vérification du mot.');
+                setValidWordIndices([]); // Réinitialise la sélection des lettres en cas d'erreur
+            });
     };
 
     const undoLastAction = () => {
@@ -91,8 +121,12 @@ const RandomWord = () => {
                         {words.length > 1 && words[1].split('').map((letter, i) => (
                             <TouchableOpacity
                                 key={i}
-                                style={styles.letterBox}
-                                onPress={() => insertLetters(i)}
+                                style={[styles.letterBox, validWordIndices.includes(i) && styles.validLetterBox]}
+                                onPress={() => {
+                                    if (!validWordIndices.includes(i)) {
+                                        setValidWordIndices(prev => [...prev, i]); // Sélectionne les lettres dans le deuxième mot
+                                    }
+                                }}
                             >
                                 <Text style={styles.letter}>{letter.toUpperCase()}</Text>
                             </TouchableOpacity>
@@ -105,6 +139,10 @@ const RandomWord = () => {
 
                     <TouchableOpacity style={[styles.button, styles.undoButton]} onPress={undoLastAction}>
                         <Text style={styles.buttonText}>{i18n.t('undo')}</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={[styles.button, styles.checkButton]} onPress={checkWord}>
+                        <Text style={styles.buttonText}>Mot trouvé</Text>
                     </TouchableOpacity>
                 </>
             )}
@@ -119,12 +157,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 20,
-    },
-    title: {
-        fontSize: 32,
-        fontWeight: 'bold',
-        color: '#d14b28',
-        marginBottom: 20,
     },
     wordContainer: {
         flexDirection: 'row',
@@ -151,6 +183,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffd580',
         borderColor: '#ffae42',
     },
+    validLetterBox: {
+        backgroundColor: '#32CD32', // Vert
+        borderColor: '#228B22', // Vert foncé
+    },
     letter: {
         fontSize: 26,
         fontWeight: 'bold',
@@ -175,6 +211,9 @@ const styles = StyleSheet.create({
     },
     undoButton: {
         backgroundColor: '#ffcc00',
+    },
+    checkButton: {
+        backgroundColor: '#4CAF50',
     },
 });
 
