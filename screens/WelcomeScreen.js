@@ -1,12 +1,24 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import i18n from '../languages/i18n';
+import LottieView from 'lottie-react-native';
+import tw from 'twrnc'
 
 function WelcomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Image source={require('../assets/icon.png')} style={styles.image} />
       <Text style={styles.title}>{i18n.t('welcome')}</Text>
+
+      <TouchableOpacity onPress={() => navigation.navigate('Game')}>
+        {/* <Text style={[styles.buttonText, { fontSize: 10 }]}>{i18n.t('new game')}</Text> */}
+        <LottieView
+          source={require('../assets/playButtonAnimation.json')}
+          autoPlay
+          loop
+          style={tw`w-[30] h-[30]`}
+        />
+      </TouchableOpacity>
 
       <TouchableOpacity style={[styles.button, { backgroundColor: '#9be69d' }]} onPress={() => navigation.navigate('Game')}>
         <Text style={styles.buttonText}>{i18n.t('new game')}</Text>
