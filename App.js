@@ -11,6 +11,8 @@ import SettingsScreen from './screens/SettingsScreen';
 
 import i18n from './languages/i18n';
 
+import LottieView from 'lottie-react-native';
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -19,14 +21,24 @@ export default function App() {
   useEffect(() => {
     setTimeout(() => {
       setShowWelcome(false);
-    }, 3000);
+    }, 2000);
   }, []);
 
   if (showWelcome) {
     return (
       <View style={styles.container}>
-        <Image source={require('./assets/icon.png')} style={styles.image} />
-        <Text style={styles.title}>WordSurgery</Text>
+
+        <LottieView
+          source={require('./assets/animation/splash_screen.json')}
+          autoPlay
+          loop
+          style={styles.animation}
+        />
+
+        <View style={styles.overlay}>
+          <Image source={require('./assets/icon.png')} style={styles.image} />
+          <Text style={styles.title}>WordSurgery</Text>
+        </View>
       </View>
     );
   }
@@ -73,8 +85,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  overlay: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1,
   },
   image: {
     width: 200,
@@ -85,5 +103,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: 'black',
+  },
+  animation: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
   },
 });

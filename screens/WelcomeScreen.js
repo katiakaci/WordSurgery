@@ -13,7 +13,7 @@ function WelcomeScreen({ navigation }) {
       <TouchableOpacity onPress={() => navigation.navigate('Game')}>
         {/* <Text style={[styles.buttonText, { fontSize: 10 }]}>{i18n.t('new game')}</Text> */}
         <LottieView
-          source={require('../assets/playButtonAnimation.json')}
+          source={require('../assets/animation/playButton.json')}
           autoPlay
           loop
           style={tw`w-[30] h-[30]`}
