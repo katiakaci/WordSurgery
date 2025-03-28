@@ -8,6 +8,7 @@ const RandomWord = () => {
     const [selectedIndices, setSelectedIndices] = useState([]); // Indices des lettres sélectionnées dans le premier mot
     const [validWordIndices, setValidWordIndices] = useState([]); // Indices des lettres sélectionnées dans le second mot
     const [history, setHistory] = useState([]); // Historique des actions pour annuler
+    const [score, setScore] = useState(0); // Score initial du jeu
 
     const fetchRandomWords = async () => {
         setLoading(true);
@@ -99,6 +100,12 @@ const RandomWord = () => {
                 } else {
                     // Si le mot est valide
                     Alert.alert('Mot trouvé', `${selectedLetters} est un mot valide.`);
+
+                    // Calcul du score
+                    const newScore = score + selectedLetters.length;
+                    setScore(newScore);
+
+                    // Mise à jour du mot
                     const newSecondWord = secondWord.split('')
                         .filter((_, i) => !validWordIndices.includes(i))
                         .join('');
@@ -128,6 +135,8 @@ const RandomWord = () => {
                 <ActivityIndicator size="large" color="#ff6f61" />
             ) : (
                 <>
+                    <Text style={styles.scoreText}>Score: {score}</Text>
+
                     <View style={styles.wordContainer}>
                         {words.length > 0 && words[0].split('').map((letter, i) => (
                             <TouchableOpacity
@@ -152,7 +161,11 @@ const RandomWord = () => {
                         ))}
                     </View>
 
-                    <TouchableOpacity style={styles.button} onPress={fetchRandomWords}>
+                    <TouchableOpacity style={styles.button} onPress={() => {
+                        fetchRandomWords();
+                        setScore(0); // Réinitialisation du score à 0
+                    }}
+                    >
                         <Text style={styles.buttonText}>{i18n.t('again')}</Text>
                     </TouchableOpacity>
 
@@ -176,6 +189,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 20,
+    },
+    scoreText: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#ff6f61',
+        marginBottom: 20,
     },
     wordContainer: {
         flexDirection: 'row',
@@ -229,10 +248,10 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     undoButton: {
-        backgroundColor: '#ffcc00',
+        backgroundColor: '#f39c12',
     },
     checkButton: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#27ae60',
     },
 });
 
