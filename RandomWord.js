@@ -6,6 +6,7 @@ const RandomWord = () => {
     const [words, setWords] = useState([]);
     const [loading, setLoading] = useState(false);
     const [selectedIndices, setSelectedIndices] = useState([]);
+    const [history, setHistory] = useState([]);
 
     const fetchRandomWords = async () => {
         setLoading(true);
@@ -50,14 +51,28 @@ const RandomWord = () => {
             ...secondWord.slice(position)
         ];
 
-        setWords([newFirstWord.join(''), newSecondWord.join('')]);
+        const newWords = [newFirstWord.join(''), newSecondWord.join('')];
+        const newHistory = [...history, { words: [...words], selectedIndices: [...selectedIndices] }];
+
+        // setWords([newFirstWord.join(''), newSecondWord.join('')]);  
+        setWords(newWords);
         setSelectedIndices([]); // Réinitialise la sélection
+        setHistory(newHistory);
+    };
+
+    const undoLastAction = () => {
+        if (history.length === 0) return;
+
+        const lastState = history[history.length - 1];
+        setWords(lastState.words);
+        setSelectedIndices(lastState.selectedIndices);
+        setHistory(history.slice(0, -1));
     };
 
     return (
         <View style={styles.container}>
             {loading ? (
-                <ActivityIndicator size="large" color="blue" />
+                <ActivityIndicator size="large" color="#ff6f61" />
             ) : (
                 <>
                     <View style={styles.wordContainer}>
@@ -83,43 +98,83 @@ const RandomWord = () => {
                             </TouchableOpacity>
                         ))}
                     </View>
+
+                    <TouchableOpacity style={styles.button} onPress={fetchRandomWords}>
+                        <Text style={styles.buttonText}>{i18n.t('again')}</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={[styles.button, styles.undoButton]} onPress={undoLastAction}>
+                        <Text style={styles.buttonText}>{i18n.t('undo')}</Text>
+                    </TouchableOpacity>
                 </>
             )}
-            <Button title={i18n.t('again')} onPress={fetchRandomWords} />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        // padding: 20,
+        flex: 1,
+        backgroundColor: '#fef8ec',
         alignItems: 'center',
-        // paddingVertical: 20,
+        justifyContent: 'center',
+        padding: 20,
+    },
+    title: {
+        fontSize: 32,
+        fontWeight: 'bold',
+        color: '#d14b28',
+        marginBottom: 20,
     },
     wordContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginVertical: 15,
-        marginHorizontal: 20,
+        marginVertical: 10,
     },
     letterBox: {
-        width: 40,
-        height: 45,
+        width: 50,
+        height: 50,
         borderWidth: 2,
-        borderColor: '#5f3f31',
+        borderColor: '#d14b28',
         justifyContent: 'center',
         alignItems: 'center',
-        margin: 3,
-        borderRadius: 8,
-        backgroundColor: 'white'
+        margin: 5,
+        borderRadius: 10,
+        backgroundColor: 'white',
+        shadowColor: '#000',
+        shadowOffset: { width: 2, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 3,
     },
     selectedBox: {
-        backgroundColor: '#fcf49f',
+        backgroundColor: '#ffd580',
+        borderColor: '#ffae42',
     },
     letter: {
-        fontSize: 24,
+        fontSize: 26,
         fontWeight: 'bold',
-        color: 'orange',
+        color: '#d14b28',
+    },
+    button: {
+        marginTop: 20,
+        backgroundColor: '#ff6f61',
+        paddingVertical: 12,
+        paddingHorizontal: 25,
+        borderRadius: 8,
+        shadowColor: '#000',
+        shadowOffset: { width: 2, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 3,
+    },
+    buttonText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: 'white',
+    },
+    undoButton: {
+        backgroundColor: '#ffcc00',
     },
 });
 
