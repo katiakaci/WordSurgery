@@ -12,7 +12,6 @@ const RandomWord = () => {
     const fetchRandomWords = async () => {
         setLoading(true);
         try {
-            // const response = await fetch('https://random-word-api.herokuapp.com/word?lang=fr');
             const response = await fetch('https://random-word-api.vercel.app/api?words=2');
             const data = await response.json();
             setWords(data); // API renvoie deux mots
@@ -60,6 +59,30 @@ const RandomWord = () => {
         setSelectedIndices([]); // Réinitialise la sélection
         setValidWordIndices([]); // Réinitialise les indices du mot valide
         setHistory(newHistory);
+    };
+
+    const toggleLetterSelectionInSecondWord = (index) => {
+        setValidWordIndices((prev) => {
+            // Si la lettre est déjà sélectionnée, on peut la désélectionner seulement si c'est la première ou la dernière lettre
+            if (prev.includes(index)) {
+                if (index === prev[0] || index === prev[prev.length - 1]) {
+                    return prev.filter(i => i !== index); // Désélectionne uniquement si c'est le premier ou le dernier
+                }
+                return prev; // Ne permet pas de désélectionner si la lettre est au milieu
+            }
+
+            // Si la sélection est vide, on peut ajouter cette lettre
+            if (prev.length === 0) {
+                return [index];
+            }
+
+            // Si la lettre est consécutive à la sélection précédente (uniquement de gauche à droite)
+            if (index === prev[prev.length - 1] + 1) {
+                return [...prev, index];
+            }
+
+            return prev; // Ignore si la lettre n'est pas contiguë ou n'est pas à la suite
+        });
     };
 
     const checkWord = () => {
@@ -122,11 +145,7 @@ const RandomWord = () => {
                             <TouchableOpacity
                                 key={i}
                                 style={[styles.letterBox, validWordIndices.includes(i) && styles.validLetterBox]}
-                                onPress={() => {
-                                    if (!validWordIndices.includes(i)) {
-                                        setValidWordIndices(prev => [...prev, i]); // Sélectionne les lettres dans le deuxième mot
-                                    }
-                                }}
+                                onPress={() => toggleLetterSelectionInSecondWord(i)}
                             >
                                 <Text style={styles.letter}>{letter.toUpperCase()}</Text>
                             </TouchableOpacity>
