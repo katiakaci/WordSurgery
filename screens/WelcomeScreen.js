@@ -15,6 +15,13 @@ function WelcomeScreen({ navigation }) {
         style={styles.animation}
       />
 
+      <LottieView
+        source={require('../assets/animation/HomePage.json')}
+        autoPlay
+        loop
+        style={styles.animation2}
+      />
+
       <Image source={require('../assets/icon.png')} style={styles.image} />
       <Text style={styles.title}>{"WordSurgery"}</Text>
 
@@ -82,8 +89,15 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     position: 'absolute',
-    top: 0,
+    top: -45,
     left: 0,
+  },
+  animation2: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: -110,
   },
 });
 
