@@ -1,31 +1,13 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import LottieView from 'lottie-react-native';
 import tw from 'twrnc';
 import { Ionicons } from 'react-native-vector-icons';
 import i18n from '../languages/i18n';
-import settings from '../components/Settings';
+import Settings from '../components/Settings';
 
 function WelcomeScreen({ navigation }) {
-  const {
-    settingsModalVisible,
-    setSettingsModalVisible,
-    languageModalVisible,
-    setLanguageModalVisible,
-    openLanguageModal,
-    closeLanguageModal,
-    isMusicEnabled,
-    isSoundEnabled,
-    darkMode,
-    changeLanguage,
-    currentLanguage,
-    changeDictionnary,
-    toggleMusic,
-    toggleSound,
-    toggleDarkMode,
-    shareGame,
-    rateApp
-  } = settings();
+  const [settingsModalVisible, setSettingsModalVisible] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -57,89 +39,7 @@ function WelcomeScreen({ navigation }) {
       </View>
 
       {/* Fenêtre modale des paramètres */}
-      <Modal animationType="fade" transparent visible={settingsModalVisible} onRequestClose={() => setSettingsModalVisible(false)}>
-        <View style={styles.modalBackground}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>{i18n.t('settings')}</Text>
-
-            {/* Changer la langue */}
-            <TouchableOpacity style={styles.modalButton} onPress={openLanguageModal}>
-              <Text style={styles.modalButtonText}>{i18n.t('language')}</Text>
-            </TouchableOpacity>
-
-            {/* Changer le dictionnaire */}
-            <TouchableOpacity style={styles.modalButton} onPress={changeDictionnary}>
-              <Text style={styles.modalButtonText}>{i18n.t('dictionnary')}</Text>
-            </TouchableOpacity>
-
-            {/* Activer/désactiver la musique */}
-            <TouchableOpacity style={styles.modalButton} onPress={toggleMusic}>
-              <Text style={styles.modalButtonText}>{isMusicEnabled ? 'Désactiver la musique' : 'Activer la musique'}</Text>
-            </TouchableOpacity>
-
-            {/* Activer/désactiver les sons */}
-            <TouchableOpacity style={styles.modalButton} onPress={toggleSound}>
-              <Text style={styles.modalButtonText}>{isSoundEnabled ? 'Désactiver les sons' : 'Activer les sons'}</Text>
-            </TouchableOpacity>
-
-            {/* Activer/désactiver le mode sombre */}
-            <TouchableOpacity style={styles.modalButton} onPress={toggleDarkMode}>
-              <Text style={styles.modalButtonText}>{darkMode ? 'Désactiver le mode sombre' : 'Activer le mode sombre'}</Text>
-            </TouchableOpacity>
-
-            {/* Partager le jeu */}
-            <TouchableOpacity style={styles.modalButton} onPress={shareGame}>
-              <Text style={styles.modalButtonText}>Partager le jeu</Text>
-            </TouchableOpacity>
-
-            {/* Noter l'application */}
-            <TouchableOpacity style={styles.modalButton} onPress={rateApp}>
-              <Text style={styles.modalButtonText}>Noter l'application</Text>
-            </TouchableOpacity>
-
-            {/* Bouton de fermeture */}
-            <TouchableOpacity onPress={() => setSettingsModalVisible(false)} style={styles.closeButton}>
-              <Ionicons name="close" size={30} color="#000" />
-            </TouchableOpacity>
-
-          </View>
-        </View>
-      </Modal>
-
-      {/* Fenêtre modale de sélection de langue */}
-      <Modal animationType="fade" transparent visible={languageModalVisible} onRequestClose={closeLanguageModal}>
-        <View style={styles.modalBackground}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>{i18n.t('language')}</Text>
-
-            {/* Boutons pour sélectionner la langue */}
-            <TouchableOpacity
-              style={[styles.modalButton, currentLanguage === 'fr' && { backgroundColor: '#9be69d' }]}
-              onPress={() => changeLanguage('fr')}
-            >
-              <Text style={styles.modalButtonText}>Français</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.modalButton, currentLanguage === 'en' && { backgroundColor: '#9be69d' }]}
-              onPress={() => changeLanguage('en')}
-            >
-              <Text style={styles.modalButtonText}>English</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.modalButton, currentLanguage === 'es' && { backgroundColor: '#9be69d' }]}
-              onPress={() => changeLanguage('es')}
-            >
-              <Text style={styles.modalButtonText}>Español</Text>
-            </TouchableOpacity>
-
-            {/* Bouton de fermeture */}
-            <TouchableOpacity onPress={closeLanguageModal} style={styles.closeButton}>
-              <Ionicons name="close" size={30} color="#000" />
-            </TouchableOpacity>
-
-          </View>
-        </View>
-      </Modal>
+      <Settings isVisible={settingsModalVisible} onClose={() => setSettingsModalVisible(false)} />
     </View>
   );
 }
@@ -193,40 +93,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: -110,
-  },
-  modalBackground: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalContainer: {
-    width: 300,
-    backgroundColor: '#fff',
-    padding: 20,
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  modalTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 15,
-  },
-  modalButton: {
-    width: '100%',
-    padding: 15,
-    backgroundColor: '#fdb441',
-    borderRadius: 5,
-    alignItems: 'center',
-    marginVertical: 5,
-  },
-  modalButtonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  closeButton: {
-    marginTop: 10,
   },
 });
 

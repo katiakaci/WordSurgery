@@ -1,24 +1,24 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+import { Ionicons } from 'react-native-vector-icons';
 import i18n from '../languages/i18n';
-import { useColorScheme, Share } from 'react-native';
-import { Linking } from 'react-native';
+import { useColorScheme, Share, Linking } from 'react-native';
 
-export default function settings() {
-    const [settingsModalVisible, setSettingsModalVisible] = useState(false);
+export default function Settings({ isVisible, onClose }) {
+    const [settingsModalVisible, setSettingsModalVisible] = useState(isVisible);
     const [languageModalVisible, setLanguageModalVisible] = useState(false);
     const [isMusicEnabled, setIsMusicEnabled] = useState(true);
     const [isSoundEnabled, setIsSoundEnabled] = useState(true);
     const [darkMode, setDarkMode] = useState(useColorScheme() === 'dark');
     const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
 
+    useEffect(() => {
+        setSettingsModalVisible(isVisible);
+    }, [isVisible]);
+
     const changeLanguage = (language) => {
         i18n.changeLanguage(language);
         setCurrentLanguage(language);
-    };
-
-    const openLanguageModal = () => {
-        setSettingsModalVisible(false);
-        setLanguageModalVisible(true);
     };
 
     const closeLanguageModal = () => {
@@ -60,23 +60,161 @@ export default function settings() {
         Linking.openURL('https://play.google.com/store/apps/details?id=com.example.wordSurgery');
     };
 
-    return {
-        settingsModalVisible,
-        setSettingsModalVisible,
-        languageModalVisible,
-        setLanguageModalVisible,
-        openLanguageModal,
-        closeLanguageModal,
-        isMusicEnabled,
-        isSoundEnabled,
-        darkMode,
-        changeLanguage,
-        currentLanguage,
-        changeDictionnary,
-        toggleMusic,
-        toggleSound,
-        toggleDarkMode,
-        shareGame,
-        rateApp
-    };
+    return (
+        <Modal animationType="fade" transparent visible={settingsModalVisible} onRequestClose={onClose}>
+            <View style={styles.modalBackground}>
+                <View style={styles.modalContainer}>
+                    <Text style={styles.modalTitle}>{i18n.t('settings')}</Text>
+
+                    {/* Changer la langue */}
+                    <TouchableOpacity style={styles.modalButton} onPress={() => setLanguageModalVisible(true)}>
+                        <Text style={styles.modalButtonText}>{i18n.t('language')}</Text>
+                    </TouchableOpacity>
+
+                    {/* Changer le dictionnaire */}
+                    <TouchableOpacity style={styles.modalButton} onPress={changeDictionnary}>
+                        <Text style={styles.modalButtonText}>{i18n.t('dictionnary')}</Text>
+                    </TouchableOpacity>
+
+                    {/* Activer/désactiver la musique */}
+                    <TouchableOpacity style={styles.modalButton} onPress={toggleMusic}>
+                        <Text style={styles.modalButtonText}>{isMusicEnabled ? 'Désactiver la musique' : 'Activer la musique'}</Text>
+                    </TouchableOpacity>
+
+                    {/* Activer/désactiver les sons */}
+                    <TouchableOpacity style={styles.modalButton} onPress={toggleSound}>
+                        <Text style={styles.modalButtonText}>{isSoundEnabled ? 'Désactiver les sons' : 'Activer les sons'}</Text>
+                    </TouchableOpacity>
+
+                    {/* Activer/désactiver le mode sombre */}
+                    <TouchableOpacity style={styles.modalButton} onPress={toggleDarkMode}>
+                        <Text style={styles.modalButtonText}>{darkMode ? 'Désactiver le mode sombre' : 'Activer le mode sombre'}</Text>
+                    </TouchableOpacity>
+
+                    {/* Partager le jeu */}
+                    <TouchableOpacity style={styles.modalButton} onPress={shareGame}>
+                        <Text style={styles.modalButtonText}>Partager le jeu</Text>
+                    </TouchableOpacity>
+
+                    {/* Noter l'application */}
+                    <TouchableOpacity style={styles.modalButton} onPress={rateApp}>
+                        <Text style={styles.modalButtonText}>Noter l'application</Text>
+                    </TouchableOpacity>
+
+                    {/* Bouton de fermeture */}
+                    <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+                        <Ionicons name="close" size={30} color="#000" />
+                    </TouchableOpacity>
+                </View>
+            </View>
+
+            {/* Fenêtre modale de sélection de langue */}
+            <Modal animationType="fade" transparent visible={languageModalVisible} onRequestClose={closeLanguageModal}>
+                <View style={styles.modalBackground}>
+                    <View style={styles.modalContainer}>
+                        <Text style={styles.modalTitle}>{i18n.t('language')}</Text>
+
+                        {/* Francais */}
+                        <TouchableOpacity
+                            style={[styles.modalButton, currentLanguage === 'fr' && { backgroundColor: '#9be69d' }]}
+                            onPress={() => changeLanguage('fr')}
+                        >
+                            <Text style={styles.modalButtonText}>Français</Text>
+                        </TouchableOpacity>
+
+                        {/* Anglais */}
+                        <TouchableOpacity
+                            style={[styles.modalButton, currentLanguage === 'en' && { backgroundColor: '#9be69d' }]}
+                            onPress={() => changeLanguage('en')}
+                        >
+                            <Text style={styles.modalButtonText}>English</Text>
+                        </TouchableOpacity>
+
+                        {/* Espagnol */}
+                        <TouchableOpacity
+                            style={[styles.modalButton, currentLanguage === 'es' && { backgroundColor: '#9be69d' }]}
+                            onPress={() => changeLanguage('es')}
+                        >
+                            <Text style={styles.modalButtonText}>Español</Text>
+                        </TouchableOpacity>
+
+                        {/* Russe */}
+                        <TouchableOpacity
+                            style={[styles.modalButton, currentLanguage === 'ru' && { backgroundColor: '#9be69d' }]}
+                            onPress={() => changeLanguage('ru')}
+                        >
+                            <Text style={styles.modalButtonText}>Русский</Text>
+                        </TouchableOpacity>
+
+                        {/* Arabe */}
+                        <TouchableOpacity
+                            style={[styles.modalButton, currentLanguage === 'ar' && { backgroundColor: '#9be69d' }]}
+                            onPress={() => changeLanguage('ar')}
+                        >
+                            <Text style={styles.modalButtonText}>عربي</Text>
+                        </TouchableOpacity>
+
+                        {/* Japonais */}
+                        <TouchableOpacity
+                            style={[styles.modalButton, currentLanguage === 'ja' && { backgroundColor: '#9be69d' }]}
+                            onPress={() => changeLanguage('ja')}
+                        >
+                            <Text style={styles.modalButtonText}>日本語</Text>
+                        </TouchableOpacity>
+
+
+                        {/* Portugais */}
+                        <TouchableOpacity
+                            style={[styles.modalButton, currentLanguage === 'pt' && { backgroundColor: '#9be69d' }]}
+                            onPress={() => changeLanguage('pt')}
+                        >
+                            <Text style={styles.modalButtonText}>Português</Text>
+                        </TouchableOpacity>
+
+                        {/* Bouton de fermeture */}
+                        <TouchableOpacity onPress={closeLanguageModal} style={styles.closeButton}>
+                            <Ionicons name="close" size={30} color="#000" />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
+        </Modal>
+    );
 }
+
+const styles = StyleSheet.create({
+    modalBackground: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalContainer: {
+        width: 300,
+        backgroundColor: '#fff',
+        padding: 20,
+        borderRadius: 10,
+        alignItems: 'center',
+    },
+    modalTitle: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        marginBottom: 15,
+    },
+    modalButton: {
+        width: '100%',
+        padding: 15,
+        backgroundColor: '#fdb441',
+        borderRadius: 5,
+        alignItems: 'center',
+        marginVertical: 5,
+    },
+    modalButtonText: {
+        color: '#fff',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    closeButton: {
+        marginTop: 10,
+    },
+});
