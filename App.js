@@ -6,7 +6,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import WelcomeScreen from './screens/WelcomeScreen';
 import GameScreen from './screens/GameScreen';
 import TutorielScreen from './screens/TutorielScreen';
-import SettingsScreen from './screens/SettingsScreen';
 
 import i18n from './languages/i18n';
 
@@ -74,7 +73,6 @@ export default function App() {
             headerTintColor: '#e8663d',
           }}
         />
-        <Stack.Screen name={"Settings"} component={SettingsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
