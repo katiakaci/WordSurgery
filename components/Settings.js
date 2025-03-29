@@ -81,7 +81,7 @@ export default function Settings({ isVisible, onClose }) {
 
                     {/* Activer/désactiver la musique */}
                     <TouchableOpacity style={styles.modalButton} onPress={toggleMusic}>
-                        <Ionicons name="musical-notes" size={24} color="#fff" style={styles.icon} />
+                        <Ionicons name={isMusicEnabled ? "musical-notes" : "volume-off"} size={24} color="#fff" style={styles.icon} />
                         <Text style={styles.modalButtonText}>{isMusicEnabled ? 'Désactiver la musique' : 'Activer la musique'}</Text>
                     </TouchableOpacity>
 
@@ -93,7 +93,7 @@ export default function Settings({ isVisible, onClose }) {
 
                     {/* Activer/désactiver le mode sombre */}
                     <TouchableOpacity style={styles.modalButton} onPress={toggleDarkMode}>
-                        <Ionicons name="moon" size={24} color="#fff" style={styles.icon} />
+                        <Ionicons name={darkMode ? "moon" : "sunny"} size={24} color="#fff" style={styles.icon} />
                         <Text style={styles.modalButtonText}>{darkMode ? 'Désactiver le mode sombre' : 'Activer le mode sombre'}</Text>
                     </TouchableOpacity>
 
