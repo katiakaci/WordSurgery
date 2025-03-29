@@ -25,17 +25,9 @@ export default function App() {
   if (showWelcome) {
     return (
       <View style={styles.container}>
-
-        <LottieView
-          source={require('./assets/animation/splash_screen.json')}
-          autoPlay
-          loop
-          style={styles.animation}
-        />
-
+        <LottieView source={require('./assets/animation/splash_screen.json')} autoPlay loop style={styles.animation} />
         <View style={styles.overlay}>
           <Image source={require('./assets/icon.png')} style={styles.image} />
-          <Text style={styles.title}>WordSurgery</Text>
         </View>
       </View>
     );

@@ -8,8 +8,12 @@ import settings from '../components/Settings';
 
 function WelcomeScreen({ navigation }) {
   const {
-    modalVisible,
-    setModalVisible,
+    settingsModalVisible,
+    setSettingsModalVisible,
+    languageModalVisible,
+    setLanguageModalVisible,
+    openLanguageModal,
+    closeLanguageModal,
     isMusicEnabled,
     isSoundEnabled,
     darkMode,
@@ -41,7 +45,7 @@ function WelcomeScreen({ navigation }) {
       {/* Boutons en bas */}
       <View style={styles.bottomButtonsContainer}>
         {/* Bouton pour ouvrir la fenêtre modale des paramètres */}
-        <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.button}>
+        <TouchableOpacity onPress={() => setSettingsModalVisible(true)} style={styles.button}>
           <Ionicons name="settings" size={20} color="#fdb441" />
         </TouchableOpacity>
 
@@ -52,13 +56,13 @@ function WelcomeScreen({ navigation }) {
       </View>
 
       {/* Fenêtre modale des paramètres */}
-      <Modal animationType="fade" transparent visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
+      <Modal animationType="fade" transparent visible={settingsModalVisible} onRequestClose={() => setSettingsModalVisible(false)}>
         <View style={styles.modalBackground}>
           <View style={styles.modalContainer}>
             <Text style={styles.modalTitle}>{i18n.t('settings')}</Text>
 
             {/* Changer la langue */}
-            <TouchableOpacity style={styles.modalButton} onPress={changeLanguage}>
+            <TouchableOpacity style={styles.modalButton} onPress={openLanguageModal}>
               <Text style={styles.modalButtonText}>{i18n.t('language')}</Text>
             </TouchableOpacity>
 
@@ -93,7 +97,33 @@ function WelcomeScreen({ navigation }) {
             </TouchableOpacity>
 
             {/* Bouton de fermeture */}
-            <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButton}>
+            <TouchableOpacity onPress={() => setSettingsModalVisible(false)} style={styles.closeButton}>
+              <Ionicons name="close" size={30} color="#000" />
+            </TouchableOpacity>
+
+          </View>
+        </View>
+      </Modal>
+
+      {/* Fenêtre modale de sélection de langue */}
+      <Modal animationType="fade" transparent visible={languageModalVisible} onRequestClose={closeLanguageModal}>
+        <View style={styles.modalBackground}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalTitle}>{i18n.t('language')}</Text>
+
+            {/* Boutons pour sélectionner la langue */}
+            <TouchableOpacity style={styles.modalButton} onPress={() => changeLanguage('fr')}>
+              <Text style={styles.modalButtonText}>Français</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalButton} onPress={() => changeLanguage('en')}>
+              <Text style={styles.modalButtonText}>English</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalButton} onPress={() => changeLanguage('es')}>
+              <Text style={styles.modalButtonText}>Español</Text>
+            </TouchableOpacity>
+
+            {/* Bouton de fermeture */}
+            <TouchableOpacity onPress={closeLanguageModal} style={styles.closeButton}>
               <Ionicons name="close" size={30} color="#000" />
             </TouchableOpacity>
 

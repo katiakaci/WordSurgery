@@ -4,15 +4,24 @@ import { useColorScheme, Share } from 'react-native';
 import { Linking } from 'react-native';
 
 export default function settings() {
-    const [modalVisible, setModalVisible] = useState(false);
+    const [settingsModalVisible, setSettingsModalVisible] = useState(false);
+    const [languageModalVisible, setLanguageModalVisible] = useState(false);
     const [isMusicEnabled, setIsMusicEnabled] = useState(true);
     const [isSoundEnabled, setIsSoundEnabled] = useState(true);
     const [darkMode, setDarkMode] = useState(useColorScheme() === 'dark');
 
-    const changeLanguage = () => {
-        const currentLang = i18n.language;
-        const newLang = currentLang === 'fr' ? 'en' : 'fr';
-        i18n.changeLanguage(newLang);
+    const changeLanguage = (language) => {
+        i18n.changeLanguage(language);
+    };
+
+    const openLanguageModal = () => {
+        setSettingsModalVisible(false);
+        setLanguageModalVisible(true);
+    };
+
+    const closeLanguageModal = () => {
+        setLanguageModalVisible(false);
+        setSettingsModalVisible(true);
     };
 
     const changeDictionnary = () => {
@@ -50,8 +59,12 @@ export default function settings() {
     };
 
     return {
-        modalVisible,
-        setModalVisible,
+        settingsModalVisible,
+        setSettingsModalVisible,
+        languageModalVisible,
+        setLanguageModalVisible,
+        openLanguageModal,
+        closeLanguageModal,
         isMusicEnabled,
         isSoundEnabled,
         darkMode,
