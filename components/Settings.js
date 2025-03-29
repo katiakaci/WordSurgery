@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
 import i18n from '../languages/i18n';
 import { useColorScheme, Share, Linking } from 'react-native';
+import Flag from 'react-native-flags';
 
 export default function Settings({ isVisible, onClose }) {
     const [settingsModalVisible, setSettingsModalVisible] = useState(isVisible);
@@ -126,6 +127,7 @@ export default function Settings({ isVisible, onClose }) {
                             style={[styles.modalButton, currentLanguage === 'fr' && { backgroundColor: '#9be69d' }]}
                             onPress={() => changeLanguage('fr')}
                         >
+                            <Flag code="FR" style={styles.flagIcon} />
                             <Text style={styles.modalButtonText}>Français</Text>
                         </TouchableOpacity>
 
@@ -134,6 +136,7 @@ export default function Settings({ isVisible, onClose }) {
                             style={[styles.modalButton, currentLanguage === 'en' && { backgroundColor: '#9be69d' }]}
                             onPress={() => changeLanguage('en')}
                         >
+                            <Flag code="GB" style={styles.flagIcon} />
                             <Text style={styles.modalButtonText}>English</Text>
                         </TouchableOpacity>
 
@@ -142,6 +145,7 @@ export default function Settings({ isVisible, onClose }) {
                             style={[styles.modalButton, currentLanguage === 'es' && { backgroundColor: '#9be69d' }]}
                             onPress={() => changeLanguage('es')}
                         >
+                            <Flag code="ES" style={styles.flagIcon} />
                             <Text style={styles.modalButtonText}>Español</Text>
                         </TouchableOpacity>
 
@@ -150,6 +154,7 @@ export default function Settings({ isVisible, onClose }) {
                             style={[styles.modalButton, currentLanguage === 'ru' && { backgroundColor: '#9be69d' }]}
                             onPress={() => changeLanguage('ru')}
                         >
+                            <Flag code="RU" style={styles.flagIcon} />
                             <Text style={styles.modalButtonText}>Русский</Text>
                         </TouchableOpacity>
 
@@ -158,6 +163,7 @@ export default function Settings({ isVisible, onClose }) {
                             style={[styles.modalButton, currentLanguage === 'ar' && { backgroundColor: '#9be69d' }]}
                             onPress={() => changeLanguage('ar')}
                         >
+                            <Flag code="SA" style={styles.flagIcon} />
                             <Text style={styles.modalButtonText}>عربي</Text>
                         </TouchableOpacity>
 
@@ -166,6 +172,7 @@ export default function Settings({ isVisible, onClose }) {
                             style={[styles.modalButton, currentLanguage === 'ja' && { backgroundColor: '#9be69d' }]}
                             onPress={() => changeLanguage('ja')}
                         >
+                            <Flag code="JP" style={styles.flagIcon} />
                             <Text style={styles.modalButtonText}>日本語</Text>
                         </TouchableOpacity>
 
@@ -175,6 +182,7 @@ export default function Settings({ isVisible, onClose }) {
                             style={[styles.modalButton, currentLanguage === 'pt' && { backgroundColor: '#9be69d' }]}
                             onPress={() => changeLanguage('pt')}
                         >
+                            <Flag code="PT" style={styles.flagIcon} />
                             <Text style={styles.modalButtonText}>Português</Text>
                         </TouchableOpacity>
 
@@ -183,6 +191,7 @@ export default function Settings({ isVisible, onClose }) {
                             style={[styles.modalButton, currentLanguage === 'it' && { backgroundColor: '#9be69d' }]}
                             onPress={() => changeLanguage('it')}
                         >
+                            <Flag code="IT" style={styles.flagIcon} />
                             <Text style={styles.modalButtonText}>Italiano</Text>
                         </TouchableOpacity>
 
@@ -236,6 +245,11 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     icon: {
+        marginRight: 10,
+    },
+    flagIcon: {
+        width: 30,
+        height: 20,
         marginRight: 10,
     },
 });
