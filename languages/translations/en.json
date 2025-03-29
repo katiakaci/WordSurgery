@@ -1,10 +1,16 @@
 {
     "wordSurgery": "WordSurgery",
     "language": "Language",
-    "dictionnary": "Change dictionnary",
+    "dictionnary": "Change dictionary",
     "home": "Home",
     "settings": "Settings",
     "tutorial": "Tutorial",
     "again": "Try again",
-    "undo": "Undo"
+    "undo": "Undo",
+    "rateApp": "Rate the app",
+    "shareApp": "Share the game",
+    "disableMusic": "Disable music",
+    "enableMusic": "Enable music",
+    "disableDarkMode": "Disable dark mode",
+    "enableDarkMode": "Enable dark mode"
 }

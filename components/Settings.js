@@ -71,25 +71,25 @@ export default function Settings({ isVisible, onClose }) {
                     {/* Activer/désactiver la musique */}
                     <TouchableOpacity style={styles.modalButton} onPress={toggleMusic}>
                         <Ionicons name={isMusicEnabled ? "volume-high" : "volume-mute"} size={24} color="#fff" style={styles.icon} />
-                        <Text style={styles.modalButtonText}>{isMusicEnabled ? 'Désactiver la musique' : 'Activer la musique'}</Text>
+                        <Text style={styles.modalButtonText}>{isMusicEnabled ? i18n.t('disableMusic') : i18n.t('enableMusic')}</Text>
                     </TouchableOpacity>
 
                     {/* Activer/désactiver le mode sombre */}
                     <TouchableOpacity style={styles.modalButton} onPress={toggleDarkMode}>
                         <Ionicons name={darkMode ? "moon" : "sunny"} size={24} color="#fff" style={styles.icon} />
-                        <Text style={styles.modalButtonText}>{darkMode ? 'Désactiver le mode sombre' : 'Activer le mode sombre'}</Text>
+                        <Text style={styles.modalButtonText}>{darkMode ? i18n.t('disableDarkMode') : i18n.t('enableDarkMode')}</Text>
                     </TouchableOpacity>
 
                     {/* Partager le jeu */}
                     <TouchableOpacity style={styles.modalButton} onPress={shareGame}>
                         <Ionicons name="share-social" size={24} color="#fff" style={styles.icon} />
-                        <Text style={styles.modalButtonText}>Partager le jeu</Text>
+                        <Text style={styles.modalButtonText}>{i18n.t('shareApp')}</Text>
                     </TouchableOpacity>
 
                     {/* Noter l'application */}
                     <TouchableOpacity style={styles.modalButton} onPress={rateApp}>
                         <Ionicons name="star" size={24} color="#fff" style={styles.icon} />
-                        <Text style={styles.modalButtonText}>Noter l'application</Text>
+                        <Text style={styles.modalButtonText}>{i18n.t('rateApp')}</Text>
                     </TouchableOpacity>
 
                     {/* Bouton de fermeture */}

@@ -2,9 +2,15 @@
     "wordSurgery": "WordSurgery",
     "language": "言語",
     "dictionnary": "辞書を変更",
-    "home": "家",
+    "home": "ホーム",
     "settings": "設定",
     "tutorial": "チュートリアル",
     "again": "もう一度やり直してください",
-    "undo": "元に戻す"
+    "undo": "元に戻す",
+    "rateApp": "アプリを評価する",
+    "shareApp": "アプリを共有する",
+    "disableMusic": "音楽を無効にする",
+    "enableMusic": "音楽を有効にする",
+    "disableDarkMode": "ダークモードを無効にする",
+    "enableDarkMode": "ダークモードを有効にする"
 }

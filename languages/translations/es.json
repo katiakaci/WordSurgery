@@ -3,8 +3,14 @@
     "language": "Idioma",
     "dictionnary": "Cambiar diccionario",
     "home": "Bienvenido",
-    "settings": "Paramètres",
-    "tutorial": "Ajustes",
+    "settings": "Configuraciones",
+    "tutorial": "Tutorial",
     "again": "Empezar de nuevo",
-    "undo": "Para volver"
+    "undo": "Deshacer",
+    "rateApp": "Calificar la aplicación",
+    "shareApp": "Compartir la aplicación",
+    "disableMusic": "Desactivar la música",
+    "enableMusic": "Activar la música",
+    "disableDarkMode": "Desactivar el modo oscuro",
+    "enableDarkMode": "Activar el modo oscuro"
 }

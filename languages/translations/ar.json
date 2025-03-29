@@ -2,9 +2,15 @@
     "wordSurgery": "WordSurgery",
     "language": "لغة",
     "dictionnary": "تغيير القاموس",
-    "home": "بيت",
-    "settings": "إعدادات",
-    "tutorial": "برنامج تعليمي",
-    "again": "حاول ثانية",
-    "undo": "التراجع"
+    "home": "الرئيسية",
+    "settings": "الإعدادات",
+    "tutorial": "الدليل",
+    "again": "حاول مرة أخرى",
+    "undo": "التراجع",
+    "rateApp": "قم بتقييم التطبيق",
+    "shareApp": "مشاركة اللعبة",
+    "disableMusic": "إيقاف الموسيقى",
+    "enableMusic": "تشغيل الموسيقى",
+    "disableDarkMode": "إيقاف الوضع المظلم",
+    "enableDarkMode": "تشغيل الوضع المظلم"
 }

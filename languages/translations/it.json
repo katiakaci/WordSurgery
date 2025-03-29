@@ -6,5 +6,11 @@
     "settings": "Impostazioni",
     "tutorial": "Tutorial",
     "again": "Ricominciare",
-    "undo": "Annulla"
+    "undo": "Annulla",
+    "rateApp": "Valuta l'app",
+    "shareApp": "Condividi l'app",
+    "disableMusic": "Disabilita la musica",
+    "enableMusic": "Abilita la musica",
+    "disableDarkMode": "Disabilita la modalità scura",
+    "enableDarkMode": "Abilita la modalità scura"
 }
