@@ -178,6 +178,14 @@ export default function Settings({ isVisible, onClose }) {
                             <Text style={styles.modalButtonText}>Português</Text>
                         </TouchableOpacity>
 
+                        {/* Italien */}
+                        <TouchableOpacity
+                            style={[styles.modalButton, currentLanguage === 'it' && { backgroundColor: '#9be69d' }]}
+                            onPress={() => changeLanguage('it')}
+                        >
+                            <Text style={styles.modalButtonText}>Italiano</Text>
+                        </TouchableOpacity>
+
                         {/* Bouton de fermeture */}
                         <TouchableOpacity onPress={closeLanguageModal} style={styles.closeButton}>
                             <Ionicons name="close" size={30} color="#000" />
