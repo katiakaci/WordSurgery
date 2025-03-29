@@ -9,7 +9,6 @@ export default function Settings({ isVisible, onClose }) {
     const [settingsModalVisible, setSettingsModalVisible] = useState(isVisible);
     const [languageModalVisible, setLanguageModalVisible] = useState(false);
     const [isMusicEnabled, setIsMusicEnabled] = useState(true);
-    const [isSoundEnabled, setIsSoundEnabled] = useState(true);
     const [darkMode, setDarkMode] = useState(useColorScheme() === 'dark');
     const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
 
