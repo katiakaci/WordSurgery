@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StatusBar, StyleSheet } from 'react-native';
-import RandomWord from '../RandomWord';
+import RandomWord from '../components/RandomWord';
 import i18n from '../languages/i18n';
 
 function GameScreen() {

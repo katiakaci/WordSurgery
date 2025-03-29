@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, ActivityIndicator, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import i18n from './languages/i18n';
+import i18n from '../languages/i18n';
 
 const RandomWord = () => {
     const [words, setWords] = useState([]); // Contient les deux mots

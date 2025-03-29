@@ -4,7 +4,7 @@ import LottieView from 'lottie-react-native';
 import tw from 'twrnc';
 import { Ionicons } from 'react-native-vector-icons';
 import i18n from '../languages/i18n';
-import settings from '../Settings';
+import settings from '../components/Settings';
 
 function WelcomeScreen({ navigation }) {
   const {
@@ -67,22 +67,27 @@ function WelcomeScreen({ navigation }) {
               <Text style={styles.modalButtonText}>{i18n.t('dictionnary')}</Text>
             </TouchableOpacity>
 
+            {/* Activer/désactiver la musique */}
             <TouchableOpacity style={styles.modalButton} onPress={toggleMusic}>
               <Text style={styles.modalButtonText}>{isMusicEnabled ? 'Désactiver la musique' : 'Activer la musique'}</Text>
             </TouchableOpacity>
 
+            {/* Activer/désactiver les sons */}
             <TouchableOpacity style={styles.modalButton} onPress={toggleSound}>
               <Text style={styles.modalButtonText}>{isSoundEnabled ? 'Désactiver les sons' : 'Activer les sons'}</Text>
             </TouchableOpacity>
 
+            {/* Activer/désactiver le mode sombre */}
             <TouchableOpacity style={styles.modalButton} onPress={toggleDarkMode}>
               <Text style={styles.modalButtonText}>{darkMode ? 'Désactiver le mode sombre' : 'Activer le mode sombre'}</Text>
             </TouchableOpacity>
 
+            {/* Partager le jeu */}
             <TouchableOpacity style={styles.modalButton} onPress={shareGame}>
               <Text style={styles.modalButtonText}>Partager le jeu</Text>
             </TouchableOpacity>
 
+            {/* Noter l'application */}
             <TouchableOpacity style={styles.modalButton} onPress={rateApp}>
               <Text style={styles.modalButtonText}>Noter l'application</Text>
             </TouchableOpacity>
@@ -91,6 +96,7 @@ function WelcomeScreen({ navigation }) {
             <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButton}>
               <Ionicons name="close" size={30} color="#000" />
             </TouchableOpacity>
+
           </View>
         </View>
       </Modal>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import i18n from './languages/i18n';
+import i18n from '../languages/i18n';
 import { useColorScheme, Share } from 'react-native';
 import { Linking } from 'react-native';
 
