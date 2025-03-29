@@ -68,36 +68,43 @@ export default function Settings({ isVisible, onClose }) {
 
                     {/* Changer la langue */}
                     <TouchableOpacity style={styles.modalButton} onPress={() => setLanguageModalVisible(true)}>
+                        <Ionicons name="language" size={24} color="#fff" style={styles.icon} />
                         <Text style={styles.modalButtonText}>{i18n.t('language')}</Text>
                     </TouchableOpacity>
 
                     {/* Changer le dictionnaire */}
                     <TouchableOpacity style={styles.modalButton} onPress={changeDictionnary}>
+                        <Ionicons name="book" size={24} color="#fff" style={styles.icon} />
                         <Text style={styles.modalButtonText}>{i18n.t('dictionnary')}</Text>
                     </TouchableOpacity>
 
                     {/* Activer/désactiver la musique */}
                     <TouchableOpacity style={styles.modalButton} onPress={toggleMusic}>
+                        <Ionicons name="musical-notes" size={24} color="#fff" style={styles.icon} />
                         <Text style={styles.modalButtonText}>{isMusicEnabled ? 'Désactiver la musique' : 'Activer la musique'}</Text>
                     </TouchableOpacity>
 
                     {/* Activer/désactiver les sons */}
                     <TouchableOpacity style={styles.modalButton} onPress={toggleSound}>
+                        <Ionicons name="volume-high" size={24} color="#fff" style={styles.icon} />
                         <Text style={styles.modalButtonText}>{isSoundEnabled ? 'Désactiver les sons' : 'Activer les sons'}</Text>
                     </TouchableOpacity>
 
                     {/* Activer/désactiver le mode sombre */}
                     <TouchableOpacity style={styles.modalButton} onPress={toggleDarkMode}>
+                        <Ionicons name="moon" size={24} color="#fff" style={styles.icon} />
                         <Text style={styles.modalButtonText}>{darkMode ? 'Désactiver le mode sombre' : 'Activer le mode sombre'}</Text>
                     </TouchableOpacity>
 
                     {/* Partager le jeu */}
                     <TouchableOpacity style={styles.modalButton} onPress={shareGame}>
+                        <Ionicons name="share-social" size={24} color="#fff" style={styles.icon} />
                         <Text style={styles.modalButtonText}>Partager le jeu</Text>
                     </TouchableOpacity>
 
                     {/* Noter l'application */}
                     <TouchableOpacity style={styles.modalButton} onPress={rateApp}>
+                        <Ionicons name="star" size={24} color="#fff" style={styles.icon} />
                         <Text style={styles.modalButtonText}>Noter l'application</Text>
                     </TouchableOpacity>
 
@@ -208,13 +215,19 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         alignItems: 'center',
         marginVertical: 5,
+        flexDirection: 'row',
     },
     modalButtonText: {
         color: '#fff',
         fontSize: 18,
         fontWeight: 'bold',
+        flex: 1,
+        textAlign: 'center',
     },
     closeButton: {
         marginTop: 10,
+    },
+    icon: {
+        marginRight: 10,
     },
 });
