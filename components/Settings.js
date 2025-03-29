@@ -32,6 +32,7 @@ export default function Settings({ isVisible, onClose }) {
     };
 
     const toggleDarkMode = () => {
+        // TODO
         setDarkMode(!darkMode);
         console.log(darkMode ? 'Mode clair activé' : 'Mode sombre activé');
     };
@@ -39,6 +40,7 @@ export default function Settings({ isVisible, onClose }) {
     const shareGame = async () => {
         try {
             await Share.share({
+                // TODO: Revenir ici après l'avoir mis sur les store
                 message: 'Découvrez WordSurgery, un jeu passionnant ! Téléchargez-le ici : https://example.com',
             });
         } catch (error) {
@@ -47,6 +49,7 @@ export default function Settings({ isVisible, onClose }) {
     };
 
     const rateApp = () => {
+        // TODO: Revenir ici après l'avoir mis sur les store
         Linking.openURL('https://play.google.com/store/apps/details?id=com.example.wordSurgery');
     };
 

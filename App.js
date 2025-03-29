@@ -2,19 +2,41 @@ import { StyleSheet, View, Image, Text } from 'react-native';
 import { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import { Audio } from 'expo-av';
 import WelcomeScreen from './screens/WelcomeScreen';
 import GameScreen from './screens/GameScreen';
 import TutorielScreen from './screens/TutorielScreen';
-
 import i18n from './languages/i18n';
-
 import LottieView from 'lottie-react-native';
-
 const Stack = createStackNavigator();
 
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(true);
+
+  const [sound, setSound] = useState();
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  useEffect(() => {
+    const loadSound = async () => {
+      try {
+        const { sound } = await Audio.Sound.createAsync(
+          require('./assets/music.mp3'),
+          { shouldPlay: true, isLooping: true }
+        );
+        console.log('Audio loaded', sound);
+        setSound(sound);
+      } catch (error) {
+        console.error('Erreur de lecture audio:', error);
+      }
+    };
+
+    loadSound();
+    return () => {
+      if (sound) {
+        sound.unloadAsync();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
