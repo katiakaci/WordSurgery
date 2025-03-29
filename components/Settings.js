@@ -21,11 +21,6 @@ export default function Settings({ isVisible, onClose }) {
         setCurrentLanguage(language);
     };
 
-    const closeLanguageModal = () => {
-        setLanguageModalVisible(false);
-        setSettingsModalVisible(true);
-    };
-
     const changeDictionnary = () => {
         // TODO
         console.log('Changer dictionnaire');
@@ -105,7 +100,7 @@ export default function Settings({ isVisible, onClose }) {
             </View>
 
             {/* Fenêtre modale de sélection de langue */}
-            <Modal animationType="fade" transparent visible={languageModalVisible} onRequestClose={closeLanguageModal}>
+            <Modal animationType="fade" transparent visible={languageModalVisible} onRequestClose={() => setLanguageModalVisible(false)}>
                 <View style={styles.modalBackground}>
                     <View style={styles.modalContainer}>
                         <Text style={styles.modalTitle}>{i18n.t('language')}</Text>
@@ -184,7 +179,7 @@ export default function Settings({ isVisible, onClose }) {
                         </TouchableOpacity>
 
                         {/* Bouton de fermeture */}
-                        <TouchableOpacity onPress={closeLanguageModal} style={styles.closeButton}>
+                        <TouchableOpacity onPress={() => setLanguageModalVisible(false)} style={styles.closeButton}>
                             <Ionicons name="close" size={30} color="#000" />
                         </TouchableOpacity>
                     </View>
