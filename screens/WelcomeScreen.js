@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Modal, Share } from 'react-native';
 import LottieView from 'lottie-react-native';
 import tw from 'twrnc';
 import { Ionicons } from 'react-native-vector-icons';
 import i18n from '../languages/i18n';
+import { useColorScheme } from 'react-native';
+import { Linking } from 'react-native';
 
 function WelcomeScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [isMusicEnabled, setIsMusicEnabled] = useState(true);
+  const [isSoundEnabled, setIsSoundEnabled] = useState(true);
+  const [darkMode, setDarkMode] = useState(useColorScheme() === 'dark');
 
   const changeLanguage = () => {
     const currentLang = i18n.language;
@@ -19,22 +24,41 @@ function WelcomeScreen({ navigation }) {
     console.log('Changer dictionnaire')
   };
 
+  const toggleMusic = () => {
+    setIsMusicEnabled(!isMusicEnabled);
+    console.log(isMusicEnabled ? 'Musique désactivée' : 'Musique activée');
+  };
+
+  const toggleSound = () => {
+    setIsSoundEnabled(!isSoundEnabled);
+    console.log(isSoundEnabled ? 'Sons désactivés' : 'Sons activés');
+  };
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    console.log(darkMode ? 'Mode clair activé' : 'Mode sombre activé');
+  };
+
+  const shareGame = async () => {
+    try {
+      await Share.share({
+        message: 'Découvrez WordSurgery, un jeu passionnant ! Téléchargez-le ici : https://example.com',
+      });
+    } catch (error) {
+      console.error('Erreur lors du partage :', error);
+    }
+  };
+
+  const rateApp = () => {
+    Linking.openURL('https://play.google.com/store/apps/details?id=com.example.wordSurgery');
+  };
+
   return (
     <View style={styles.container}>
 
       {/* Animation bulles background */}
-      <LottieView
-        source={require('../assets/animation/HomePage.json')}
-        autoPlay
-        loop
-        style={styles.animation}
-      />
-      <LottieView
-        source={require('../assets/animation/HomePage.json')}
-        autoPlay
-        loop
-        style={styles.animation2}
-      />
+      <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation} />
+      <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation2} />
 
       {/* Titre et logo */}
       <Image source={require('../assets/icon.png')} style={styles.image} />
@@ -42,12 +66,7 @@ function WelcomeScreen({ navigation }) {
 
       {/* Bouton play */}
       <TouchableOpacity onPress={() => navigation.navigate('Game')}>
-        <LottieView
-          source={require('../assets/animation/playButton.json')}
-          autoPlay
-          loop
-          style={tw`w-[50] h-[50]`}
-        />
+        <LottieView source={require('../assets/animation/playButton.json')} autoPlay loop style={tw`w-[50] h-[50]`} />
       </TouchableOpacity>
 
       {/* Boutons en bas */}
@@ -64,12 +83,7 @@ function WelcomeScreen({ navigation }) {
       </View>
 
       {/* Fenêtre modale des paramètres */}
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
+      <Modal animationType="fade" transparent visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
         <View style={styles.modalBackground}>
           <View style={styles.modalContainer}>
             <Text style={styles.modalTitle}>Paramètres</Text>
@@ -82,6 +96,21 @@ function WelcomeScreen({ navigation }) {
             {/* Changer le dictionnaire */}
             <TouchableOpacity style={styles.modalButton} onPress={changeDictionnary}>
               <Text style={styles.modalButtonText}>{i18n.t('dictionnary')}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalButton} onPress={toggleMusic}>
+              <Text style={styles.modalButtonText}>{isMusicEnabled ? 'Désactiver la musique' : 'Activer la musique'}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalButton} onPress={toggleSound}>
+              <Text style={styles.modalButtonText}>{isSoundEnabled ? 'Désactiver les sons' : 'Activer les sons'}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalButton} onPress={toggleDarkMode}>
+              <Text style={styles.modalButtonText}>{darkMode ? 'Désactiver le mode sombre' : 'Activer le mode sombre'}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalButton} onPress={shareGame}>
+              <Text style={styles.modalButtonText}>Partager le jeu</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalButton} onPress={rateApp}>
+              <Text style={styles.modalButtonText}>Noter l'application</Text>
             </TouchableOpacity>
 
             {/* Bouton de fermeture */}
