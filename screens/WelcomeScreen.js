@@ -1,20 +1,34 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Modal } from 'react-native';
 import LottieView from 'lottie-react-native';
 import tw from 'twrnc';
 import { Ionicons } from 'react-native-vector-icons';
+import i18n from '../languages/i18n';
 
 function WelcomeScreen({ navigation }) {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const changeLanguage = () => {
+    const currentLang = i18n.language;
+    const newLang = currentLang === 'fr' ? 'en' : 'fr';
+    i18n.changeLanguage(newLang);
+  };
+
+  const changeDictionnary = () => {
+    // TODO
+    console.log('Changer dictionnaire')
+  };
+
   return (
     <View style={styles.container}>
 
+      {/* Animation bulles background */}
       <LottieView
         source={require('../assets/animation/HomePage.json')}
         autoPlay
         loop
         style={styles.animation}
       />
-
       <LottieView
         source={require('../assets/animation/HomePage.json')}
         autoPlay
@@ -22,9 +36,11 @@ function WelcomeScreen({ navigation }) {
         style={styles.animation2}
       />
 
+      {/* Titre et logo */}
       <Image source={require('../assets/icon.png')} style={styles.image} />
       <Text style={styles.title}>{"WordSurgery"}</Text>
 
+      {/* Bouton play */}
       <TouchableOpacity onPress={() => navigation.navigate('Game')}>
         <LottieView
           source={require('../assets/animation/playButton.json')}
@@ -36,16 +52,45 @@ function WelcomeScreen({ navigation }) {
 
       {/* Boutons en bas */}
       <View style={styles.bottomButtonsContainer}>
-        {/* Bouton pour Paramètres */}
-        <TouchableOpacity onPress={() => navigation.navigate('Settings')} style={styles.button}>
-          <Ionicons name="settings" size={20} color="#e8663d" />
+        {/* Bouton pour ouvrir la fenêtre modale des paramètres */}
+        <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.button}>
+          <Ionicons name="settings" size={20} color="#fdb441" />
         </TouchableOpacity>
 
-        {/* Bouton pour Tutoriel */}
+        {/* Bouton tutoriel */}
         <TouchableOpacity onPress={() => navigation.navigate('Tutoriel')} style={styles.button}>
-          <Ionicons name="information-circle" size={20} color="#e8663d" />
+          <Ionicons name="information-circle" size={20} color="#fdb441" />
         </TouchableOpacity>
       </View>
+
+      {/* Fenêtre modale des paramètres */}
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalBackground}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalTitle}>Paramètres</Text>
+
+            {/* Changer la langue */}
+            <TouchableOpacity style={styles.modalButton} onPress={changeLanguage}>
+              <Text style={styles.modalButtonText}>{i18n.t('language')}</Text>
+            </TouchableOpacity>
+
+            {/* Changer le dictionnaire */}
+            <TouchableOpacity style={styles.modalButton} onPress={changeDictionnary}>
+              <Text style={styles.modalButtonText}>{i18n.t('dictionnary')}</Text>
+            </TouchableOpacity>
+
+            {/* Bouton de fermeture */}
+            <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButton}>
+              <Ionicons name="close" size={30} color="#000" />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -63,9 +108,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 10,
+    marginTop: 5
   },
   bottomButtonsContainer: {
     position: 'absolute',
@@ -98,6 +144,40 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: -110,
+  },
+  modalBackground: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContainer: {
+    width: 300,
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
+  modalButton: {
+    width: '100%',
+    padding: 15,
+    backgroundColor: '#fdb441',
+    borderRadius: 5,
+    alignItems: 'center',
+    marginVertical: 5,
+  },
+  modalButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  closeButton: {
+    marginTop: 10,
   },
 });
 
