@@ -18,6 +18,7 @@ function WelcomeScreen({ navigation }) {
     isSoundEnabled,
     darkMode,
     changeLanguage,
+    currentLanguage,
     changeDictionnary,
     toggleMusic,
     toggleSound,
@@ -112,13 +113,22 @@ function WelcomeScreen({ navigation }) {
             <Text style={styles.modalTitle}>{i18n.t('language')}</Text>
 
             {/* Boutons pour sélectionner la langue */}
-            <TouchableOpacity style={styles.modalButton} onPress={() => changeLanguage('fr')}>
+            <TouchableOpacity
+              style={[styles.modalButton, currentLanguage === 'fr' && { backgroundColor: '#9be69d' }]}
+              onPress={() => changeLanguage('fr')}
+            >
               <Text style={styles.modalButtonText}>Français</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.modalButton} onPress={() => changeLanguage('en')}>
+            <TouchableOpacity
+              style={[styles.modalButton, currentLanguage === 'en' && { backgroundColor: '#9be69d' }]}
+              onPress={() => changeLanguage('en')}
+            >
               <Text style={styles.modalButtonText}>English</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.modalButton} onPress={() => changeLanguage('es')}>
+            <TouchableOpacity
+              style={[styles.modalButton, currentLanguage === 'es' && { backgroundColor: '#9be69d' }]}
+              onPress={() => changeLanguage('es')}
+            >
               <Text style={styles.modalButtonText}>Español</Text>
             </TouchableOpacity>
 

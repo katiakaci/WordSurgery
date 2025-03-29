@@ -9,9 +9,11 @@ export default function settings() {
     const [isMusicEnabled, setIsMusicEnabled] = useState(true);
     const [isSoundEnabled, setIsSoundEnabled] = useState(true);
     const [darkMode, setDarkMode] = useState(useColorScheme() === 'dark');
+    const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
 
     const changeLanguage = (language) => {
         i18n.changeLanguage(language);
+        setCurrentLanguage(language);
     };
 
     const openLanguageModal = () => {
@@ -69,6 +71,7 @@ export default function settings() {
         isSoundEnabled,
         darkMode,
         changeLanguage,
+        currentLanguage,
         changeDictionnary,
         toggleMusic,
         toggleSound,
