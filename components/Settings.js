@@ -87,7 +87,7 @@ export default function Settings({ isVisible, onClose }) {
 
                     {/* Activer/désactiver les sons */}
                     <TouchableOpacity style={styles.modalButton} onPress={toggleSound}>
-                        <Ionicons name="volume-high" size={24} color="#fff" style={styles.icon} />
+                        <Ionicons name={isSoundEnabled ? "volume-high" : "volume-mute"} size={24} color="#fff" style={styles.icon} />
                         <Text style={styles.modalButtonText}>{isSoundEnabled ? 'Désactiver les sons' : 'Activer les sons'}</Text>
                     </TouchableOpacity>
 
