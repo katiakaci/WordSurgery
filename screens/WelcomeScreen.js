@@ -62,7 +62,7 @@ function WelcomeScreen({ navigation }) {
 
       {/* Titre et logo */}
       <Image source={require('../assets/icon.png')} style={styles.image} />
-      <Text style={styles.title}>{"WordSurgery"}</Text>
+      <Text style={styles.title}>{i18n.t('wordSurgery')}</Text>
 
       {/* Bouton play */}
       <TouchableOpacity onPress={() => navigation.navigate('Game')}>
@@ -86,7 +86,7 @@ function WelcomeScreen({ navigation }) {
       <Modal animationType="fade" transparent visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
         <View style={styles.modalBackground}>
           <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Paramètres</Text>
+            <Text style={styles.modalTitle}>{i18n.t('settings')}</Text>
 
             {/* Changer la langue */}
             <TouchableOpacity style={styles.modalButton} onPress={changeLanguage}>
