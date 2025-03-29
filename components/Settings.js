@@ -37,11 +37,6 @@ export default function Settings({ isVisible, onClose }) {
         console.log(isMusicEnabled ? 'Musique désactivée' : 'Musique activée');
     };
 
-    const toggleSound = () => {
-        setIsSoundEnabled(!isSoundEnabled);
-        console.log(isSoundEnabled ? 'Sons désactivés' : 'Sons activés');
-    };
-
     const toggleDarkMode = () => {
         setDarkMode(!darkMode);
         console.log(darkMode ? 'Mode clair activé' : 'Mode sombre activé');
@@ -81,14 +76,8 @@ export default function Settings({ isVisible, onClose }) {
 
                     {/* Activer/désactiver la musique */}
                     <TouchableOpacity style={styles.modalButton} onPress={toggleMusic}>
-                        <Ionicons name={isMusicEnabled ? "musical-notes" : "volume-off"} size={24} color="#fff" style={styles.icon} />
+                        <Ionicons name={isMusicEnabled ? "volume-high" : "volume-mute"} size={24} color="#fff" style={styles.icon} />
                         <Text style={styles.modalButtonText}>{isMusicEnabled ? 'Désactiver la musique' : 'Activer la musique'}</Text>
-                    </TouchableOpacity>
-
-                    {/* Activer/désactiver les sons */}
-                    <TouchableOpacity style={styles.modalButton} onPress={toggleSound}>
-                        <Ionicons name={isSoundEnabled ? "volume-high" : "volume-mute"} size={24} color="#fff" style={styles.icon} />
-                        <Text style={styles.modalButtonText}>{isSoundEnabled ? 'Désactiver les sons' : 'Activer les sons'}</Text>
                     </TouchableOpacity>
 
                     {/* Activer/désactiver le mode sombre */}
