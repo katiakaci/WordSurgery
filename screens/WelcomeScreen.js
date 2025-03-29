@@ -1,40 +1,44 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import i18n from '../languages/i18n';
 import LottieView from 'lottie-react-native';
-import tw from 'twrnc'
+import tw from 'twrnc';
+import { Ionicons } from 'react-native-vector-icons';
 
 function WelcomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
+
+      <LottieView
+        source={require('../assets/animation/HomePage.json')}
+        autoPlay
+        loop
+        style={styles.animation}
+      />
+
       <Image source={require('../assets/icon.png')} style={styles.image} />
-      <Text style={styles.title}>{i18n.t('welcome')}</Text>
+      <Text style={styles.title}>{"WordSurgery"}</Text>
 
       <TouchableOpacity onPress={() => navigation.navigate('Game')}>
-        {/* <Text style={[styles.buttonText, { fontSize: 10 }]}>{i18n.t('new game')}</Text> */}
         <LottieView
           source={require('../assets/animation/playButton.json')}
           autoPlay
           loop
-          style={tw`w-[30] h-[30]`}
+          style={tw`w-[50] h-[50]`}
         />
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.button, { backgroundColor: '#9be69d' }]} onPress={() => navigation.navigate('Game')}>
-        <Text style={styles.buttonText}>{i18n.t('new game')}</Text>
-      </TouchableOpacity>
+      {/* Boutons en bas */}
+      <View style={styles.bottomButtonsContainer}>
+        {/* Bouton pour Paramètres */}
+        <TouchableOpacity onPress={() => navigation.navigate('Settings')} style={styles.button}>
+          <Ionicons name="settings" size={20} color="#e8663d" />
+        </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.button, { backgroundColor: '#fe73c5' }]} onPress={() => navigation.navigate('Game')}>
-        <Text style={styles.buttonText}>{i18n.t('continue')}</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={[styles.button, { backgroundColor: '#ffe270' }]} onPress={() => navigation.navigate('Tutoriel')}>
-        <Text style={styles.buttonText}>{i18n.t('tutoriel')}</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={[styles.button, { backgroundColor: '#fd9468' }]} onPress={() => navigation.navigate(i18n.t('settings'))}>
-        <Text style={styles.buttonText}>{i18n.t('settings')}</Text>
-      </TouchableOpacity>
+        {/* Bouton pour Tutoriel */}
+        <TouchableOpacity onPress={() => navigation.navigate('Tutoriel')} style={styles.button}>
+          <Ionicons name="information-circle" size={20} color="#e8663d" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -56,20 +60,31 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
   },
-  button: {
-    margin: 10,
-    width: 250,
-    paddingVertical: 12,
-    borderRadius: 10,
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: '#000'
+  bottomButtonsContainer: {
+    position: 'absolute',
+    bottom: 30,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '60%',
+    paddingHorizontal: 20,
   },
-  buttonText: {
-    color: '#000',
-    fontSize: 18,
-    fontWeight: 'bold',
-  }
+  button: {
+    backgroundColor: '#fff',
+    padding: 10,
+    borderRadius: 30,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  animation: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
 });
 
 export default WelcomeScreen;

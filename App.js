@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, Image, Text } from 'react-native';
 import { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -75,7 +74,7 @@ export default function App() {
             headerTintColor: '#e8663d',
           }}
         />
-        <Stack.Screen name={i18n.t('settings')} component={SettingsScreen} />
+        <Stack.Screen name={"Settings"} component={SettingsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
