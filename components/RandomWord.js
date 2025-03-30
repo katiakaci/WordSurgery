@@ -10,6 +10,7 @@ const RandomWord = () => {
     const [history, setHistory] = useState([]); // Historique des actions pour annuler
     const [score, setScore] = useState(0); // Score initial du jeu
     const [language, setLanguage] = useState(i18n.language);
+    const [hasInserted, setHasInserted] = useState(false);
 
     const fetchRandomWords = async () => {
         const currentLanguage = i18n.language;
@@ -23,6 +24,7 @@ const RandomWord = () => {
             setWords(data); // API renvoie deux mots
             setSelectedIndices([]); // Réinitialisation des indices sélectionnés
             setValidWordIndices([]); // Réinitialisation des indices des mots validés
+            setHasInserted(false);
         } catch (error) {
             console.error('Erreur récupération des mots:', error);
         }
@@ -65,9 +67,11 @@ const RandomWord = () => {
         setSelectedIndices([]); // Réinitialise la sélection
         setValidWordIndices([]); // Réinitialise les indices du mot valide
         setHistory(newHistory);
+        setHasInserted(true);
     };
 
     const toggleLetterSelectionInSecondWord = (index) => {
+        if (!hasInserted) return;
         setValidWordIndices((prev) => {
             // Si la lettre est déjà sélectionnée, on peut la désélectionner seulement si c'est la première ou la dernière lettre
             if (prev.includes(index)) {
