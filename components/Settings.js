@@ -171,8 +171,8 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
 
                         {/* Portugais brézilien */}
                         <TouchableOpacity
-                            style={[styles.modalButton, currentLanguage === 'pt' && { backgroundColor: '#9be69d' }]}
-                            onPress={() => changeLanguage('pt')}
+                            style={[styles.modalButton, currentLanguage === 'pt_br' && { backgroundColor: '#9be69d' }]}
+                            onPress={() => changeLanguage('pt_br')}
                         >
                             <Flag code="BR" style={styles.flagIcon} />
                             <Text style={styles.modalButtonText}>Português</Text>

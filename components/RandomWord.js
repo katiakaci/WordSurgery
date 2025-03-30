@@ -9,12 +9,16 @@ const RandomWord = () => {
     const [validWordIndices, setValidWordIndices] = useState([]); // Indices des lettres sélectionnées dans le second mot
     const [history, setHistory] = useState([]); // Historique des actions pour annuler
     const [score, setScore] = useState(0); // Score initial du jeu
+    const [language, setLanguage] = useState(i18n.language);
 
     const fetchRandomWords = async () => {
+        const currentLanguage = i18n.language;
+        const apiLanguage = currentLanguage === "pt_br" ? "pt-br" : currentLanguage;
+
         setLoading(true);
         try {
             // const response = await fetch('https://random-word-api.vercel.app/api?words=2');
-            const response = await fetch('https://random-word-api.herokuapp.com/word?lang=fr&number=2');
+            const response = await fetch(`https://random-word-api.herokuapp.com/word?lang=${apiLanguage}&number=2`);
             const data = await response.json();
             setWords(data); // API renvoie deux mots
             setSelectedIndices([]); // Réinitialisation des indices sélectionnés
@@ -27,7 +31,7 @@ const RandomWord = () => {
 
     useEffect(() => {
         fetchRandomWords();
-    }, []);
+    }, [language]); // Recharger les mots quand la langue change
 
     const toggleLetterSelection = (index) => {
         setSelectedIndices((prev) => {
