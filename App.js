@@ -49,7 +49,7 @@ export default function App() {
   useEffect(() => {
     setTimeout(() => {
       setShowWelcome(false);
-    }, 2000);
+    }, 1600);
   }, []);
 
   if (showWelcome) {
