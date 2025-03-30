@@ -94,35 +94,37 @@ const RandomWord = () => {
     const checkWord = () => {
         const secondWord = words[1];
         const selectedLetters = validWordIndices.map(i => secondWord[i]).join('');
+        if (selectedLetters.length >= 3) {
+            // Vérifie si le mot sélectionné existe dans le dictionnaire
+            fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${selectedLetters}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.title === 'No Definitions Found') {
+                        Alert.alert('Mot non valide', `${selectedLetters} n'est pas un mot valide.`);
+                        setValidWordIndices([]); // Réinitialise la sélection des lettres après l'alerte
+                    } else {
+                        // Si le mot est valide
+                        Alert.alert('Mot trouvé', `${selectedLetters} est un mot valide.`);
 
-        // Vérifie si le mot sélectionné existe dans le dictionnaire
-        fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${selectedLetters}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.title === 'No Definitions Found') {
-                    Alert.alert('Mot non valide', `${selectedLetters} n'est pas un mot valide.`);
-                    setValidWordIndices([]); // Réinitialise la sélection des lettres après l'alerte
-                } else {
-                    // Si le mot est valide
-                    Alert.alert('Mot trouvé', `${selectedLetters} est un mot valide.`);
+                        // Calcul du score
+                        const newScore = score + selectedLetters.length;
+                        setScore(newScore);
 
-                    // Calcul du score
-                    const newScore = score + selectedLetters.length;
-                    setScore(newScore);
-
-                    // Mise à jour du mot
-                    const newSecondWord = secondWord.split('')
-                        .filter((_, i) => !validWordIndices.includes(i))
-                        .join('');
-                    setWords([words[0], newSecondWord]);
-                    setValidWordIndices([]); // Réinitialise les indices des lettres validées après l'alerte
-                }
-            })
-            .catch(error => {
-                console.error('Erreur API de vérification de mot:', error);
-                Alert.alert('Erreur', 'Une erreur est survenue lors de la vérification du mot.');
-                setValidWordIndices([]); // Réinitialise la sélection des lettres en cas d'erreur
-            });
+                        // Mise à jour du mot
+                        const newSecondWord = secondWord.split('')
+                            .filter((_, i) => !validWordIndices.includes(i))
+                            .join('');
+                        setWords([words[0], newSecondWord]);
+                        setValidWordIndices([]); // Réinitialise les indices des lettres validées après l'alerte
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur API de vérification de mot:', error);
+                    Alert.alert('Erreur', 'Une erreur est survenue lors de la vérification du mot.');
+                    setValidWordIndices([]); // Réinitialise la sélection des lettres en cas d'erreur
+                });
+        }
+        else Alert.alert('Mot trop court', "Veuillez sélectionner au moins 3 lettres");
     };
 
     const undoLastAction = () => {
