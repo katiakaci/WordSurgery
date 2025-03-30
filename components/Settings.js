@@ -134,39 +134,47 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                         </TouchableOpacity>
 
                         {/* Russe */}
-                        <TouchableOpacity
+                        {/* <TouchableOpacity
                             style={[styles.modalButton, currentLanguage === 'ru' && { backgroundColor: '#9be69d' }]}
                             onPress={() => changeLanguage('ru')}
                         >
                             <Flag code="RU" style={styles.flagIcon} />
                             <Text style={styles.modalButtonText}>Русский</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
 
                         {/* Arabe */}
-                        <TouchableOpacity
+                        {/* <TouchableOpacity
                             style={[styles.modalButton, currentLanguage === 'ar' && { backgroundColor: '#9be69d' }]}
                             onPress={() => changeLanguage('ar')}
                         >
                             <Flag code="SA" style={styles.flagIcon} />
                             <Text style={styles.modalButtonText}>عربي</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
 
                         {/* Japonais */}
-                        <TouchableOpacity
+                        {/* <TouchableOpacity
                             style={[styles.modalButton, currentLanguage === 'ja' && { backgroundColor: '#9be69d' }]}
                             onPress={() => changeLanguage('ja')}
                         >
                             <Flag code="JP" style={styles.flagIcon} />
                             <Text style={styles.modalButtonText}>日本語</Text>
+                        </TouchableOpacity> */}
+
+                        {/* Chinois */}
+                        <TouchableOpacity
+                            style={[styles.modalButton, currentLanguage === 'zh' && { backgroundColor: '#9be69d' }]}
+                            onPress={() => changeLanguage('zh')}
+                        >
+                            <Flag code="CN" style={styles.flagIcon} />
+                            <Text style={styles.modalButtonText}>中文</Text>
                         </TouchableOpacity>
 
-
-                        {/* Portugais */}
+                        {/* Portugais brézilien */}
                         <TouchableOpacity
                             style={[styles.modalButton, currentLanguage === 'pt' && { backgroundColor: '#9be69d' }]}
                             onPress={() => changeLanguage('pt')}
                         >
-                            <Flag code="PT" style={styles.flagIcon} />
+                            <Flag code="BR" style={styles.flagIcon} />
                             <Text style={styles.modalButtonText}>Português</Text>
                         </TouchableOpacity>
 
@@ -177,6 +185,15 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                         >
                             <Flag code="IT" style={styles.flagIcon} />
                             <Text style={styles.modalButtonText}>Italiano</Text>
+                        </TouchableOpacity>
+
+                        {/* Allemand */}
+                        <TouchableOpacity
+                            style={[styles.modalButton, currentLanguage === 'de' && { backgroundColor: '#9be69d' }]}
+                            onPress={() => changeLanguage('de')}
+                        >
+                            <Flag code="DE" style={styles.flagIcon} />
+                            <Text style={styles.modalButtonText}>Deutsch</Text>
                         </TouchableOpacity>
 
                         {/* Bouton de fermeture */}

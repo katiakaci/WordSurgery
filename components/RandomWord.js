@@ -13,7 +13,8 @@ const RandomWord = () => {
     const fetchRandomWords = async () => {
         setLoading(true);
         try {
-            const response = await fetch('https://random-word-api.vercel.app/api?words=2');
+            // const response = await fetch('https://random-word-api.vercel.app/api?words=2');
+            const response = await fetch('https://random-word-api.herokuapp.com/word?lang=fr&number=2');
             const data = await response.json();
             setWords(data); // API renvoie deux mots
             setSelectedIndices([]); // Réinitialisation des indices sélectionnés
