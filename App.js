@@ -78,11 +78,12 @@ export default function App() {
           component={GameScreen}
           options={{
             headerStyle: {
-              backgroundColor: '#fefff1',
+              backgroundColor: 'white',
               elevation: 0,
               shadowOpacity: 0,
             },
-            headerTintColor: '#e8663d',
+            headerTintColor: '#fdb441',
+            // headerShown: false,
           }}
         />
         <Stack.Screen
