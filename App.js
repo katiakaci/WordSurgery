@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image, Text } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -12,19 +12,27 @@ const Stack = createStackNavigator();
 
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(true);
-
   const [sound, setSound] = useState();
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isMusicEnabled, setIsMusicEnabled] = useState(true)
 
   useEffect(() => {
     const loadSound = async () => {
       try {
-        const { sound } = await Audio.Sound.createAsync(
-          require('./assets/music.mp3'),
-          { shouldPlay: true, isLooping: true }
-        );
-        console.log('Audio loaded', sound);
-        setSound(sound);
+        if (isMusicEnabled) {
+          // Si la musique est activée, on la charge et on la joue
+          const { sound } = await Audio.Sound.createAsync(
+            require('./assets/music.mp3'),
+            { shouldPlay: true, isLooping: true }
+          );
+          console.log('Audio loaded', sound);
+          setSound(sound);
+        } else {
+          // Si la musique est désactivée, on la décharge
+          if (sound) {
+            await sound.stopAsync();
+            await sound.unloadAsync();
+          }
+        }
       } catch (error) {
         console.error('Erreur de lecture audio:', error);
       }
@@ -36,7 +44,7 @@ export default function App() {
         sound.unloadAsync();
       }
     };
-  }, []);
+  }, [isMusicEnabled]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -60,9 +68,11 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen
           name={i18n.t('home')}
-          component={WelcomeScreen}
           options={{ headerShown: false }}
-        />
+        >
+          {(props) => <WelcomeScreen {...props} isMusicEnabled={isMusicEnabled} setIsMusicEnabled={setIsMusicEnabled} />}
+        </Stack.Screen>
+
         <Stack.Screen
           name="Game"
           component={GameScreen}

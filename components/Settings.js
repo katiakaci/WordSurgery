@@ -5,10 +5,9 @@ import i18n from '../languages/i18n';
 import { useColorScheme, Share, Linking } from 'react-native';
 import Flag from 'react-native-flags';
 
-export default function Settings({ isVisible, onClose }) {
+export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusicEnabled }) {
     const [settingsModalVisible, setSettingsModalVisible] = useState(isVisible);
     const [languageModalVisible, setLanguageModalVisible] = useState(false);
-    const [isMusicEnabled, setIsMusicEnabled] = useState(true);
     const [darkMode, setDarkMode] = useState(useColorScheme() === 'dark');
     const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
 
@@ -28,7 +27,6 @@ export default function Settings({ isVisible, onClose }) {
 
     const toggleMusic = () => {
         setIsMusicEnabled(!isMusicEnabled);
-        console.log(isMusicEnabled ? 'Musique désactivée' : 'Musique activée');
     };
 
     const toggleDarkMode = () => {

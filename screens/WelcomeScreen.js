@@ -6,7 +6,7 @@ import { Ionicons } from 'react-native-vector-icons';
 import i18n from '../languages/i18n';
 import Settings from '../components/Settings';
 
-function WelcomeScreen({ navigation }) {
+function WelcomeScreen({ navigation, isMusicEnabled, setIsMusicEnabled }) {
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
 
   return (
@@ -39,7 +39,12 @@ function WelcomeScreen({ navigation }) {
       </View>
 
       {/* Fenêtre modale des paramètres */}
-      <Settings isVisible={settingsModalVisible} onClose={() => setSettingsModalVisible(false)} />
+      <Settings
+        isVisible={settingsModalVisible}
+        onClose={() => setSettingsModalVisible(false)}
+        isMusicEnabled={isMusicEnabled}
+        setIsMusicEnabled={setIsMusicEnabled}
+      />
     </View>
   );
 }
