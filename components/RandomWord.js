@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, ActivityIndicator, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import i18n from '../languages/i18n';
+import LottieView from 'lottie-react-native';
 
 const RandomWord = () => {
     const [words, setWords] = useState([]); // Contient les deux mots
@@ -148,6 +149,8 @@ const RandomWord = () => {
                 <>
                     <Text style={styles.scoreText}>Score: {score}</Text>
 
+                    <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation} />
+                    <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation2} />
                     <View style={styles.wordContainer}>
                         {words.length > 0 && words[0].split('').map((letter, i) => (
                             <TouchableOpacity
@@ -263,6 +266,20 @@ const styles = StyleSheet.create({
     },
     checkButton: {
         backgroundColor: '#27ae60',
+    },
+    animation: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+    },
+    animation2: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        top: 0,
+        left: -110,
     },
 });
 
