@@ -168,7 +168,7 @@ const RandomWord = () => {
                             <TouchableOpacity
                                 key={i}
                                 style={[styles.letterBox, validWordIndices.includes(i) && styles.validLetterBox]}
-                                onPress={() => toggleLetterSelectionInSecondWord(i)}
+                                onPress={() => insertLetters(i)}
                             >
                                 <Text style={styles.letter}>{letter.toUpperCase()}</Text>
                             </TouchableOpacity>
@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f39c12',
     },
     checkButton: {
-        backgroundColor: '#27ae60',
+        backgroundColor: '#9be69d',
     },
     animation: {
         width: '100%',
