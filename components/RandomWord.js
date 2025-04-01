@@ -18,39 +18,54 @@ const RandomWord = () => {
 
     const fetchRandomWords = async () => {
         const currentLanguage = i18n.language;
-
-
         setLoading(true);
         try {
-            if (currentLanguage === 'tr') { // API différent pour le turc
-                let apiUrl = "https://random-words-api.vercel.app/word/turkish"
+            if (currentLanguage === 'en') { // Anglais
+                let apiUrl = 'https://random-word-api.vercel.app/api?words=2';
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                setWords(data);
+            }
+            else if (currentLanguage === 'it' || currentLanguage === 'pt_br') { // Italien et portugais brézilien
+                const apiLanguage = currentLanguage === "pt_br" ? "pt-br" : currentLanguage;
+                let apiUrl = `https://random-word-api.herokuapp.com/word?lang=${apiLanguage}&number=2`
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                setWords(data);
+            }
+            else {
+                let apiUrl = "https://random-words-api.vercel.app/word"; // Anglais
+                if (currentLanguage === 'fr') apiUrl += "/french"
+                else if (currentLanguage === 'es') apiUrl += "/spanish"
+                else if (currentLanguage === 'de') apiUrl += "/dutch"
+                else if (currentLanguage === 'zh') apiUrl += "/chinese"
+                else if (currentLanguage === 'ja') apiUrl += "/japanese"
+                else if (currentLanguage === 'tr') apiUrl += "/turkish"
+
+                // Récupérer le premier mot
                 const response1 = await fetch(apiUrl);
                 const data1 = await response1.json();
-                const word1 = data1[0]?.word; // Récupérer le premier mot
+                const word1 = data1[0]?.word;
 
                 const response2 = await fetch(apiUrl);
                 const data2 = await response2.json();
-                const word2 = data2[0]?.word; // Récupérer le second mot
-
+                const word2 = data2[0]?.word;
                 setWords([word1, word2]);
-            }
-            else {
-                let apiUrl;
-                let apiUrl2 = 'https://random-word-api.vercel.app/api?words=2'; // API de backup (en anglais seulement)
-                if (currentLanguage === 'ja') apiUrl = "https://random-word.ryanrk.com/api/jp/word/random/2";
-                else {
-                    const apiLanguage = currentLanguage === "pt_br" ? "pt-br" : currentLanguage;
-                    apiUrl = `https://random-word-api.herokuapp.com/word?lang=${apiLanguage}&number=2`
-                }
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                setWords(data); // API renvoie deux mots
             }
             setSelectedIndices([]); // Réinitialisation des indices sélectionnés
             setValidWordIndices([]); // Réinitialisation des indices des mots validés
             setHasInserted(false);
         } catch (error) {
             console.error('Erreur récupération des mots:', error);
+            console.error('On bascule en anglais');
+            // TODO Mettre alerte au user que sa langue est pas dispo donc on va en anglais
+            let apiBackup = 'https://random-word-api.vercel.app/api?words=2'; // en anglais seulement
+            const response = await fetch(apiBackup);
+            const data = await response.json();
+            setWords(data);
+            setSelectedIndices([]); // Réinitialisation des indices sélectionnés
+            setValidWordIndices([]); // Réinitialisation des indices des mots validés
+            setHasInserted(false);
         }
         setLoading(false);
     };
