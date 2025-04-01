@@ -181,30 +181,32 @@ const RandomWord = () => {
                         </TouchableOpacity>
                     </View>
 
-                    {/* Premier mot */}
-                    <View style={styles.wordContainer}>
-                        {words.length > 0 && words[0].split('').map((letter, i) => (
-                            <TouchableOpacity
-                                key={i}
-                                style={[styles.letterBox, selectedIndices.includes(i) && styles.selectedBox]}
-                                onPress={() => toggleLetterSelection(i)}
-                            >
-                                <Text style={styles.letter}>{letter.toUpperCase()}</Text>
-                            </TouchableOpacity>
-                        ))}
-                    </View>
+                    <View style={styles.wordsContainer}>
+                        {/* Premier mot (vertical à gauche) */}
+                        <View style={styles.column}>
+                            {words.length > 0 && words[0].split('').map((letter, i) => (
+                                <TouchableOpacity
+                                    key={i}
+                                    style={[styles.letterBox, selectedIndices.includes(i) && styles.selectedBox]}
+                                    onPress={() => toggleLetterSelection(i)}
+                                >
+                                    <Text style={styles.letter}>{letter.toUpperCase()}</Text>
+                                </TouchableOpacity>
+                            ))}
+                        </View>
 
-                    {/* Deuxième mot */}
-                    <View style={styles.wordContainer}>
-                        {words.length > 1 && words[1].split('').map((letter, i) => (
-                            <TouchableOpacity
-                                key={i}
-                                style={[styles.letterBox, validWordIndices.includes(i) && styles.validLetterBox]}
-                                onPress={() => insertLetters(i)}
-                            >
-                                <Text style={styles.letter}>{letter.toUpperCase()}</Text>
-                            </TouchableOpacity>
-                        ))}
+                        {/* Deuxième mot (vertical à droite) */}
+                        <View style={styles.column}>
+                            {words.length > 1 && words[1].split('').map((letter, i) => (
+                                <TouchableOpacity
+                                    key={i}
+                                    style={[styles.letterBox, validWordIndices.includes(i) && styles.validLetterBox]}
+                                    onPress={() => insertLetters(i)}
+                                >
+                                    <Text style={styles.letter}>{letter.toUpperCase()}</Text>
+                                </TouchableOpacity>
+                            ))}
+                        </View>
                     </View>
 
                     {/* Bouton de validation */}
@@ -226,15 +228,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 20,
     },
-    wordContainer: {
+    wordsContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
+        alignItems: 'center',
         marginVertical: 10,
     },
     column: {
-        flexDirection: 'column', // Aligne chaque mot en colonne
+        flexDirection: 'column',
         alignItems: 'center',
-        marginHorizontal: 10, // Espacement entre les mots
+        marginHorizontal: 20,
     },
     letterBox: {
         width: 50,
@@ -243,7 +246,7 @@ const styles = StyleSheet.create({
         borderColor: '#d14b28',
         justifyContent: 'center',
         alignItems: 'center',
-        margin: 5,
+        marginVertical: 5,
         borderRadius: 10,
         backgroundColor: 'white',
         shadowColor: '#000',
@@ -308,6 +311,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
+        paddingHorizontal: 20,
     },
     scoreLabel: {
         fontSize: 18,
