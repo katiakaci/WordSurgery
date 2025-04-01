@@ -95,7 +95,7 @@ export default function App() {
               elevation: 0,
               shadowOpacity: 0,
             },
-            headerTintColor: '#e8663d',
+            headerTintColor: '#fdb441',
           }}
         />
       </Stack.Navigator>

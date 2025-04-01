@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, ActivityIndicator, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import i18n from '../languages/i18n';
 import LottieView from 'lottie-react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const RandomWord = () => {
     const [words, setWords] = useState([]); // Contient les deux mots
@@ -10,7 +11,7 @@ const RandomWord = () => {
     const [validWordIndices, setValidWordIndices] = useState([]); // Indices des lettres sélectionnées dans le second mot
     const [history, setHistory] = useState([]); // Historique des actions pour annuler
     const [score, setScore] = useState(0); // Score initial du jeu
-    const [language, setLanguage] = useState(i18n.language);
+    const [language] = useState(i18n.language);
     const [hasInserted, setHasInserted] = useState(false);
 
     const fetchRandomWords = async () => {
@@ -144,11 +145,12 @@ const RandomWord = () => {
     return (
         <View style={styles.container}>
             {loading ? (
-                <ActivityIndicator size="large" color="#ff6f61" />
+                <ActivityIndicator size="large" color="#fdb441" />
             ) : (
                 <>
                     <Text style={styles.scoreText}>Score: {score}</Text>
 
+                    {/* Animations */}
                     <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation} />
                     <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation2} />
                     <View style={styles.wordContainer}>
@@ -163,6 +165,7 @@ const RandomWord = () => {
                         ))}
                     </View>
 
+                    {/* Deuxième mot */}
                     <View style={styles.wordContainer}>
                         {words.length > 1 && words[1].split('').map((letter, i) => (
                             <TouchableOpacity
@@ -190,6 +193,7 @@ const RandomWord = () => {
                     <TouchableOpacity style={[styles.button, styles.checkButton]} onPress={checkWord}>
                         <Text style={styles.buttonText}>Mot trouvé</Text>
                     </TouchableOpacity>
+
                 </>
             )}
         </View>
