@@ -47,6 +47,7 @@ const RandomWord = () => {
                 const data1 = await response1.json();
                 const word1 = data1[0]?.word;
 
+                // Récupérer le second mot
                 const response2 = await fetch(apiUrl);
                 const data2 = await response2.json();
                 const word2 = data2[0]?.word;
