@@ -18,14 +18,34 @@ const RandomWord = () => {
 
     const fetchRandomWords = async () => {
         const currentLanguage = i18n.language;
-        const apiLanguage = currentLanguage === "pt_br" ? "pt-br" : currentLanguage;
+
 
         setLoading(true);
         try {
-            // const response = await fetch('https://random-word-api.vercel.app/api?words=2');
-            const response = await fetch(`https://random-word-api.herokuapp.com/word?lang=${apiLanguage}&number=2`);
-            const data = await response.json();
-            setWords(data); // API renvoie deux mots
+            if (currentLanguage === 'tr') { // API différent pour le turc
+                let apiUrl = "https://random-words-api.vercel.app/word/turkish"
+                const response1 = await fetch(apiUrl);
+                const data1 = await response1.json();
+                const word1 = data1[0]?.word; // Récupérer le premier mot
+
+                const response2 = await fetch(apiUrl);
+                const data2 = await response2.json();
+                const word2 = data2[0]?.word; // Récupérer le second mot
+
+                setWords([word1, word2]);
+            }
+            else {
+                let apiUrl;
+                let apiUrl2 = 'https://random-word-api.vercel.app/api?words=2'; // API de backup (en anglais seulement)
+                if (currentLanguage === 'ja') apiUrl = "https://random-word.ryanrk.com/api/jp/word/random/2";
+                else {
+                    const apiLanguage = currentLanguage === "pt_br" ? "pt-br" : currentLanguage;
+                    apiUrl = `https://random-word-api.herokuapp.com/word?lang=${apiLanguage}&number=2`
+                }
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                setWords(data); // API renvoie deux mots
+            }
             setSelectedIndices([]); // Réinitialisation des indices sélectionnés
             setValidWordIndices([]); // Réinitialisation des indices des mots validés
             setHasInserted(false);

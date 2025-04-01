@@ -152,13 +152,22 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                         </TouchableOpacity> */}
 
                         {/* Japonais */}
-                        {/* <TouchableOpacity
+                        <TouchableOpacity
                             style={[styles.modalButton, currentLanguage === 'ja' && { backgroundColor: '#9be69d' }]}
                             onPress={() => changeLanguage('ja')}
                         >
                             <Flag code="JP" style={styles.flagIcon} />
                             <Text style={styles.modalButtonText}>日本語</Text>
-                        </TouchableOpacity> */}
+                        </TouchableOpacity>
+
+                        {/* Turc */}
+                        <TouchableOpacity
+                            style={[styles.modalButton, currentLanguage === 'tr' && { backgroundColor: '#9be69d' }]}
+                            onPress={() => changeLanguage('tr')}
+                        >
+                            <Flag code="TR" style={styles.flagIcon} />
+                            <Text style={styles.modalButtonText}>Türkçe</Text>
+                        </TouchableOpacity>
 
                         {/* Chinois */}
                         <TouchableOpacity
