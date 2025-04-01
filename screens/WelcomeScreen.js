@@ -18,7 +18,7 @@ function WelcomeScreen({ navigation, isMusicEnabled, setIsMusicEnabled }) {
 
       {/* Titre et logo */}
       <Image source={require('../assets/icon.png')} style={styles.image} />
-      <Text style={styles.title}>{i18n.t('wordSurgery')}</Text>
+      <Text style={styles.title}>WordSurgery</Text>
 
       {/* Bouton play */}
       <TouchableOpacity onPress={() => navigation.navigate('Game')}>
