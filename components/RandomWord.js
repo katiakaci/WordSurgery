@@ -3,6 +3,7 @@ import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity, Alert } fr
 import i18n from '../languages/i18n';
 import LottieView from 'lottie-react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const RandomWord = () => {
     const [words, setWords] = useState([]); // Contient les deux mots
@@ -13,6 +14,7 @@ const RandomWord = () => {
     const [score, setScore] = useState(0); // Score initial du jeu
     const [language] = useState(i18n.language);
     const [hasInserted, setHasInserted] = useState(false);
+    const navigation = useNavigation();
 
     const fetchRandomWords = async () => {
         const currentLanguage = i18n.language;
@@ -144,15 +146,41 @@ const RandomWord = () => {
 
     return (
         <View style={styles.container}>
+            {/* Animations */}
+            <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation} />
+            <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation2} />
+            <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation3} />
+
             {loading ? (
                 <ActivityIndicator size="large" color="#fdb441" />
             ) : (
                 <>
-                    <Text style={styles.scoreText}>Score: {score}</Text>
 
-                    {/* Animations */}
-                    <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation} />
-                    <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation2} />
+                    <View style={styles.topBar}>
+                        {/* Bouton retour page d'accueil */}
+                        <TouchableOpacity onPress={() => navigation.navigate(i18n.t('home'))}>
+                            <Ionicons name="chevron-back" size={28} color="black" />
+                        </TouchableOpacity>
+
+                        {/* Score */}
+                        <Text style={styles.scoreLabel}>Score</Text>
+                        <Text style={styles.scoreText}>{score}</Text>
+
+                        {/* Boutons undo */}
+                        <TouchableOpacity onPress={undoLastAction}>
+                            <Ionicons name="arrow-undo" size={28} color="black" />
+                        </TouchableOpacity>
+
+                        {/* Bouton recommencer */}
+                        <TouchableOpacity onPress={() => {
+                            fetchRandomWords();
+                            setScore(0);
+                        }}>
+                            <Ionicons name="refresh" size={28} color="black" />
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* Premier mot */}
                     <View style={styles.wordContainer}>
                         {words.length > 0 && words[0].split('').map((letter, i) => (
                             <TouchableOpacity
@@ -178,19 +206,8 @@ const RandomWord = () => {
                         ))}
                     </View>
 
-                    <TouchableOpacity style={styles.button} onPress={() => {
-                        fetchRandomWords();
-                        setScore(0); // Réinitialisation du score à 0
-                    }}
-                    >
-                        <Text style={styles.buttonText}>{i18n.t('again')}</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={[styles.button, styles.undoButton]} onPress={undoLastAction}>
-                        <Text style={styles.buttonText}>{i18n.t('undo')}</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={[styles.button, styles.checkButton]} onPress={checkWord}>
+                    {/* Bouton de validation */}
+                    <TouchableOpacity style={styles.checkButton} onPress={checkWord}>
                         <Text style={styles.buttonText}>Mot trouvé</Text>
                     </TouchableOpacity>
 
@@ -208,16 +225,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 20,
     },
-    scoreText: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: '#ff6f61',
-        marginBottom: 20,
-    },
     wordContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
         marginVertical: 10,
+    },
+    column: {
+        flexDirection: 'column', // Aligne chaque mot en colonne
+        alignItems: 'center',
+        marginHorizontal: 10, // Espacement entre les mots
     },
     letterBox: {
         width: 50,
@@ -248,42 +264,53 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#d14b28',
     },
-    button: {
+    checkButton: {
+        backgroundColor: '#9be69d',
         marginTop: 20,
-        backgroundColor: '#ff6f61',
         paddingVertical: 12,
         paddingHorizontal: 25,
         borderRadius: 8,
-        shadowColor: '#000',
-        shadowOffset: { width: 2, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 4,
-        elevation: 3,
     },
     buttonText: {
         fontSize: 18,
         fontWeight: 'bold',
         color: 'white',
     },
-    undoButton: {
-        backgroundColor: '#f39c12',
-    },
-    checkButton: {
-        backgroundColor: '#9be69d',
-    },
     animation: {
         width: '100%',
         height: '100%',
         position: 'absolute',
         top: 0,
-        left: 0,
+        left: -200,
     },
     animation2: {
         width: '100%',
         height: '100%',
         position: 'absolute',
+        top: 50,
+        left: 0,
+    },
+    animation3: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
         top: 0,
-        left: -110,
+        left: 50,
+    },
+    topBar: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%',
+    },
+    scoreLabel: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: 'black',
+    },
+    scoreText: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: 'black',
     },
 });
 

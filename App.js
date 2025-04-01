@@ -76,15 +76,7 @@ export default function App() {
         <Stack.Screen
           name="Game"
           component={GameScreen}
-          options={{
-            headerStyle: {
-              backgroundColor: 'white',
-              elevation: 0,
-              shadowOpacity: 0,
-            },
-            headerTintColor: '#fdb441',
-            // headerShown: false,
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Tutoriel"
