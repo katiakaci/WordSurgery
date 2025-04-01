@@ -67,7 +67,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name={i18n.t('home')}
+          name="Accueil"
           options={{ headerShown: false }}
         >
           {(props) => <WelcomeScreen {...props} isMusicEnabled={isMusicEnabled} setIsMusicEnabled={setIsMusicEnabled} />}

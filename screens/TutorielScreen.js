@@ -54,7 +54,7 @@ function TutorielScreen() {
       {currentPage === 5 && (
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate(i18n.t('home'))}
+          onPress={() => navigation.navigate("Accueil")}
         >
           <Text style={styles.buttonText}>{i18n.t('play')}</Text>
         </TouchableOpacity>
