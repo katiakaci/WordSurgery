@@ -146,13 +146,14 @@ const RandomWord = () => {
 
     return (
         <View style={styles.container}>
-            {/* Animations */}
+            {/* Animations background */}
             <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation} />
             <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation2} />
             <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation3} />
 
             {loading ? (
-                <ActivityIndicator size="large" color="#fdb441" />
+                // loading animation
+                <LottieView source={require('../assets/animation/loading.json')} autoPlay loop style={styles.loadingAnimation} />
             ) : (
                 <>
 
@@ -275,6 +276,12 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         color: 'white',
+    },
+    loadingAnimation: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        top: 0,
     },
     animation: {
         width: '100%',
