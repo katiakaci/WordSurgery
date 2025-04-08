@@ -22,11 +22,12 @@ npm-check
 
 
 TODO
-- FAIRE MARCHER JEU 
+- vérifier si victoire fonctionne
+- travailler sur le timer
 - Ajouter bouton rejouer partie en cours
 - Ajuster UI jeu
 - Ajuster UI page tutoriel
-- BONUS TIMER
+- donner au user la possibilité de modifier le timer
 - BONUS Charger dictionnaire (option dans params)
 - Trouver api de backup (lui de live crash souvent)
 - Mettre alerte au user si sa langue est pas dispo (si on entre dans le catch)
