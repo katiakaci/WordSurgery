@@ -265,15 +265,36 @@ const RandomWord = () => {
 
                     {/* Deuxième mot (colonne droite) */}
                     <View style={styles.column}>
-                        {words.length > 1 && words[1]?.split('').map((letter, i) => (
-                            <TouchableOpacity
-                                key={i}
-                                style={[styles.letterBox, validWordIndices.includes(i) && styles.validLetterBox]}
-                                onPress={() => insertLetters(i)}
-                            >
-                                <Text style={styles.letter}>{letter.toUpperCase()}</Text>
-                            </TouchableOpacity>
-                        ))}
+                        {words.length > 1 && (() => {
+                            const letters = words[1].split('');
+                            const interleaved = [];
+
+                            for (let i = 0; i <= letters.length; i++) {
+                                // Intercalaire cliquable
+                                interleaved.push(
+                                    <TouchableOpacity
+                                        key={`gap-${i}`}
+                                        style={styles.insertionGap}
+                                        onPress={() => insertLetters(i)}
+                                    />
+                                );
+
+                                // Lettre (sauf après la dernière)
+                                if (i < letters.length) {
+                                    interleaved.push(
+                                        <TouchableOpacity
+                                            key={`letter-${i}`}
+                                            style={[styles.letterBox, validWordIndices.includes(i) && styles.validLetterBox]}
+                                            onPress={() => selectLettersSecondWord(i)}
+                                        >
+                                            <Text style={styles.letter}>{letters[i].toUpperCase()}</Text>
+                                        </TouchableOpacity>
+                                    );
+                                }
+                            }
+
+                            return interleaved;
+                        })()}
                     </View>
                 </View>
             )}
@@ -399,6 +420,15 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold',
         color: 'red',
+    },
+    insertionGap: {
+        height: 20,
+        width: 40,
+        marginVertical: 2,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        backgroundColor: '#f0f0f0',
+        borderRadius: 4,
     },
 });
 
