@@ -239,6 +239,17 @@ const RandomWord = () => {
         return size * 0.5 + 4; // ajustement visuel
     };
 
+    useEffect(() => {
+        if (!loading && words.length > 1 && words[1].length === 0) {
+            Alert.alert("Partie gagnée!", "Bravo, vous avez trouvé tous les mots!", [
+                {
+                    text: 'Nouvelle partie',
+                    onPress: () => newGame()
+                }
+            ]);
+        }
+    }, [words, loading]);
+
     return (
         <View style={styles.container}>
             {/* Animations background */}
