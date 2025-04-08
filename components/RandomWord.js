@@ -15,6 +15,8 @@ const RandomWord = () => {
     const [language] = useState(i18n.language);
     const [hasInserted, setHasInserted] = useState(false);
     const [timeLeft, setTimeLeft] = useState(120); // 2 minutes
+    const [scoreHistory, setScoreHistory] = useState([0]);
+
     const navigation = useNavigation();
     const timerRef = useRef(null);
 
@@ -112,6 +114,7 @@ const RandomWord = () => {
         setSelectedIndices([]); // Réinitialise la sélection
         setValidWordIndices([]); // Réinitialise les indices du mot valide
         setHistory(newHistory);
+        setScoreHistory([...scoreHistory, score]);
         setHasInserted(true);
     };
 
@@ -183,6 +186,8 @@ const RandomWord = () => {
         setWords(lastState.words);
         setSelectedIndices(lastState.selectedIndices);
         setHistory(history.slice(0, -1));
+        setScore(scoreHistory[scoreHistory.length - 2] || 0); // Restaure le score précédent
+        setScoreHistory(scoreHistory.slice(0, -1)); // Supprime le dernier score de l'historique
     };
 
     const startTimer = () => {
