@@ -3,7 +3,6 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import LottieView from 'lottie-react-native';
 import tw from 'twrnc';
 import { Ionicons } from 'react-native-vector-icons';
-import i18n from '../languages/i18n';
 import Settings from '../components/Settings';
 
 function WelcomeScreen({ navigation, isMusicEnabled, setIsMusicEnabled }) {

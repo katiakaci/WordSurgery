@@ -14,19 +14,20 @@ const RandomWord = () => {
     const [score, setScore] = useState(0); // Score initial du jeu
     const [language] = useState(i18n.language);
     const [hasInserted, setHasInserted] = useState(false);
+    const [timeLeft, setTimeLeft] = useState(30);
     const navigation = useNavigation();
 
     const fetchRandomWords = async () => {
         const currentLanguage = i18n.language;
         setLoading(true);
         try {
-            if(currentLanguage === 'en') { // Anglais
+            if (currentLanguage === 'en') { // Anglais
                 let apiUrl = 'https://random-word-api.vercel.app/api?words=2';
                 const response = await fetch(apiUrl);
                 const data = await response.json();
                 setWords(data);
             }
-            else if(currentLanguage === 'it' || currentLanguage === 'pt_br') { // Italien et portugais brézilien
+            else if (currentLanguage === 'it' || currentLanguage === 'pt_br') { // Italien et portugais brézilien
                 const apiLanguage = currentLanguage === "pt_br" ? "pt-br" : currentLanguage;
                 let apiUrl = `https://random-word-api.herokuapp.com/word?lang=${apiLanguage}&number=2`
                 const response = await fetch(apiUrl);
@@ -73,9 +74,21 @@ const RandomWord = () => {
 
     useEffect(() => {
         fetchRandomWords();
+        const timer = setInterval(() => {
+            setTimeLeft(prevTime => {
+                if (prevTime <= 1) {
+                    clearInterval(timer); // Arrête le timer
+                    Alert.alert('Temps écoulé', 'Vous avez perdu');
+                    return 0; // Réinitialise le temps
+                }
+                return prevTime - 1;
+            });
+        }, 1000); // Met à jour toutes les secondes
+
+        return () => clearInterval(timer); // Nettoyage à la fin
     }, [language]); // Recharger les mots quand la langue change
 
-    const toggleLetterSelection = (index) => {
+    const selectLettersFirstWord = (index) => {
         setSelectedIndices((prev) => {
             if (prev.includes(index)) {
                 return prev.filter(i => i !== index); // Désélectionne
@@ -110,7 +123,7 @@ const RandomWord = () => {
         setHasInserted(true);
     };
 
-    const toggleLetterSelectionInSecondWord = (index) => {
+    const selectLettersSecondWord = (index) => {
         if (!hasInserted) return;
         setValidWordIndices((prev) => {
             // Si la lettre est déjà sélectionnée, on peut la désélectionner seulement si c'est la première ou la dernière lettre de la sélection
@@ -184,74 +197,66 @@ const RandomWord = () => {
         <View style={styles.container}>
             {/* Animations background */}
             <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation} />
-            <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation2} />
-            <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation3} />
+
+            {/* Barre supérieure fixe */}
+            <View style={styles.topBar}>
+                <TouchableOpacity onPress={() => navigation.navigate("Accueil")}>
+                    <Ionicons name="chevron-back" size={28} color="black" />
+                </TouchableOpacity>
+                <Text style={styles.scoreLabel}>Score</Text>
+                <Text style={styles.scoreText}>{score}</Text>
+                <TouchableOpacity onPress={undoLastAction}>
+                    <Ionicons name="arrow-undo" size={28} color="black" />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    fetchRandomWords();
+                    setScore(0);
+                    setTimeLeft(30); // Réinitialiser le timer
+                }}>
+                    <Ionicons name="refresh" size={28} color="black" />
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.timerContainer}>
+                <Text style={styles.timerText}>{timeLeft} sec</Text>
+            </View>
 
             {loading ? (
                 // loading animation
                 <LottieView source={require('../assets/animation/loading.json')} autoPlay loop style={styles.loadingAnimation} />
             ) : (
-                <>
-
-                    <View style={styles.topBar}>
-                        {/* Bouton retour page d'accueil */}
-                        <TouchableOpacity onPress={() => navigation.navigate(i18n.t('home'))}>
-                            <Ionicons name="chevron-back" size={28} color="black" />
-                        </TouchableOpacity>
-
-                        {/* Score */}
-                        <Text style={styles.scoreLabel}>Score</Text>
-                        <Text style={styles.scoreText}>{score}</Text>
-
-                        {/* Boutons undo */}
-                        <TouchableOpacity onPress={undoLastAction}>
-                            <Ionicons name="arrow-undo" size={28} color="black" />
-                        </TouchableOpacity>
-
-                        {/* Bouton recommencer */}
-                        <TouchableOpacity onPress={() => {
-                            fetchRandomWords();
-                            setScore(0);
-                        }}>
-                            <Ionicons name="refresh" size={28} color="black" />
-                        </TouchableOpacity>
+                <View style={styles.wordsContainer}>
+                    {/* Premier mot (colonne gauche) */}
+                    <View style={styles.column}>
+                        {words.length > 0 && words[0].split('').map((letter, i) => (
+                            <TouchableOpacity
+                                key={i}
+                                style={[styles.letterBox, selectedIndices.includes(i) && styles.selectedBox]}
+                                onPress={() => selectLettersFirstWord(i)}
+                            >
+                                <Text style={styles.letter}>{letter.toUpperCase()}</Text>
+                            </TouchableOpacity>
+                        ))}
                     </View>
 
-                    <View style={styles.wordsContainer}>
-                        {/* Premier mot (vertical à gauche) */}
-                        <View style={styles.column}>
-                            {words.length > 0 && words[0].split('').map((letter, i) => (
-                                <TouchableOpacity
-                                    key={i}
-                                    style={[styles.letterBox, selectedIndices.includes(i) && styles.selectedBox]}
-                                    onPress={() => toggleLetterSelection(i)}
-                                >
-                                    <Text style={styles.letter}>{letter.toUpperCase()}</Text>
-                                </TouchableOpacity>
-                            ))}
-                        </View>
-
-                        {/* Deuxième mot (vertical à droite) */}
-                        <View style={styles.column}>
-                            {words.length > 1 && words[1].split('').map((letter, i) => (
-                                <TouchableOpacity
-                                    key={i}
-                                    style={[styles.letterBox, validWordIndices.includes(i) && styles.validLetterBox]}
-                                    onPress={() => insertLetters(i)}
-                                >
-                                    <Text style={styles.letter}>{letter.toUpperCase()}</Text>
-                                </TouchableOpacity>
-                            ))}
-                        </View>
+                    {/* Deuxième mot (colonne droite) */}
+                    <View style={styles.column}>
+                        {words.length > 1 && words[1].split('').map((letter, i) => (
+                            <TouchableOpacity
+                                key={i}
+                                style={[styles.letterBox, validWordIndices.includes(i) && styles.validLetterBox]}
+                                onPress={() => insertLetters(i)}
+                            >
+                                <Text style={styles.letter}>{letter.toUpperCase()}</Text>
+                            </TouchableOpacity>
+                        ))}
                     </View>
-
-                    {/* Bouton de validation */}
-                    <TouchableOpacity style={styles.checkButton} onPress={checkWord}>
-                        <Text style={styles.buttonText}>Mot trouvé</Text>
-                    </TouchableOpacity>
-
-                </>
+                </View>
             )}
+
+            <TouchableOpacity style={styles.checkButton} onPress={checkWord}>
+                <Text style={styles.buttonText}>Mot trouvé</Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -261,19 +266,19 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
         alignItems: 'center',
-        justifyContent: 'center',
         padding: 20,
     },
     wordsContainer: {
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
         alignItems: 'center',
-        marginVertical: 10,
+        flex: 1,
+        width: '100%',
+        marginTop: 100,
     },
     column: {
         flexDirection: 'column',
         alignItems: 'center',
-        marginHorizontal: 20,
     },
     letterBox: {
         width: 50,
@@ -329,25 +334,17 @@ const styles = StyleSheet.create({
         top: 0,
         left: -200,
     },
-    animation2: {
-        width: '100%',
-        height: '100%',
-        position: 'absolute',
-        top: 50,
-        left: 0,
-    },
-    animation3: {
-        width: '100%',
-        height: '100%',
-        position: 'absolute',
-        top: 0,
-        left: 50,
-    },
     topBar: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center',
         width: '100%',
         paddingHorizontal: 20,
+        paddingVertical: 10,
+        position: 'absolute',
+        top: 50,
+        backgroundColor: 'white',
+        zIndex: 10,
     },
     scoreLabel: {
         fontSize: 18,
@@ -358,6 +355,15 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold',
         color: 'black',
+    },
+    timerContainer: {
+        marginTop: 20,
+        marginBottom: 30,
+    },
+    timerText: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        color: 'red',
     },
 });
 
