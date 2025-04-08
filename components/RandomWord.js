@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import i18n from '../languages/i18n';
 import LottieView from 'lottie-react-native';
@@ -14,8 +14,9 @@ const RandomWord = () => {
     const [score, setScore] = useState(0); // Score initial du jeu
     const [language] = useState(i18n.language);
     const [hasInserted, setHasInserted] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(30);
+    const [timeLeft, setTimeLeft] = useState(10);
     const navigation = useNavigation();
+    const timerRef = useRef(null);
 
     const fetchRandomWords = async () => {
         const currentLanguage = i18n.language;
@@ -74,19 +75,10 @@ const RandomWord = () => {
 
     useEffect(() => {
         fetchRandomWords();
-        const timer = setInterval(() => {
-            setTimeLeft(prevTime => {
-                if (prevTime <= 1) {
-                    clearInterval(timer); // Arrête le timer
-                    Alert.alert('Temps écoulé', 'Vous avez perdu');
-                    return 0; // Réinitialise le temps
-                }
-                return prevTime - 1;
-            });
-        }, 1000); // Met à jour toutes les secondes
+        timerRef.current = startTimer();
 
-        return () => clearInterval(timer); // Nettoyage à la fin
-    }, [language]); // Recharger les mots quand la langue change
+        return () => clearInterval(timerRef.current);
+    }, [language]);
 
     const selectLettersFirstWord = (index) => {
         setSelectedIndices((prev) => {
@@ -193,6 +185,38 @@ const RandomWord = () => {
         setHistory(history.slice(0, -1));
     };
 
+    const startTimer = () => {
+        const timer = setInterval(() => {
+            setTimeLeft(prevTime => {
+                if (prevTime <= 1) {
+                    clearInterval(timer);
+                    Alert.alert(
+                        'Temps écoulé',
+                        'Vous avez perdu',
+                        [
+                            {
+                                text: 'OK',
+                                onPress: () => newGame()
+                            }
+                        ]
+                    );
+                    return 0;
+                }
+                return prevTime - 1;
+            });
+        }, 1000);
+
+        return timer;
+    };
+
+    const newGame = () => {
+        clearInterval(timerRef.current); // stop ancien timer
+        setScore(0);
+        setTimeLeft(10); // Reset timer
+        fetchRandomWords();
+        timerRef.current = startTimer(); // Relancer timer
+    };
+
     return (
         <View style={styles.container}>
             {/* Animations background */}
@@ -208,11 +232,7 @@ const RandomWord = () => {
                 <TouchableOpacity onPress={undoLastAction}>
                     <Ionicons name="arrow-undo" size={28} color="black" />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {
-                    fetchRandomWords();
-                    setScore(0);
-                    setTimeLeft(30); // Réinitialiser le timer
-                }}>
+                <TouchableOpacity onPress={newGame}>
                     <Ionicons name="refresh" size={28} color="black" />
                 </TouchableOpacity>
             </View>
@@ -302,8 +322,8 @@ const styles = StyleSheet.create({
         borderColor: '#ffae42',
     },
     validLetterBox: {
-        backgroundColor: '#32CD32', // Vert
-        borderColor: '#228B22', // Vert foncé
+        backgroundColor: '#32CD32',
+        borderColor: '#228B22',
     },
     letter: {
         fontSize: 20,
