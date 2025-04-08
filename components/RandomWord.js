@@ -276,7 +276,7 @@ const RandomWord = () => {
             </View>
 
             <View style={styles.timerContainer}>
-                <Text style={styles.timerText}>{timeLeft} sec</Text>
+                <Text style={styles.timerText}>{timeLeft}</Text>
             </View>
 
             {loading ? (
