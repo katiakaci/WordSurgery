@@ -349,7 +349,7 @@ const RandomWord = () => {
             </View>
 
             <TouchableOpacity style={styles.checkButton} onPress={checkWord}>
-                <Text style={styles.buttonText}>Mot trouvé</Text>
+                <Text style={styles.buttonText}>{i18n.t('word_found')}</Text>
             </TouchableOpacity>
         </View>
     );

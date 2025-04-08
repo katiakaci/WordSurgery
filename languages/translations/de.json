@@ -17,5 +17,6 @@
     "history": "Verlauf",
     "you_won": "Du hast gewonnen! :)",
     "you_found_everything": "Gut gemacht, du hast alle Wörter gefunden!",
-    "new_game": "Neues Spiel"
+    "new_game": "Neues Spiel",
+    "word_found": "Wort gefunden"
 }
