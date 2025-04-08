@@ -16,6 +16,7 @@ const RandomWord = () => {
     const [hasInserted, setHasInserted] = useState(false);
     const [timeLeft, setTimeLeft] = useState(120); // 2 minutes
     const [scoreHistory, setScoreHistory] = useState([0]);
+    const [validatedWords, setValidatedWords] = useState([]);
 
     const navigation = useNavigation();
     const timerRef = useRef(null);
@@ -162,6 +163,9 @@ const RandomWord = () => {
                         const newScore = score + selectedLetters.length;
                         setScore(newScore);
 
+                        // Ajoute le mot validé à l'historique
+                        setValidatedWords(prev => [...prev, selectedLetters]);
+
                         // Mise à jour du mot
                         const newSecondWord = secondWord.split('')
                             .filter((_, i) => !validWordIndices.includes(i))
@@ -303,6 +307,17 @@ const RandomWord = () => {
                     </View>
                 </View>
             )}
+
+            <View style={{ marginVertical: 20 }}>
+                <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 5 }}>Historique :</Text>
+                {validatedWords.length === 0 ? (
+                    <Text style={{ fontStyle: 'italic' }}>Aucun mot trouvé pour l'instant</Text>
+                ) : (
+                    validatedWords.map((word, index) => (
+                        <Text key={index} style={{ fontSize: 16 }}>{index + 1}. {word}</Text>
+                    ))
+                )}
+            </View>
 
             <TouchableOpacity style={styles.checkButton} onPress={checkWord}>
                 <Text style={styles.buttonText}>Mot trouvé</Text>
