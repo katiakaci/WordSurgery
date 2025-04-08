@@ -224,7 +224,10 @@ const RandomWord = () => {
 
             {/* Barre supérieure fixe */}
             <View style={styles.topBar}>
-                <TouchableOpacity onPress={() => navigation.navigate("Accueil")}>
+                <TouchableOpacity onPress={() => {
+                    navigation.navigate("Accueil");
+                    // clearInterval(timerRef.current); // stop ancien timer
+                }}>
                     <Ionicons name="chevron-back" size={28} color="black" />
                 </TouchableOpacity>
                 <Text style={styles.scoreLabel}>Score</Text>
@@ -286,15 +289,14 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
         alignItems: 'center',
-        padding: 20,
     },
     wordsContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
         width: '100%',
-        marginTop: 100,
+        gap: 50,
     },
     column: {
         flexDirection: 'column',
@@ -354,6 +356,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 0,
         left: 0,
+        resizeMode: 'cover',
     },
     topBar: {
         flexDirection: 'row',
