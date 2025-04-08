@@ -76,10 +76,10 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                     </TouchableOpacity>
 
                     {/* Activer/désactiver le mode sombre */}
-                    <TouchableOpacity style={styles.modalButton} onPress={toggleDarkMode}>
+                    {/* <TouchableOpacity style={styles.modalButton} onPress={toggleDarkMode}>
                         <Ionicons name={darkMode ? "moon" : "sunny"} size={24} color="#fff" style={styles.icon} />
                         <Text style={styles.modalButtonText}>{darkMode ? i18n.t('disableDarkMode') : i18n.t('enableDarkMode')}</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
                     {/* Partager le jeu */}
                     <TouchableOpacity style={styles.modalButton} onPress={shareGame}>
