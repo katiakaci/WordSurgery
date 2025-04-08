@@ -167,7 +167,7 @@ const RandomWord = () => {
                         setValidatedWords(prev => [...prev, selectedLetters]);
 
                         // Mise à jour du mot
-                        const newSecondWord = secondWord.split('')
+                        const newSecondWord = secondWord?.split('')
                             .filter((_, i) => !validWordIndices.includes(i))
                             .join('');
                         setWords([words[0], newSecondWord]);
@@ -227,6 +227,18 @@ const RandomWord = () => {
         setValidatedWords([]); // reset l'historique des mots trouvés
     };
 
+    const getLetterBoxSize = () => {
+        const maxLetters = Math.max(words[0]?.length || 0, words[1]?.length || 0);
+        if (maxLetters >= 7) return 24;
+        if (maxLetters >= 10) return 30;
+        return 40;
+    };
+
+    const getLetterFontSize = () => {
+        const size = getLetterBoxSize();
+        return size * 0.5 + 4; // ajustement visuel
+    };
+
     return (
         <View style={styles.container}>
             {/* Animations background */}
@@ -276,7 +288,7 @@ const RandomWord = () => {
                     {/* Deuxième mot (colonne droite) */}
                     <View style={styles.column}>
                         {words.length > 1 && (() => {
-                            const letters = words[1].split('');
+                            const letters = words[1]?.split('');
                             const interleaved = [];
 
                             for (let i = 0; i <= letters.length; i++) {
@@ -294,10 +306,14 @@ const RandomWord = () => {
                                     interleaved.push(
                                         <TouchableOpacity
                                             key={`letter-${i}`}
-                                            style={[styles.letterBox, validWordIndices.includes(i) && styles.validLetterBox]}
+                                            style={[
+                                                styles.letterBox,
+                                                { width: getLetterBoxSize(), height: getLetterBoxSize() },
+                                                validWordIndices.includes(i) && styles.validLetterBox
+                                            ]}
                                             onPress={() => selectLettersSecondWord(i)}
                                         >
-                                            <Text style={styles.letter}>{letters[i].toUpperCase()}</Text>
+                                            <Text style={[styles.letter, { fontSize: getLetterFontSize() }]}>{letters[i].toUpperCase()}</Text>
                                         </TouchableOpacity>
                                     );
                                 }
