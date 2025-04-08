@@ -224,6 +224,7 @@ const RandomWord = () => {
         setTimeLeft(120); // Reset timer
         fetchRandomWords();
         timerRef.current = startTimer(); // Relancer timer
+        setValidatedWords([]); // reset l'historique des mots trouvés
     };
 
     return (
