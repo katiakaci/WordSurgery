@@ -241,9 +241,9 @@ const RandomWord = () => {
 
     useEffect(() => {
         if (!loading && words.length > 1 && words[1].length === 0) {
-            Alert.alert("Partie gagnée!", "Bravo, vous avez trouvé tous les mots!", [
+            Alert.alert(i18n.t('you_won'), i18n.t('you_found_everything'), [
                 {
-                    text: 'Nouvelle partie',
+                    text: i18n.t('new_game'),
                     onPress: () => newGame()
                 }
             ]);
@@ -260,7 +260,8 @@ const RandomWord = () => {
             <View style={styles.topBar}>
                 <TouchableOpacity onPress={() => {
                     navigation.navigate("Accueil");
-                    // clearInterval(timerRef.current); // stop ancien timer
+                    clearInterval(timerRef.current); // stop ancien timer0
+                    setTimeLeft(120); // Reset timer
                 }}>
                     <Ionicons name="chevron-back" size={28} color="black" />
                 </TouchableOpacity>
@@ -337,9 +338,9 @@ const RandomWord = () => {
             )}
 
             <View style={{ marginVertical: 20 }}>
-                <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 5 }}>Historique :</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 5 }}>{i18n.t('history')}</Text>
                 {validatedWords.length === 0 ? (
-                    <Text style={{ fontStyle: 'italic' }}>Aucun mot trouvé pour l'instant</Text>
+                    <Text style={{ fontStyle: 'italic' }}>{i18n.t('no_word_found')}</Text>
                 ) : (
                     validatedWords.map((word, index) => (
                         <Text key={index} style={{ fontSize: 16 }}>{index + 1}. {word}</Text>

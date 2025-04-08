@@ -12,5 +12,10 @@
     "disableDarkMode": "禁用暗黑模式",
     "enableDarkMode": "启用暗黑模式",
     "elapsed_time": "经过时间",
-    "you_lost": "你输了 :("
+    "you_lost": "你输了 :(",
+    "no_word_found": "暂时未找到任何词汇",
+    "history": "历史",
+    "you_won": "你赢了! :)",
+    "you_found_everything": "做得好，你找到了所有的词汇!",
+    "new_game": "新游戏"
 }

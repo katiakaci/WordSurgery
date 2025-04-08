@@ -12,5 +12,10 @@
     "disableDarkMode": "Koyu Modu Kapat",
     "enableDarkMode": "Koyu Modu Aç",
     "elapsed_time": "Geçen zaman",
-    "you_lost": "Kaybettiniz :("
+    "you_lost": "Kaybettin :(",
+    "no_word_found": "Henüz hiç kelime bulunamadı",
+    "history": "Geçmiş",
+    "you_won": "Kazandın! :)",
+    "you_found_everything": "Tebrikler, tüm kelimeleri buldun!",
+    "new_game": "Yeni oyun"
 }

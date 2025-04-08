@@ -12,5 +12,10 @@
     "disableDarkMode": "Disabilita la modalità scura",
     "enableDarkMode": "Abilita la modalità scura",
     "elapsed_time": "Tempo trascorso",
-    "you_lost": "Hai perso :("
+    "you_lost": "Hai perso :(",
+    "no_word_found": "Nessuna parola trovata per ora",
+    "history": "Storia",
+    "you_won": "Hai vinto! :)",
+    "you_found_everything": "Bravo, hai trovato tutte le parole!",
+    "new_game": "Nuova partita"
 }

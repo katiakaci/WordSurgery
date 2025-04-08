@@ -12,5 +12,10 @@
     "disableDarkMode": "ダークモードを無効にする",
     "enableDarkMode": "ダークモードを有効にする",
     "elapsed_time": "経過時間",
-    "you_lost": "あなたは負けました :("
+    "you_lost": "あなたは負けました :(",
+    "no_word_found": "まだ言葉は見つかっていません",
+    "history": "履歴",
+    "you_won": "あなたが勝ちました! :)",
+    "you_found_everything": "おめでとう、すべての単語を見つけました!",
+    "new_game": "新しいゲーム"
 }
