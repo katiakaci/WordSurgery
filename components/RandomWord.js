@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import i18n from '../languages/i18n';
 import LottieView from 'lottie-react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -20,13 +20,13 @@ const RandomWord = () => {
         const currentLanguage = i18n.language;
         setLoading(true);
         try {
-            if (currentLanguage === 'en') { // Anglais
+            if(currentLanguage === 'en') { // Anglais
                 let apiUrl = 'https://random-word-api.vercel.app/api?words=2';
                 const response = await fetch(apiUrl);
                 const data = await response.json();
                 setWords(data);
             }
-            else if (currentLanguage === 'it' || currentLanguage === 'pt_br') { // Italien et portugais brézilien
+            else if(currentLanguage === 'it' || currentLanguage === 'pt_br') { // Italien et portugais brézilien
                 const apiLanguage = currentLanguage === "pt_br" ? "pt-br" : currentLanguage;
                 let apiUrl = `https://random-word-api.herokuapp.com/word?lang=${apiLanguage}&number=2`
                 const response = await fetch(apiUrl);
@@ -113,7 +113,7 @@ const RandomWord = () => {
     const toggleLetterSelectionInSecondWord = (index) => {
         if (!hasInserted) return;
         setValidWordIndices((prev) => {
-            // Si la lettre est déjà sélectionnée, on peut la désélectionner seulement si c'est la première ou la dernière lettre
+            // Si la lettre est déjà sélectionnée, on peut la désélectionner seulement si c'est la première ou la dernière lettre de la sélection
             if (prev.includes(index)) {
                 if (index === prev[0] || index === prev[prev.length - 1]) {
                     return prev.filter(i => i !== index); // Désélectionne uniquement si c'est le premier ou le dernier
