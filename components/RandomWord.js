@@ -335,10 +335,10 @@ const styles = StyleSheet.create({
     },
     checkButton: {
         backgroundColor: '#9be69d',
-        marginTop: 20,
         paddingVertical: 12,
         paddingHorizontal: 25,
         borderRadius: 8,
+        marginBottom: 50,
     },
     buttonText: {
         fontSize: 18,
