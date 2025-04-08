@@ -10,5 +10,7 @@
     "disableMusic": "Desactivar la música",
     "enableMusic": "Activar la música",
     "disableDarkMode": "Desactivar el modo oscuro",
-    "enableDarkMode": "Activar el modo oscuro"
+    "enableDarkMode": "Activar el modo oscuro",
+    "elapsed_time": "Tiempo transcurrido",
+    "you_lost": "Has perdido :("
 }

@@ -10,5 +10,7 @@
     "disableMusic": "Müziği Kapat",
     "enableMusic": "Müziği Aç",
     "disableDarkMode": "Koyu Modu Kapat",
-    "enableDarkMode": "Koyu Modu Aç"
+    "enableDarkMode": "Koyu Modu Aç",
+    "elapsed_time": "Geçen zaman",
+    "you_lost": "Kaybettiniz :("
 }

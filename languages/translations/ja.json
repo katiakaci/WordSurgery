@@ -10,5 +10,7 @@
     "disableMusic": "音楽を無効にする",
     "enableMusic": "音楽を有効にする",
     "disableDarkMode": "ダークモードを無効にする",
-    "enableDarkMode": "ダークモードを有効にする"
+    "enableDarkMode": "ダークモードを有効にする",
+    "elapsed_time": "経過時間",
+    "you_lost": "あなたは負けました :("
 }

@@ -191,8 +191,8 @@ const RandomWord = () => {
                 if (prevTime <= 1) {
                     clearInterval(timer);
                     Alert.alert(
-                        'Temps écoulé',
-                        'Vous avez perdu',
+                        i18n.t('elapsed_time'),
+                        i18n.t('you_lost'),
                         [
                             {
                                 text: 'OK',

@@ -10,5 +10,7 @@
     "disableMusic": "禁用音乐",
     "enableMusic": "启用音乐",
     "disableDarkMode": "禁用暗黑模式",
-    "enableDarkMode": "启用暗黑模式"
+    "enableDarkMode": "启用暗黑模式",
+    "elapsed_time": "经过时间",
+    "you_lost": "你输了 :("
 }
