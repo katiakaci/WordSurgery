@@ -265,7 +265,7 @@ const RandomWord = () => {
                 }}>
                     <Ionicons name="chevron-back" size={28} color="black" />
                 </TouchableOpacity>
-                <Text style={styles.scoreLabel}>Score</Text>
+                <Text style={styles.scoreLabel}>{i18n.t('score')}</Text>
                 <Text style={styles.scoreText}>{score}</Text>
                 <TouchableOpacity onPress={undoLastAction}>
                     <Ionicons name="arrow-undo" size={28} color="black" />

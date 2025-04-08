@@ -18,5 +18,6 @@
     "you_won": "Vous avez gagné! :)",
     "you_found_everything": "Bravo, vous avez trouvé tous les mots!",
     "new_game": "Nouvelle partie",
-    "word_found": "Mot trouvé"
+    "word_found": "Mot trouvé",
+    "score": "Score"
 }
