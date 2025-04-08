@@ -102,8 +102,8 @@ const RandomWord = () => {
     const insertLetters = (position) => {
         if (selectedIndices.length === 0) return;
 
-        const firstWord = words[0].split('');
-        const secondWord = words[1].split('');
+        const firstWord = words[0]?.split('');
+        const secondWord = words[1]?.split('');
 
         const selectedLetters = selectedIndices.map(i => firstWord[i]);
         const newFirstWord = firstWord.filter((_, i) => !selectedIndices.includes(i));
@@ -228,7 +228,7 @@ const RandomWord = () => {
                 <View style={styles.wordsContainer}>
                     {/* Premier mot (colonne gauche) */}
                     <View style={styles.column}>
-                        {words.length > 0 && words[0].split('').map((letter, i) => (
+                        {words.length > 0 && words[0]?.split('').map((letter, i) => (
                             <TouchableOpacity
                                 key={i}
                                 style={[styles.letterBox, selectedIndices.includes(i) && styles.selectedBox]}
@@ -241,7 +241,7 @@ const RandomWord = () => {
 
                     {/* Deuxième mot (colonne droite) */}
                     <View style={styles.column}>
-                        {words.length > 1 && words[1].split('').map((letter, i) => (
+                        {words.length > 1 && words[1]?.split('').map((letter, i) => (
                             <TouchableOpacity
                                 key={i}
                                 style={[styles.letterBox, validWordIndices.includes(i) && styles.validLetterBox]}
@@ -280,21 +280,22 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
     },
+
     letterBox: {
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         borderWidth: 2,
         borderColor: '#d14b28',
         justifyContent: 'center',
         alignItems: 'center',
-        marginVertical: 5,
-        borderRadius: 10,
+        marginVertical: 4,
+        borderRadius: 8,
         backgroundColor: 'white',
         shadowColor: '#000',
-        shadowOffset: { width: 2, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 4,
-        elevation: 3,
+        shadowOffset: { width: 1, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+        elevation: 2,
     },
     selectedBox: {
         backgroundColor: '#ffd580',
@@ -305,7 +306,7 @@ const styles = StyleSheet.create({
         borderColor: '#228B22', // Vert foncé
     },
     letter: {
-        fontSize: 26,
+        fontSize: 20,
         fontWeight: 'bold',
         color: '#d14b28',
     },
@@ -332,7 +333,7 @@ const styles = StyleSheet.create({
         height: '100%',
         position: 'absolute',
         top: 0,
-        left: -200,
+        left: 0,
     },
     topBar: {
         flexDirection: 'row',
@@ -341,10 +342,9 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingHorizontal: 20,
         paddingVertical: 10,
-        position: 'absolute',
-        top: 50,
-        backgroundColor: 'white',
+        marginTop: 40,
         zIndex: 10,
+        backgroundColor: 'white',
     },
     scoreLabel: {
         fontSize: 18,
@@ -357,8 +357,10 @@ const styles = StyleSheet.create({
         color: 'black',
     },
     timerContainer: {
-        marginTop: 20,
-        marginBottom: 30,
+        position: 'absolute',
+        top: 100,
+        alignSelf: 'center',
+        zIndex: 11,
     },
     timerText: {
         fontSize: 30,
