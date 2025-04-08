@@ -14,7 +14,7 @@ const RandomWord = () => {
     const [score, setScore] = useState(0); // Score initial du jeu
     const [language] = useState(i18n.language);
     const [hasInserted, setHasInserted] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(10);
+    const [timeLeft, setTimeLeft] = useState(120); // 2 minutes
     const navigation = useNavigation();
     const timerRef = useRef(null);
 
@@ -212,7 +212,7 @@ const RandomWord = () => {
     const newGame = () => {
         clearInterval(timerRef.current); // stop ancien timer
         setScore(0);
-        setTimeLeft(10); // Reset timer
+        setTimeLeft(120); // Reset timer
         fetchRandomWords();
         timerRef.current = startTimer(); // Relancer timer
     };
@@ -221,6 +221,7 @@ const RandomWord = () => {
         <View style={styles.container}>
             {/* Animations background */}
             <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation} />
+            <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation2} />
 
             {/* Barre supérieure fixe */}
             <View style={styles.topBar}>
@@ -357,6 +358,15 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         resizeMode: 'cover',
+    },
+    animation2: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        resizeMode: 'cover',
+        transform: 'scaleX(-1)',
     },
     topBar: {
         flexDirection: 'row',
