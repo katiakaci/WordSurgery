@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import i18n from '../languages/i18n';
 import LottieView from 'lottie-react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -286,14 +286,13 @@ const RandomWord = () => {
                 </View>
             </View>
 
-
             {loading ? (
                 // loading animation
                 <LottieView source={require('../assets/animation/loading.json')} autoPlay loop style={styles.loadingAnimation} />
             ) : (
                 <View style={styles.wordsContainer}>
                     {/* Premier mot (colonne gauche) */}
-                    <View style={styles.column}>
+                    <ScrollView style={{ maxHeight: '80%' }} contentContainerStyle={styles.column} showsVerticalScrollIndicator={false}>
                         {words.length > 0 && words[0]?.split('').map((letter, i) => (
                             <TouchableOpacity
                                 key={i}
@@ -303,16 +302,15 @@ const RandomWord = () => {
                                 <Text style={styles.letter}>{letter.toUpperCase()}</Text>
                             </TouchableOpacity>
                         ))}
-                    </View>
+                    </ScrollView>
 
                     {/* Deuxième mot (colonne droite) */}
-                    <View style={styles.column}>
+                    <ScrollView style={{ maxHeight: '80%' }} contentContainerStyle={styles.column} showsVerticalScrollIndicator={false}>
                         {words.length > 1 && (() => {
                             const letters = words[1]?.split('');
                             const interleaved = [];
 
                             for (let i = 0; i <= letters.length; i++) {
-                                // espace entre les lettres cliquable
                                 interleaved.push(
                                     <TouchableOpacity
                                         key={`gap-${i}`}
@@ -321,7 +319,6 @@ const RandomWord = () => {
                                     />
                                 );
 
-                                // Lettre (sauf après la dernière)
                                 if (i < letters.length) {
                                     interleaved.push(
                                         <TouchableOpacity
@@ -341,7 +338,7 @@ const RandomWord = () => {
 
                             return interleaved;
                         })()}
-                    </View>
+                    </ScrollView>
                 </View>
             )}
 
@@ -355,7 +352,6 @@ const RandomWord = () => {
                     ))
                 )}
             </View>
-
             <TouchableOpacity style={styles.checkButton} onPress={checkWord}>
                 <Text style={styles.buttonText}>{i18n.t('word_found')}</Text>
             </TouchableOpacity>
@@ -473,7 +469,7 @@ const styles = StyleSheet.create({
         color: 'black',
     },
     timerText: {
-        fontSize: 23,
+        fontSize: 22,
         fontWeight: 'bold',
         color: 'red',
     },
