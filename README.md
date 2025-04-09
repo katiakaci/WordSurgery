@@ -43,6 +43,7 @@ Mots aléatoires en français
 Mots aléatoires en néerlandais
 Mots aléatoires en suédois
 
-
+Potentielles idées pour ceux qui veulent vraiment aller plus loin : mécanisme de
+score, différents modes de jeux (Arcade, Replay, Versus ? ^^), animations,
 Potentielles idées pour ceux qui veulent vraiment aller plus loin : mécanisme de
 score, différents modes de jeux (Arcade, Replay, Versus ? ^^), animations,
