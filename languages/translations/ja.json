@@ -19,5 +19,7 @@
     "you_found_everything": "おめでとう、すべての単語を見つけました!",
     "new_game": "新しいゲーム",
     "word_found": "単語が見つかりました",
-    "score": "スコア"
+    "score": "スコア",
+    "enter_your_dictionnary": "辞書のURLを入力してください",
+    "save": "保存"
 }

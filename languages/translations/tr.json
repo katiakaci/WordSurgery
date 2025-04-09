@@ -19,5 +19,7 @@
     "you_found_everything": "Tebrikler, tüm kelimeleri buldun!",
     "new_game": "Yeni oyun",
     "word_found": "Kelime bulundu",
-    "score": "Puan"
+    "score": "Puan",
+    "enter_your_dictionnary": "Sözlük URL'sini girin",
+    "save": "Kaydet"
 }

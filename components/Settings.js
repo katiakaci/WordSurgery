@@ -245,7 +245,7 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                 <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000aa' }}>
                         <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '80%' }}>
-                            <Text style={{ marginBottom: 10 }}>Entrez l'URL du dictionnaire ({i18n.language}) :</Text>
+                            <Text style={{ marginBottom: 10 }}>{i18n.t('enter_your_dictionnary')} ({i18n.language}) :</Text>
                             <TextInput
                                 value={inputUrl}
                                 onChangeText={setInputUrl}
@@ -253,10 +253,10 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                                 style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 6, padding: 10, marginBottom: 10 }}
                             />
                             <TouchableOpacity onPress={validateAndSaveUrl} style={styles.modalButton}>
-                                <Text style={styles.modalButtonText}>Valider</Text>
+                                <Text style={styles.modalButtonText}>{i18n.t('save')}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => setModalVisible(false)} style={[styles.modalButton, { backgroundColor: '#ccc' }]}>
-                                <Text style={styles.modalButtonText}>Annuler</Text>
+                                <Text style={styles.modalButtonText}>{i18n.t('undo')}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

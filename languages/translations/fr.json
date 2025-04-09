@@ -19,5 +19,7 @@
     "you_found_everything": "Bravo, vous avez trouvé tous les mots!",
     "new_game": "Nouvelle partie",
     "word_found": "Mot trouvé",
-    "score": "Score"
+    "score": "Score",
+    "enter_your_dictionnary": "Entrez l'URL du dictionnaire",
+    "save": "Valider"
 }

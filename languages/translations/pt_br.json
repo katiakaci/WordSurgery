@@ -19,5 +19,7 @@
     "you_found_everything": "Parabéns, você encontrou todas as palavras!",
     "new_game": "Novo jogo",
     "word_found": "Palavra encontrada",
-    "score": "Pontuação"
+    "score": "Pontuação",
+    "enter_your_dictionnary": "Insira a URL do dicionário",
+    "save": "Salvar"
 }
