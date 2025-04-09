@@ -4,6 +4,7 @@ import i18n from '../languages/i18n';
 import LottieView from 'lottie-react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const RandomWord = () => {
     const [words, setWords] = useState([]); // Contient les deux mots
@@ -23,8 +24,33 @@ const RandomWord = () => {
     const timerRef = useRef(null);
 
     const fetchRandomWords = async () => {
+        const customUrl = await AsyncStorage.getItem('@custom_dict_url_' + currentLanguage);
         const currentLanguage = i18n.language;
         setLoading(true);
+
+        if (customUrl) {
+            try {
+                const response1 = await fetch(customUrl);
+                const word1Data = await response1.json();
+                const word1 = Array.isArray(word1Data) ? word1Data[0] : word1Data;
+
+                const response2 = await fetch(customUrl);
+                const word2Data = await response2.json();
+                const word2 = Array.isArray(word2Data) ? word2Data[0] : word2Data;
+
+                if (typeof word1 === 'string' && typeof word2 === 'string') {
+                    setWords([word1, word2]);
+                    setSelectedIndices([]);
+                    setValidWordIndices([]);
+                    setHasInserted(false);
+                    setLoading(false);
+                    return;
+                }
+            } catch (err) {
+                console.warn("Erreur avec l'URL personnalisée, fallback sur les APIs par défaut");
+            }
+        }
+
         try {
             if (currentLanguage === 'en') { // Anglais
                 let apiUrl = 'https://random-word-api.vercel.app/api?words=2';
@@ -32,7 +58,7 @@ const RandomWord = () => {
                 const data = await response.json();
                 setWords(data);
             }
-            else if (currentLanguage === 'fr') { // Anglais
+            else if (currentLanguage === 'fr') { // Francais
                 let apiUrl = 'https://trouve-mot.fr/api/random/2';
                 const response = await fetch(apiUrl);
                 const data = await response.json();

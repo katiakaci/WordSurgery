@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Modal, TextInput, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
 import i18n from '../languages/i18n';
 import { useColorScheme, Share, Linking } from 'react-native';
 import Flag from 'react-native-flags';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusicEnabled }) {
     const [settingsModalVisible, setSettingsModalVisible] = useState(isVisible);
     const [languageModalVisible, setLanguageModalVisible] = useState(false);
     const [darkMode, setDarkMode] = useState(useColorScheme() === 'dark');
     const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [inputUrl, setInputUrl] = useState('');
 
     useEffect(() => {
         setSettingsModalVisible(isVisible);
@@ -21,7 +24,7 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
     };
 
     const changeDictionnary = () => {
-        // TODO
+        setModalVisible(true);
         console.log('Changer dictionnaire');
     };
 
@@ -49,6 +52,30 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
     const rateApp = () => {
         // TODO: Revenir ici après l'avoir mis sur les store
         Linking.openURL('https://play.google.com/store/apps/details?id=com.example.wordSurgery');
+    };
+
+    const validateAndSaveUrl = async () => {
+        try {
+            const response = await fetch(inputUrl);
+            const data = await response.json();
+
+            // On accepte aussi une réponse avec 1 seul mot
+            const isValid = (
+                (Array.isArray(data) && data.length >= 1 && typeof data[0] === 'string') ||
+                (typeof data === 'string') // au cas où certains renvoient juste "mot"
+            );
+
+            if (isValid) {
+                await AsyncStorage.setItem('@custom_dict_url_' + i18n.language, inputUrl);
+                Alert.alert('Succès', 'Le dictionnaire a été enregistré.');
+                setModalVisible(false);
+            } else {
+                Alert.alert('Invalide', "L'URL ne semble pas retourner un mot valide.");
+            }
+        } catch (e) {
+            Alert.alert('Erreur', "L'URL que vous avez fournie n'est pas valide.");
+            console.log("Erreur validation URL dictionnaire :", e);
+        }
     };
 
     return (
@@ -211,6 +238,29 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                         </TouchableOpacity>
                     </View>
                 </View>
+            </Modal>
+
+            {/* Fenetre modale pour le dictionnaire */}
+            <Modal visible={modalVisible} transparent animationType="slide">
+                <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000aa' }}>
+                        <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '80%' }}>
+                            <Text style={{ marginBottom: 10 }}>Entrez l'URL du dictionnaire ({i18n.language}) :</Text>
+                            <TextInput
+                                value={inputUrl}
+                                onChangeText={setInputUrl}
+                                placeholder="https://exemple.com/dict.json"
+                                style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 6, padding: 10, marginBottom: 10 }}
+                            />
+                            <TouchableOpacity onPress={validateAndSaveUrl} style={styles.modalButton}>
+                                <Text style={styles.modalButtonText}>Valider</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => setModalVisible(false)} style={[styles.modalButton, { backgroundColor: '#ccc' }]}>
+                                <Text style={styles.modalButtonText}>Annuler</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </TouchableWithoutFeedback>
             </Modal>
         </Modal>
     );
