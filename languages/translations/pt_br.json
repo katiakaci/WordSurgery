@@ -23,5 +23,6 @@
     "enter_your_dictionnary": "Insira a URL do dicionário",
     "save": "Salvar",
     "enter_timer_duration": "Insira a duração do cronômetro (em segundos):",
-    "success": "Sucesso"
+    "success": "Sucesso",
+    "timer_set": "O temporizador foi definido para {{value}} segundos."
 }

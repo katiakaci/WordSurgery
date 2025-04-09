@@ -23,5 +23,6 @@
     "enter_your_dictionnary": "辞書のURLを入力してください",
     "save": "保存",
     "enter_timer_duration": "タイマーの時間を入力してください（秒）:",
-    "success": "成功"
+    "success": "成功",
+    "timer_set": "タイマーが{{value}}秒に設定されました。"
 }

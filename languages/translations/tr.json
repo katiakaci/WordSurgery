@@ -23,5 +23,6 @@
     "enter_your_dictionnary": "Sözlük URL'sini girin",
     "save": "Kaydet",
     "enter_timer_duration": "Zamanlayıcı süresini girin (saniye cinsinden):",
-    "success": "Başarılı"
+    "success": "Başarılı",
+    "timer_set": "Zamanlayıcı {{value}} saniye olarak ayarlandı."
 }

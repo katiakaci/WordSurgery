@@ -23,5 +23,6 @@
     "enter_your_dictionnary": "Introduce la URL del diccionario",
     "save": "Guardar",
     "enter_timer_duration": "Introduce la duración del temporizador (en segundos):",
-    "success": "Éxito"
+    "success": "Éxito",
+    "timer_set": "El temporizador se ha establecido en {{value}} segundos."
 }

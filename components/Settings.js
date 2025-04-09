@@ -292,7 +292,7 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                                         return;
                                     }
                                     await AsyncStorage.setItem('@game_timer_seconds', value.toString());
-                                    Alert.alert(i18n.t('success'), `Le timer a été défini à ${value} secondes.`);
+                                    Alert.alert(i18n.t('success'), i18n.t('timer_set', { value }));
                                     setTimerModalVisible(false);
                                 }}
                                 style={styles.modalButton}

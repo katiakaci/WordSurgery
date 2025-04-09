@@ -23,5 +23,6 @@
     "enter_your_dictionnary": "输入词典网址",
     "save": "保存",
     "enter_timer_duration": "输入计时器的持续时间（秒）：",
-    "success": "成功"
+    "success": "成功",
+    "timer_set": "计时器已设置为{{value}}秒。"
 }

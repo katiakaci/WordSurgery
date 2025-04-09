@@ -23,5 +23,6 @@
     "enter_your_dictionnary": "Enter your dictionary URL",
     "save": "Save",
     "enter_timer_duration": "Enter the timer duration (in seconds):",
-    "success": "Success"
+    "success": "Success",
+    "timer_set": "The timer has been set to {{value}} seconds."
 }

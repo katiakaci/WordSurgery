@@ -23,5 +23,6 @@
     "enter_your_dictionnary": "Geben Sie die Wörterbuch-URL ein",
     "save": "Speichern",
     "enter_timer_duration": "Geben Sie die Dauer des Timers ein (in Sekunden):",
-    "success": "Erfolg"
+    "success": "Erfolg",
+    "timer_set": "Der Timer wurde auf {{value}} Sekunden gesetzt."
 }
