@@ -1,0 +1,8 @@
+{
+    "voiture": true,
+    "enseignant": true,
+    "chat": true,
+    "chien": true,
+    "train": true,
+    "marche": true
+  }  
