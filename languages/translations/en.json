@@ -25,5 +25,7 @@
     "enter_timer_duration": "Enter the timer duration (in seconds):",
     "success": "Success",
     "timer_set": "The timer has been set to {{value}} seconds.",
-    "edit_timer": "Edit the timer"
+    "edit_timer": "Edit the timer",
+    "error": "Error",
+    "enter_valid_number": "Please enter a valid number greater than 5."
 }

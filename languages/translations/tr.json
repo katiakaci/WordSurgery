@@ -25,5 +25,7 @@
     "enter_timer_duration": "Zamanlayıcı süresini girin (saniye cinsinden):",
     "success": "Başarılı",
     "timer_set": "Zamanlayıcı {{value}} saniye olarak ayarlandı.",
-    "edit_timer": "Zamanlayıcıyı düzenle"
+    "edit_timer": "Zamanlayıcıyı düzenle",
+    "error": "Hata",
+    "enter_valid_number": "Lütfen 5'ten büyük geçerli bir sayı girin."
 }

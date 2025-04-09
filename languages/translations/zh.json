@@ -25,5 +25,7 @@
     "enter_timer_duration": "输入计时器的持续时间（秒）：",
     "success": "成功",
     "timer_set": "计时器已设置为{{value}}秒。",
-    "edit_timer": "修改计时器"
+    "edit_timer": "修改计时器",
+    "error": "错误",
+    "enter_valid_number": "请输入大于5的有效数字。"
 }

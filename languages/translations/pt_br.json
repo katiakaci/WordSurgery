@@ -25,5 +25,7 @@
     "enter_timer_duration": "Insira a duração do cronômetro (em segundos):",
     "success": "Sucesso",
     "timer_set": "O temporizador foi definido para {{value}} segundos.",
-    "edit_timer": "Editar o cronômetro"
+    "edit_timer": "Editar o cronômetro",
+    "error": "Erro",
+    "enter_valid_number": "Por favor, insira um número válido maior que 5."
 }

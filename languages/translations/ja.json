@@ -25,5 +25,7 @@
     "enter_timer_duration": "タイマーの時間を入力してください（秒）:",
     "success": "成功",
     "timer_set": "タイマーが{{value}}秒に設定されました。",
-    "edit_timer": "タイマーを編集"
+    "edit_timer": "タイマーを編集",
+    "error": "エラー",
+    "enter_valid_number": "5より大きい有効な数字を入力してください。"
 }

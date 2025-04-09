@@ -287,8 +287,8 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                             <TouchableOpacity
                                 onPress={async () => {
                                     const value = parseInt(inputSeconds);
-                                    if (isNaN(value) || value <= 0) {
-                                        Alert.alert('Erreur', 'Veuillez entrer un nombre valide supérieur à 0.');
+                                    if (isNaN(value) || value <= 5) {
+                                        Alert.alert(i18n.t('error'), i18n.t('enter_valid_number'));
                                         return;
                                     }
                                     await AsyncStorage.setItem('@game_timer_seconds', value.toString());
