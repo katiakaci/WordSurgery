@@ -5,6 +5,11 @@ import LottieView from 'lottie-react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import frenchWords from '../assets/dictionaries/fr.json';
+import englishWords from '../assets/dictionaries/en.json';
+import spanishWords from '../assets/dictionaries/es.json';
+import italiensWords from '../assets/dictionaries/it.json';
+import deutchWords from '../assets/dictionaries/de.json';
 
 const RandomWord = () => {
     const [words, setWords] = useState([]); // Contient les deux mots
@@ -192,43 +197,49 @@ const RandomWord = () => {
         });
     };
 
+    const getWordsForLang = (lang) => {
+        if (lang.startsWith('fr')) return frenchWords;
+        else if (lang.startsWith('es')) return spanishWords;
+        else if (lang.startsWith('it')) return italiensWords;
+        else if (lang.startsWith('de')) return deutchWords;
+        return englishWords;
+    };
+
     const checkWord = () => {
         const secondWord = words[1];
         const selectedLetters = validWordIndices.map(i => secondWord[i]).join('');
-        if (selectedLetters.length >= 3) {
-            // Vérifie si le mot sélectionné existe dans le dictionnaire
-            fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${selectedLetters}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.title === 'No Definitions Found') {
-                        Alert.alert(i18n.t('word_not_valid_title'), i18n.t('word_invalid', { word: selectedLetters }));
-                        setValidWordIndices([]); // Réinitialise la sélection des lettres après l'alerte
-                    } else {
-                        // Si le mot est valide
-                        Alert.alert(i18n.t('word_found_title'), i18n.t('word_valid', { word: selectedLetters }));
 
-                        // Calcul du score
-                        const newScore = score + selectedLetters.length;
-                        setScore(newScore);
-
-                        // Ajoute le mot validé à l'historique
-                        setValidatedWords(prev => [...prev, selectedLetters]);
-
-                        // Mise à jour du mot
-                        const newSecondWord = secondWord?.split('')
-                            .filter((_, i) => !validWordIndices.includes(i))
-                            .join('');
-                        setWords([words[0], newSecondWord]);
-                        setValidWordIndices([]); // Réinitialise les indices des lettres validées après l'alerte
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur API de vérification de mot:', error);
-                    Alert.alert('Erreur', 'Une erreur est survenue lors de la vérification du mot.');
-                    setValidWordIndices([]); // Réinitialise la sélection des lettres en cas d'erreur
-                });
+        if (selectedLetters.length < 3) {
+            Alert.alert(i18n.t('word_too_short_title'), i18n.t('word_too_short_message'));
+            return;
         }
-        else Alert.alert('Mot trop court', "Veuillez sélectionner au moins 3 lettres");
+
+        const currentLang = i18n.language;
+        const wordList = getWordsForLang(currentLang);
+
+        const isValid = wordList.includes(selectedLetters.toLowerCase());
+
+        if (isValid) {
+            Alert.alert(i18n.t('word_found_title'), i18n.t('word_valid', { word: selectedLetters }));
+
+            // Calcul du score
+            const newScore = score + selectedLetters.length;
+            setScore(newScore);
+
+            // Ajoute le mot validé à l'historique
+            setValidatedWords(prev => [...prev, selectedLetters]);
+
+            // Mise à jour du mot
+            const newSecondWord = secondWord
+                .split('')
+                .filter((_, i) => !validWordIndices.includes(i))
+                .join('');
+            setWords([words[0], newSecondWord]);
+        } else {
+            Alert.alert(i18n.t('word_not_valid_title'), i18n.t('word_invalid', { word: selectedLetters }));
+        }
+
+        setValidWordIndices([]); // Réinitialise la sélection des lettres après l'alerte
     };
 
     const undoLastAction = () => {
