@@ -30,5 +30,9 @@
     "enter_valid_number": "请输入大于5的有效数字。",
     "dictionary_saved": "词典已保存。",
     "invalid_word_returned": "该网址似乎没有返回有效的单词。",
-    "invalid_url": "您提供的链接无效。"
+    "invalid_url": "您提供的链接无效。",
+    "word_found_title": "找到单词",
+    "word_valid": "{{word}} 是一个有效的单词。",
+    "word_not_valid_title": "无效的单词",
+    "word_invalid": "{{word}} 不是一个有效的单词。"
 }

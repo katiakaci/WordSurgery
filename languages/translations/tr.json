@@ -30,5 +30,9 @@
     "enter_valid_number": "Lütfen 5'ten büyük geçerli bir sayı girin.",
     "dictionary_saved": "Sözlük kaydedildi.",
     "invalid_word_returned": "URL geçerli bir kelime döndürmüyor gibi görünüyor.",
-    "invalid_url": "Girdiğiniz URL geçerli değil."
+    "invalid_url": "Girdiğiniz URL geçerli değil.",
+    "word_found_title": "Kelime bulundu",
+    "word_valid": "{{word}} geçerli bir kelimedir.",
+    "word_not_valid_title": "Geçersiz kelime",
+    "word_invalid": "{{word}} geçerli bir kelime değil."
 }

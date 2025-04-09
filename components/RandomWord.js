@@ -201,11 +201,11 @@ const RandomWord = () => {
                 .then(response => response.json())
                 .then(data => {
                     if (data.title === 'No Definitions Found') {
-                        Alert.alert('Mot non valide', `${selectedLetters} n'est pas un mot valide.`);
+                        Alert.alert(i18n.t('word_not_valid_title'), i18n.t('word_invalid', { word: selectedLetters }));
                         setValidWordIndices([]); // Réinitialise la sélection des lettres après l'alerte
                     } else {
                         // Si le mot est valide
-                        Alert.alert('Mot trouvé', `${selectedLetters} est un mot valide.`);
+                        Alert.alert(i18n.t('word_found_title'), i18n.t('word_valid', { word: selectedLetters }));
 
                         // Calcul du score
                         const newScore = score + selectedLetters.length;

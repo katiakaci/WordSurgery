@@ -30,5 +30,9 @@
     "enter_valid_number": "Veuillez entrer un nombre valide supérieur à 5.",
     "dictionary_saved": "Le dictionnaire a été enregistré.",
     "invalid_word_returned": "L'URL ne semble pas retourner un mot valide.",
-    "invalid_url": "L'URL que vous avez fournie n'est pas valide."
+    "invalid_url": "L'URL que vous avez fournie n'est pas valide.",
+    "word_found_title": "Mot trouvé",
+    "word_valid": "{{word}} est un mot valide.",
+    "word_not_valid_title": "Mot non valide",
+    "word_invalid": "{{word}} n'est pas un mot valide."
 }

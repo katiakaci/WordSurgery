@@ -30,5 +30,9 @@
     "enter_valid_number": "5より大きい有効な数字を入力してください。",
     "dictionary_saved": "辞書が保存されました。",
     "invalid_word_returned": "URLが有効な単語を返していないようです。",
-    "invalid_url": "入力されたURLは無効です。"
+    "invalid_url": "入力されたURLは無効です。",
+    "word_found_title": "単語が見つかりました",
+    "word_valid": "{{word}} は有効な単語です。",
+    "word_not_valid_title": "無効な単語",
+    "word_invalid": "{{word}} は有効な単語ではありません。"
 }

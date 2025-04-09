@@ -30,5 +30,9 @@
     "enter_valid_number": "Bitte geben Sie eine gültige Zahl größer als 5 ein.",
     "dictionary_saved": "Das Wörterbuch wurde gespeichert.",
     "invalid_word_returned": "Die URL scheint kein gültiges Wort zurückzugeben.",
-    "invalid_url": "Die angegebene URL ist ungültig."
+    "invalid_url": "Die angegebene URL ist ungültig.",
+    "word_found_title": "Wort gefunden",
+    "word_valid": "{{word}} ist ein gültiges Wort.",
+    "word_not_valid_title": "Ungültiges Wort",
+    "word_invalid": "{{word}} ist kein gültiges Wort."
 }
