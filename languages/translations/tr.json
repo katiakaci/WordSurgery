@@ -21,5 +21,7 @@
     "word_found": "Kelime bulundu",
     "score": "Puan",
     "enter_your_dictionnary": "Sözlük URL'sini girin",
-    "save": "Kaydet"
+    "save": "Kaydet",
+    "enter_timer_duration": "Zamanlayıcı süresini girin (saniye cinsinden):",
+    "success": "Başarılı"
 }

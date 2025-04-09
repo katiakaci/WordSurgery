@@ -21,5 +21,7 @@
     "word_found": "Wort gefunden",
     "score": "Punktzahl",
     "enter_your_dictionnary": "Geben Sie die Wörterbuch-URL ein",
-    "save": "Speichern"
+    "save": "Speichern",
+    "enter_timer_duration": "Geben Sie die Dauer des Timers ein (in Sekunden):",
+    "success": "Erfolg"
 }

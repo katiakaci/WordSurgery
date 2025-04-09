@@ -276,7 +276,7 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000aa' }}>
                         <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '80%' }}>
-                            <Text style={{ marginBottom: 10 }}>Entrez la durée du timer (en secondes) :</Text>
+                            <Text style={{ marginBottom: 10 }}>{i18n.t('enter_timer_duration')}</Text>
                             <TextInput
                                 keyboardType="numeric"
                                 value={inputSeconds}
@@ -292,7 +292,7 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                                         return;
                                     }
                                     await AsyncStorage.setItem('@game_timer_seconds', value.toString());
-                                    Alert.alert('Succès', `Le timer a été défini à ${value} secondes.`);
+                                    Alert.alert(i18n.t('success'), `Le timer a été défini à ${value} secondes.`);
                                     setTimerModalVisible(false);
                                 }}
                                 style={styles.modalButton}

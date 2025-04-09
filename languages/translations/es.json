@@ -21,5 +21,7 @@
     "word_found": "Palabra encontrada",
     "score": "Puntuación",
     "enter_your_dictionnary": "Introduce la URL del diccionario",
-    "save": "Guardar"
+    "save": "Guardar",
+    "enter_timer_duration": "Introduce la duración del temporizador (en segundos):",
+    "success": "Éxito"
 }

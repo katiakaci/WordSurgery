@@ -21,5 +21,7 @@
     "word_found": "Palavra encontrada",
     "score": "Pontuação",
     "enter_your_dictionnary": "Insira a URL do dicionário",
-    "save": "Salvar"
+    "save": "Salvar",
+    "enter_timer_duration": "Insira a duração do cronômetro (em segundos):",
+    "success": "Sucesso"
 }

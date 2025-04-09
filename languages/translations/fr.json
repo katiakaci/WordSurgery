@@ -21,5 +21,7 @@
     "word_found": "Mot trouvé",
     "score": "Score",
     "enter_your_dictionnary": "Entrez l'URL du dictionnaire",
-    "save": "Valider"
+    "save": "Valider",
+    "enter_timer_duration": "Entrez la durée du timer (en secondes) :",
+    "success": "Succès"
 }
