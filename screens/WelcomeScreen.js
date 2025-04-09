@@ -25,17 +25,17 @@ function WelcomeScreen({ navigation, isMusicEnabled, setIsMusicEnabled }) {
       </TouchableOpacity>
 
       {/* Boutons en bas */}
-      <View style={styles.bottomButtonsContainer}>
+      {/* <View style={styles.bottomButtonsContainer}> */}
         {/* Bouton pour ouvrir la fenêtre modale des paramètres */}
         <TouchableOpacity onPress={() => setSettingsModalVisible(true)} style={styles.button}>
           <Ionicons name="settings" size={20} color="#fdb441" />
         </TouchableOpacity>
 
         {/* Bouton tutoriel */}
-        <TouchableOpacity onPress={() => navigation.navigate('Tutoriel')} style={styles.button}>
+        {/* <TouchableOpacity onPress={() => navigation.navigate('Tutoriel')} style={styles.button}>
           <Ionicons name="information-circle" size={20} color="#fdb441" />
-        </TouchableOpacity>
-      </View>
+        </TouchableOpacity> */}
+      {/* </View> */}
 
       {/* Fenêtre modale des paramètres */}
       <Settings
@@ -76,6 +76,8 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#fff',
+    bottom: -130,
+    left: 150,
     padding: 10,
     borderRadius: 30,
     shadowColor: '#000',
