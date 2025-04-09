@@ -308,7 +308,7 @@ const RandomWord = () => {
 
                     {insertionPosition !== null && (
                         <View style={{ position: 'absolute', top: '45%', left: '48%', zIndex: 5 }}>
-                            <Text style={{ fontSize: 30 }}>➡️</Text>
+                            <Text style={{ fontSize: 40, color: '#9be69d', fontWeight: 'bold' }}>→</Text>
                         </View>
                     )}
 
