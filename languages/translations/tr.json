@@ -27,5 +27,8 @@
     "timer_set": "Zamanlayıcı {{value}} saniye olarak ayarlandı.",
     "edit_timer": "Zamanlayıcıyı düzenle",
     "error": "Hata",
-    "enter_valid_number": "Lütfen 5'ten büyük geçerli bir sayı girin."
+    "enter_valid_number": "Lütfen 5'ten büyük geçerli bir sayı girin.",
+    "dictionary_saved": "Sözlük kaydedildi.",
+    "invalid_word_returned": "URL geçerli bir kelime döndürmüyor gibi görünüyor.",
+    "invalid_url": "Girdiğiniz URL geçerli değil."
 }

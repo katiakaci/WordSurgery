@@ -69,13 +69,13 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
 
             if (isValid) {
                 await AsyncStorage.setItem('@custom_dict_url_' + i18n.language, inputUrl);
-                Alert.alert('Succès', 'Le dictionnaire a été enregistré.');
+                Alert.alert(i18n.t('success'), i18n.t('dictionary_saved'));
                 setModalVisible(false);
             } else {
-                Alert.alert('Invalide', "L'URL ne semble pas retourner un mot valide.");
+                Alert.alert(i18n.t('error'), i18n.t('invalid_word_returned'));
             }
         } catch (e) {
-            Alert.alert('Erreur', "L'URL que vous avez fournie n'est pas valide.");
+            Alert.alert(i18n.t('error'), i18n.t('invalid_url'));
             console.log("Erreur validation URL dictionnaire :", e);
         }
     };

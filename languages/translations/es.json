@@ -27,5 +27,8 @@
     "timer_set": "El temporizador se ha establecido en {{value}} segundos.",
     "edit_timer": "Modificar el temporizador",
     "error": "Error",
-    "enter_valid_number": "Por favor, introduce un número válido mayor que 5."
+    "enter_valid_number": "Por favor, introduce un número válido mayor que 5.",
+    "dictionary_saved": "El diccionario ha sido guardado.",
+    "invalid_word_returned": "La URL no parece devolver una palabra válida.",
+    "invalid_url": "La URL que proporcionaste no es válida."
 }

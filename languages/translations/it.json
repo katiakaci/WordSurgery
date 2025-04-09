@@ -27,5 +27,8 @@
     "timer_set": "Il timer è stato impostato a {{value}} secondi.",
     "edit_timer": "Modifica il timer",
     "error": "Errore",
-    "enter_valid_number": "Inserisci un numero valido maggiore di 5."
+    "enter_valid_number": "Inserisci un numero valido maggiore di 5.",
+    "dictionary_saved": "Il dizionario è stato salvato.",
+    "invalid_word_returned": "L'URL non sembra restituire una parola valida.",
+    "invalid_url": "L'URL che hai fornito non è valida."
 }

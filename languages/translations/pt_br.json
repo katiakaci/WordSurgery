@@ -27,5 +27,8 @@
     "timer_set": "O temporizador foi definido para {{value}} segundos.",
     "edit_timer": "Editar o cronômetro",
     "error": "Erro",
-    "enter_valid_number": "Por favor, insira um número válido maior que 5."
+    "enter_valid_number": "Por favor, insira um número válido maior que 5.",
+    "dictionary_saved": "O dicionário foi salvo.",
+    "invalid_word_returned": "A URL não parece retornar uma palavra válida.",
+    "invalid_url": "A URL fornecida não é válida."
 }
