@@ -384,7 +384,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
         width: '100%',
-        gap: 50,
+        gap: 20,
     },
     column: {
         flexDirection: 'column',
