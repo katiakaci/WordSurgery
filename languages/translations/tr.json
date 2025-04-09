@@ -24,5 +24,6 @@
     "save": "Kaydet",
     "enter_timer_duration": "Zamanlayıcı süresini girin (saniye cinsinden):",
     "success": "Başarılı",
-    "timer_set": "Zamanlayıcı {{value}} saniye olarak ayarlandı."
+    "timer_set": "Zamanlayıcı {{value}} saniye olarak ayarlandı.",
+    "edit_timer": "Zamanlayıcıyı düzenle"
 }

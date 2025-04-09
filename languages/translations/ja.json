@@ -24,5 +24,6 @@
     "save": "保存",
     "enter_timer_duration": "タイマーの時間を入力してください（秒）:",
     "success": "成功",
-    "timer_set": "タイマーが{{value}}秒に設定されました。"
+    "timer_set": "タイマーが{{value}}秒に設定されました。",
+    "edit_timer": "タイマーを編集"
 }

@@ -24,5 +24,6 @@
     "save": "Salvar",
     "enter_timer_duration": "Insira a duração do cronômetro (em segundos):",
     "success": "Sucesso",
-    "timer_set": "O temporizador foi definido para {{value}} segundos."
+    "timer_set": "O temporizador foi definido para {{value}} segundos.",
+    "edit_timer": "Editar o cronômetro"
 }

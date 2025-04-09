@@ -24,5 +24,6 @@
     "save": "Guardar",
     "enter_timer_duration": "Introduce la duración del temporizador (en segundos):",
     "success": "Éxito",
-    "timer_set": "El temporizador se ha establecido en {{value}} segundos."
+    "timer_set": "El temporizador se ha establecido en {{value}} segundos.",
+    "edit_timer": "Modificar el temporizador"
 }

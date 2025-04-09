@@ -24,5 +24,6 @@
     "save": "Save",
     "enter_timer_duration": "Enter the timer duration (in seconds):",
     "success": "Success",
-    "timer_set": "The timer has been set to {{value}} seconds."
+    "timer_set": "The timer has been set to {{value}} seconds.",
+    "edit_timer": "Edit the timer"
 }

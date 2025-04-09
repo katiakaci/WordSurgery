@@ -107,7 +107,7 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                     {/* Modifier le timer */}
                     <TouchableOpacity style={styles.modalButton} onPress={() => setTimerModalVisible(true)}>
                         <Ionicons name="time" size={24} color="#fff" style={styles.icon} />
-                        <Text style={styles.modalButtonText}>Modifier le timer</Text>
+                        <Text style={styles.modalButtonText}>{i18n.t('edit_timer')}</Text>
                     </TouchableOpacity>
 
                     {/* Activer/désactiver le mode sombre */}
