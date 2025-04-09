@@ -34,5 +34,8 @@
     "word_found_title": "Wort gefunden",
     "word_valid": "{{word}} ist ein gültiges Wort.",
     "word_not_valid_title": "Ungültiges Wort",
-    "word_invalid": "{{word}} ist kein gültiges Wort."
+    "word_invalid": "{{word}} ist kein gültiges Wort.",
+    "word_too_short_title": "Wort zu kurz",
+    "word_too_short_message": "Bitte wähle mindestens 3 Buchstaben aus.",
+    "word_check_error_message": "Beim Überprüfen des Wortes ist ein Fehler aufgetreten."
 }

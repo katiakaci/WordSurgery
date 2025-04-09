@@ -34,5 +34,8 @@
     "word_found_title": "Kelime bulundu",
     "word_valid": "{{word}} geçerli bir kelimedir.",
     "word_not_valid_title": "Geçersiz kelime",
-    "word_invalid": "{{word}} geçerli bir kelime değil."
+    "word_invalid": "{{word}} geçerli bir kelime değil.",
+    "word_too_short_title": "Kelime çok kısa",
+    "word_too_short_message": "Lütfen en az 3 harf seçin.",
+    "word_check_error_message": "Kelimeyi kontrol ederken bir hata oluştu."
 }

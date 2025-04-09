@@ -34,5 +34,8 @@
     "word_found_title": "找到单词",
     "word_valid": "{{word}} 是一个有效的单词。",
     "word_not_valid_title": "无效的单词",
-    "word_invalid": "{{word}} 不是一个有效的单词。"
+    "word_invalid": "{{word}} 不是一个有效的单词。",
+    "word_too_short_title": "单词太短",
+    "word_too_short_message": "请选择至少三个字母。",
+    "word_check_error_message": "检查单词时发生错误。"
 }

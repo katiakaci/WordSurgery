@@ -34,5 +34,8 @@
     "word_found_title": "Parola trovata",
     "word_valid": "{{word}} è una parola valida.",
     "word_not_valid_title": "Parola non valida",
-    "word_invalid": "{{word}} non è una parola valida."
+    "word_invalid": "{{word}} non è una parola valida.",
+    "word_too_short_title": "Parola troppo corta",
+    "word_too_short_message": "Seleziona almeno 3 lettere.",
+    "word_check_error_message": "Si è verificato un errore durante il controllo della parola."
 }

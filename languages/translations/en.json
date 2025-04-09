@@ -34,5 +34,8 @@
     "word_found_title": "Word found",
     "word_valid": "{{word}} is a valid word.",
     "word_not_valid_title": "Invalid word",
-    "word_invalid": "{{word}} is not a valid word."
+    "word_invalid": "{{word}} is not a valid word.",
+    "word_too_short_title": "Word too short",
+    "word_too_short_message": "Please select at least 3 letters.",
+    "word_check_error_message": "An error occurred while checking the word."
 }
