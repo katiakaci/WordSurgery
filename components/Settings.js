@@ -13,6 +13,8 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
     const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
     const [modalVisible, setModalVisible] = useState(false);
     const [inputUrl, setInputUrl] = useState('');
+    const [timerModalVisible, setTimerModalVisible] = useState(false);
+    const [inputSeconds, setInputSeconds] = useState('');
 
     useEffect(() => {
         setSettingsModalVisible(isVisible);
@@ -100,6 +102,12 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                     <TouchableOpacity style={styles.modalButton} onPress={toggleMusic}>
                         <Ionicons name={isMusicEnabled ? "volume-high" : "volume-mute"} size={24} color="#fff" style={styles.icon} />
                         <Text style={styles.modalButtonText}>{isMusicEnabled ? i18n.t('disableMusic') : i18n.t('enableMusic')}</Text>
+                    </TouchableOpacity>
+
+                    {/* Modifier le timer */}
+                    <TouchableOpacity style={styles.modalButton} onPress={() => setTimerModalVisible(true)}>
+                        <Ionicons name="time" size={24} color="#fff" style={styles.icon} />
+                        <Text style={styles.modalButtonText}>Modifier le timer</Text>
                     </TouchableOpacity>
 
                     {/* Activer/désactiver le mode sombre */}
@@ -256,6 +264,45 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                                 <Text style={styles.modalButtonText}>{i18n.t('save')}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => setModalVisible(false)} style={[styles.modalButton, { backgroundColor: '#ccc' }]}>
+                                <Text style={styles.modalButtonText}>{i18n.t('undo')}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </TouchableWithoutFeedback>
+            </Modal>
+
+            {/* Fenetre modale pour le timer */}
+            <Modal visible={timerModalVisible} transparent animationType="slide">
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000aa' }}>
+                        <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '80%' }}>
+                            <Text style={{ marginBottom: 10 }}>Entrez la durée du timer (en secondes) :</Text>
+                            <TextInput
+                                keyboardType="numeric"
+                                value={inputSeconds}
+                                onChangeText={setInputSeconds}
+                                placeholder="Ex: 120"
+                                style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 6, padding: 10, marginBottom: 10 }}
+                            />
+                            <TouchableOpacity
+                                onPress={async () => {
+                                    const value = parseInt(inputSeconds);
+                                    if (isNaN(value) || value <= 0) {
+                                        Alert.alert('Erreur', 'Veuillez entrer un nombre valide supérieur à 0.');
+                                        return;
+                                    }
+                                    await AsyncStorage.setItem('@game_timer_seconds', value.toString());
+                                    Alert.alert('Succès', `Le timer a été défini à ${value} secondes.`);
+                                    setTimerModalVisible(false);
+                                }}
+                                style={styles.modalButton}
+                            >
+                                <Text style={styles.modalButtonText}>{i18n.t('save')}</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => setTimerModalVisible(false)}
+                                style={[styles.modalButton, { backgroundColor: '#ccc' }]}
+                            >
                                 <Text style={styles.modalButtonText}>{i18n.t('undo')}</Text>
                             </TouchableOpacity>
                         </View>

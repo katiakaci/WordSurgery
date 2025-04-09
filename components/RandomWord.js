@@ -112,7 +112,6 @@ const RandomWord = () => {
 
     useEffect(() => {
         fetchRandomWords();
-        // timerRef.current = startTimer();
 
         return () => clearInterval(timerRef.current);
     }, [language]);
@@ -120,7 +119,9 @@ const RandomWord = () => {
     useFocusEffect(
         useCallback(() => {
             // Quand on entre dans la page
-            timerRef.current = startTimer();
+            loadTimerSetting().then(() => {
+                timerRef.current = startTimer();
+            });
 
             return () => {
                 // Quand on quitte la page
@@ -265,13 +266,19 @@ const RandomWord = () => {
         return timer;
     };
 
-    const newGame = () => {
+    const newGame = async () => {
         clearInterval(timerRef.current); // stop ancien timer
         setScore(0);
-        setTimeLeft(120); // Reset timer
+        await loadTimerSetting();        // attends que le timer soit mis à jour
         fetchRandomWords();
-        timerRef.current = startTimer(); // Relancer timer
-        setValidatedWords([]); // reset l'historique des mots trouvés
+        timerRef.current = startTimer(); // démarrer avec le bon timeLeft
+        setValidatedWords([]);          // reset mots trouvés
+    };
+
+    const loadTimerSetting = async () => {
+        const value = await AsyncStorage.getItem('@game_timer_seconds');
+        const seconds = parseInt(value);
+        setTimeLeft(!isNaN(seconds) && seconds > 0 ? seconds : 120);
     };
 
     const getLetterBoxSize = () => {
@@ -308,7 +315,7 @@ const RandomWord = () => {
                 <TouchableOpacity onPress={() => {
                     navigation.navigate("Accueil");
                     clearInterval(timerRef.current);
-                    setTimeLeft(120);
+                    loadTimerSetting()
                 }}>
                     <Ionicons name="chevron-back" size={28} color="black" />
                 </TouchableOpacity>
