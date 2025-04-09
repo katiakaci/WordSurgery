@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import i18n from '../languages/i18n';
 import LottieView from 'lottie-react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const RandomWord = () => {
@@ -112,10 +112,22 @@ const RandomWord = () => {
 
     useEffect(() => {
         fetchRandomWords();
-        timerRef.current = startTimer();
+        // timerRef.current = startTimer();
 
         return () => clearInterval(timerRef.current);
     }, [language]);
+
+    useFocusEffect(
+        useCallback(() => {
+            // Quand on entre dans la page
+            timerRef.current = startTimer();
+
+            return () => {
+                // Quand on quitte la page
+                clearInterval(timerRef.current);
+            };
+        }, [])
+    );
 
     const selectLettersFirstWord = (index) => {
         setSelectedIndices((prev) => {
