@@ -260,24 +260,32 @@ const RandomWord = () => {
             <View style={styles.topBar}>
                 <TouchableOpacity onPress={() => {
                     navigation.navigate("Accueil");
-                    clearInterval(timerRef.current); // stop ancien timer0
-                    setTimeLeft(120); // Reset timer
+                    clearInterval(timerRef.current);
+                    setTimeLeft(120);
                 }}>
                     <Ionicons name="chevron-back" size={28} color="black" />
                 </TouchableOpacity>
-                <Text style={styles.scoreLabel}>{i18n.t('score')}</Text>
-                <Text style={styles.scoreText}>{score}</Text>
-                <TouchableOpacity onPress={undoLastAction}>
-                    <Ionicons name="arrow-undo" size={28} color="black" />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={newGame}>
-                    <Ionicons name="refresh" size={28} color="black" />
-                </TouchableOpacity>
+
+                <View style={styles.centerTop}>
+                    <Text style={styles.scoreLabel}>{i18n.t('score')}</Text>
+                    <Text style={styles.scoreText}>{score}</Text>
+                </View>
+
+                <View style={styles.rightTop}>
+                    <View style={styles.timerWrapper}>
+                        <Text style={styles.timerText}>{timeLeft}</Text>
+                    </View>
+
+                    <TouchableOpacity onPress={undoLastAction}>
+                        <Ionicons name="arrow-undo" size={28} color="black" />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={newGame}>
+                        <Ionicons name="refresh" size={28} color="black" />
+                    </TouchableOpacity>
+                </View>
             </View>
 
-            <View style={styles.timerContainer}>
-                <Text style={styles.timerText}>{timeLeft}</Text>
-            </View>
 
             {loading ? (
                 // loading animation
@@ -304,7 +312,7 @@ const RandomWord = () => {
                             const interleaved = [];
 
                             for (let i = 0; i <= letters.length; i++) {
-                                // Intercalaire cliquable
+                                // espace entre les lettres cliquable
                                 interleaved.push(
                                     <TouchableOpacity
                                         key={`gap-${i}`}
@@ -356,6 +364,11 @@ const RandomWord = () => {
 };
 
 const styles = StyleSheet.create({
+    rightTop: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 20,
+    },
     container: {
         flex: 1,
         backgroundColor: 'white',
@@ -443,7 +456,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         width: '100%',
-        paddingHorizontal: 20,
+        paddingHorizontal: 16,
         paddingVertical: 10,
         marginTop: 40,
         zIndex: 10,
@@ -459,14 +472,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'black',
     },
-    timerContainer: {
-        position: 'absolute',
-        top: 100,
-        alignSelf: 'center',
-        zIndex: 11,
-    },
     timerText: {
-        fontSize: 30,
+        fontSize: 23,
         fontWeight: 'bold',
         color: 'red',
     },
@@ -478,6 +485,16 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         backgroundColor: '#f0f0f0',
         borderRadius: 4,
+    },
+    centerTop: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+    },
+    timerWrapper: {
+        width: 40,
+        alignItems: 'center',
+        marginRight: 8
     },
 });
 
