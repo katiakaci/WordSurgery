@@ -17,6 +17,7 @@ const RandomWord = () => {
     const [timeLeft, setTimeLeft] = useState(120); // 2 minutes
     const [scoreHistory, setScoreHistory] = useState([0]);
     const [validatedWords, setValidatedWords] = useState([]);
+    const [insertionPosition, setInsertionPosition] = useState(null);
 
     const navigation = useNavigation();
     const timerRef = useRef(null);
@@ -96,7 +97,8 @@ const RandomWord = () => {
 
     const insertLetters = (position) => {
         if (selectedIndices.length === 0) return;
-
+        setInsertionPosition(position);
+        setTimeout(() => setInsertionPosition(null), 1500); // flèche disparaît après 1.5s
         const firstWord = words[0]?.split('');
         const secondWord = words[1]?.split('');
 
@@ -303,6 +305,12 @@ const RandomWord = () => {
                             </TouchableOpacity>
                         ))}
                     </ScrollView>
+
+                    {insertionPosition !== null && (
+                        <View style={{ position: 'absolute', top: '45%', left: '48%', zIndex: 5 }}>
+                            <Text style={{ fontSize: 30 }}>➡️</Text>
+                        </View>
+                    )}
 
                     {/* Deuxième mot (colonne droite) */}
                     <ScrollView style={{ maxHeight: '80%' }} contentContainerStyle={styles.column} showsVerticalScrollIndicator={false}>
