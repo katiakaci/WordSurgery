@@ -32,6 +32,13 @@ const RandomWord = () => {
                 const data = await response.json();
                 setWords(data);
             }
+            else if (currentLanguage === 'fr') { // Anglais
+                let apiUrl = 'https://trouve-mot.fr/api/random/2';
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                const mots = data.map(item => item.name);
+                setWords(mots);
+            }
             else if (currentLanguage === 'it' || currentLanguage === 'pt_br') { // Italien et portugais brézilien
                 const apiLanguage = currentLanguage === "pt_br" ? "pt-br" : currentLanguage;
                 let apiUrl = `https://random-word-api.herokuapp.com/word?lang=${apiLanguage}&number=2`
@@ -41,8 +48,8 @@ const RandomWord = () => {
             }
             else {
                 let apiUrl = "https://random-words-api.vercel.app/word"; // Anglais
-                if (currentLanguage === 'fr') apiUrl += "/french"
-                else if (currentLanguage === 'es') apiUrl += "/spanish"
+                // if (currentLanguage === 'fr') apiUrl += "/french"
+                if (currentLanguage === 'es') apiUrl += "/spanish"
                 else if (currentLanguage === 'de') apiUrl += "/dutch"
                 else if (currentLanguage === 'zh') apiUrl += "/chinese"
                 else if (currentLanguage === 'ja') apiUrl += "/japanese"
