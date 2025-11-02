@@ -12,8 +12,24 @@ function WelcomeScreen({ navigation, isMusicEnabled, setIsMusicEnabled }) {
     <View style={styles.container}>
 
       {/* Animation bulles background */}
-      <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation} />
-      <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation2} />
+      <LottieView 
+        source={require('../assets/animation/HomePage.json')} 
+        autoPlay loop 
+        style={styles.animation}
+        speed={1}
+      />
+      <LottieView 
+        source={require('../assets/animation/HomePage.json')} 
+        autoPlay loop 
+        style={styles.animation3}
+        speed={1}
+      />
+      <LottieView 
+        source={require('../assets/animation/HomePage.json')} 
+        autoPlay loop 
+        style={styles.animation2}
+        speed={0.8}
+      />
 
       {/* Titre et logo */}
       <Image source={require('../assets/icon.png')} style={styles.image} />
@@ -86,18 +102,27 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   animation: {
-    width: '100%',
-    height: '100%',
+    width: '150%',
+    height: '150%',
     position: 'absolute',
-    top: -45,
-    left: 0,
+    top: -100,
+    left: -45,
   },
   animation2: {
-    width: '100%',
-    height: '100%',
+    width: '150%',
+    height: '150%',
     position: 'absolute',
-    top: 0,
-    left: -110,
+    top: -100,
+    right: -110,
+    transform: [{ rotate: '180deg' }],
+  },
+    animation3: {
+    width: '150%',
+    height: '150%',
+    position: 'absolute',
+    top: -100,
+    right: -110,
+    transform: [{ rotate: '100deg' }],
   },
 });
 
