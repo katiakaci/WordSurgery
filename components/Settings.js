@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal, TextInput, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Modal, TextInput, Alert, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
 import i18n from '../languages/i18n';
 import { useColorScheme, Share, Linking } from 'react-native';
@@ -93,10 +93,10 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                     </TouchableOpacity>
 
                     {/* Changer le dictionnaire */}
-                    <TouchableOpacity style={styles.modalButton} onPress={changeDictionnary}>
+                    {/* <TouchableOpacity style={styles.modalButton} onPress={changeDictionnary}>
                         <Ionicons name="book" size={24} color="#fff" style={styles.icon} />
                         <Text style={styles.modalButtonText}>{i18n.t('dictionnary')}</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
                     {/* Activer/désactiver la musique */}
                     <TouchableOpacity style={styles.modalButton} onPress={toggleMusic}>
@@ -138,38 +138,39 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
             {/* Fenêtre modale de sélection de langue */}
             <Modal animationType="fade" transparent visible={languageModalVisible} onRequestClose={() => setLanguageModalVisible(false)}>
                 <View style={styles.modalBackground}>
-                    <View style={styles.modalContainer}>
+                    <View style={[styles.modalContainer, { maxHeight: '80%' }]}>
                         <Text style={styles.modalTitle}>{i18n.t('language')}</Text>
 
-                        {/* Francais */}
-                        <TouchableOpacity
-                            style={[styles.modalButton, currentLanguage === 'fr' && { backgroundColor: '#9be69d' }]}
-                            onPress={() => changeLanguage('fr')}
-                        >
-                            <Flag code="FR" style={styles.flagIcon} />
-                            <Text style={styles.modalButtonText}>Français</Text>
-                        </TouchableOpacity>
+                        <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false}>
+                            {/* Francais */}
+                            <TouchableOpacity
+                                style={[styles.modalButton, currentLanguage === 'fr' && { backgroundColor: '#9be69d' }]}
+                                onPress={() => changeLanguage('fr')}
+                            >
+                                <Flag code="FR" style={styles.flagIcon} />
+                                <Text style={styles.modalButtonText}>Français</Text>
+                            </TouchableOpacity>
 
-                        {/* Anglais */}
-                        <TouchableOpacity
-                            style={[styles.modalButton, currentLanguage === 'en' && { backgroundColor: '#9be69d' }]}
-                            onPress={() => changeLanguage('en')}
-                        >
-                            <Flag code="GB" style={styles.flagIcon} />
-                            <Text style={styles.modalButtonText}>English</Text>
-                        </TouchableOpacity>
+                            {/* Anglais */}
+                            <TouchableOpacity
+                                style={[styles.modalButton, currentLanguage === 'en' && { backgroundColor: '#9be69d' }]}
+                                onPress={() => changeLanguage('en')}
+                            >
+                                <Flag code="GB" style={styles.flagIcon} />
+                                <Text style={styles.modalButtonText}>English</Text>
+                            </TouchableOpacity>
 
-                        {/* Espagnol */}
-                        <TouchableOpacity
-                            style={[styles.modalButton, currentLanguage === 'es' && { backgroundColor: '#9be69d' }]}
-                            onPress={() => changeLanguage('es')}
-                        >
-                            <Flag code="ES" style={styles.flagIcon} />
-                            <Text style={styles.modalButtonText}>Español</Text>
-                        </TouchableOpacity>
+                            {/* Espagnol */}
+                            <TouchableOpacity
+                                style={[styles.modalButton, currentLanguage === 'es' && { backgroundColor: '#9be69d' }]}
+                                onPress={() => changeLanguage('es')}
+                            >
+                                <Flag code="ES" style={styles.flagIcon} />
+                                <Text style={styles.modalButtonText}>Español</Text>
+                            </TouchableOpacity>
 
-                        {/* Russe */}
-                        {/* <TouchableOpacity
+                            {/* Russe */}
+                            {/* <TouchableOpacity
                             style={[styles.modalButton, currentLanguage === 'ru' && { backgroundColor: '#9be69d' }]}
                             onPress={() => changeLanguage('ru')}
                         >
@@ -177,8 +178,8 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                             <Text style={styles.modalButtonText}>Русский</Text>
                         </TouchableOpacity> */}
 
-                        {/* Arabe */}
-                        {/* <TouchableOpacity
+                            {/* Arabe */}
+                            {/* <TouchableOpacity
                             style={[styles.modalButton, currentLanguage === 'ar' && { backgroundColor: '#9be69d' }]}
                             onPress={() => changeLanguage('ar')}
                         >
@@ -186,59 +187,60 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                             <Text style={styles.modalButtonText}>عربي</Text>
                         </TouchableOpacity> */}
 
-                        {/* Japonais */}
-                        <TouchableOpacity
-                            style={[styles.modalButton, currentLanguage === 'ja' && { backgroundColor: '#9be69d' }]}
-                            onPress={() => changeLanguage('ja')}
-                        >
-                            <Flag code="JP" style={styles.flagIcon} />
-                            <Text style={styles.modalButtonText}>日本語</Text>
-                        </TouchableOpacity>
+                            {/* Japonais */}
+                            <TouchableOpacity
+                                style={[styles.modalButton, currentLanguage === 'ja' && { backgroundColor: '#9be69d' }]}
+                                onPress={() => changeLanguage('ja')}
+                            >
+                                <Flag code="JP" style={styles.flagIcon} />
+                                <Text style={styles.modalButtonText}>日本語</Text>
+                            </TouchableOpacity>
 
-                        {/* Turc */}
-                        <TouchableOpacity
-                            style={[styles.modalButton, currentLanguage === 'tr' && { backgroundColor: '#9be69d' }]}
-                            onPress={() => changeLanguage('tr')}
-                        >
-                            <Flag code="TR" style={styles.flagIcon} />
-                            <Text style={styles.modalButtonText}>Türkçe</Text>
-                        </TouchableOpacity>
+                            {/* Turc */}
+                            <TouchableOpacity
+                                style={[styles.modalButton, currentLanguage === 'tr' && { backgroundColor: '#9be69d' }]}
+                                onPress={() => changeLanguage('tr')}
+                            >
+                                <Flag code="TR" style={styles.flagIcon} />
+                                <Text style={styles.modalButtonText}>Türkçe</Text>
+                            </TouchableOpacity>
 
-                        {/* Chinois */}
-                        <TouchableOpacity
-                            style={[styles.modalButton, currentLanguage === 'zh' && { backgroundColor: '#9be69d' }]}
-                            onPress={() => changeLanguage('zh')}
-                        >
-                            <Flag code="CN" style={styles.flagIcon} />
-                            <Text style={styles.modalButtonText}>中文</Text>
-                        </TouchableOpacity>
+                            {/* Chinois */}
+                            <TouchableOpacity
+                                style={[styles.modalButton, currentLanguage === 'zh' && { backgroundColor: '#9be69d' }]}
+                                onPress={() => changeLanguage('zh')}
+                            >
+                                <Flag code="CN" style={styles.flagIcon} />
+                                <Text style={styles.modalButtonText}>中文</Text>
+                            </TouchableOpacity>
 
-                        {/* Portugais brézilien */}
-                        <TouchableOpacity
-                            style={[styles.modalButton, currentLanguage === 'pt_br' && { backgroundColor: '#9be69d' }]}
-                            onPress={() => changeLanguage('pt_br')}
-                        >
-                            <Flag code="BR" style={styles.flagIcon} />
-                            <Text style={styles.modalButtonText}>Português</Text>
-                        </TouchableOpacity>
+                            {/* Portugais brézilien */}
+                            <TouchableOpacity
+                                style={[styles.modalButton, currentLanguage === 'pt_br' && { backgroundColor: '#9be69d' }]}
+                                onPress={() => changeLanguage('pt_br')}
+                            >
+                                <Flag code="BR" style={styles.flagIcon} />
+                                <Text style={styles.modalButtonText}>Português</Text>
+                            </TouchableOpacity>
 
-                        {/* Italien */}
-                        <TouchableOpacity
-                            style={[styles.modalButton, currentLanguage === 'it' && { backgroundColor: '#9be69d' }]}
-                            onPress={() => changeLanguage('it')}
-                        >
-                            <Flag code="IT" style={styles.flagIcon} />
-                            <Text style={styles.modalButtonText}>Italiano</Text>
-                        </TouchableOpacity>
+                            {/* Italien */}
+                            <TouchableOpacity
+                                style={[styles.modalButton, currentLanguage === 'it' && { backgroundColor: '#9be69d' }]}
+                                onPress={() => changeLanguage('it')}
+                            >
+                                <Flag code="IT" style={styles.flagIcon} />
+                                <Text style={styles.modalButtonText}>Italiano</Text>
+                            </TouchableOpacity>
 
-                        {/* Allemand */}
-                        <TouchableOpacity
-                            style={[styles.modalButton, currentLanguage === 'de' && { backgroundColor: '#9be69d' }]}
-                            onPress={() => changeLanguage('de')}
-                        >
-                            <Flag code="DE" style={styles.flagIcon} />
-                            <Text style={styles.modalButtonText}>Deutsch</Text>
-                        </TouchableOpacity>
+                            {/* Allemand */}
+                            <TouchableOpacity
+                                style={[styles.modalButton, currentLanguage === 'de' && { backgroundColor: '#9be69d' }]}
+                                onPress={() => changeLanguage('de')}
+                            >
+                                <Flag code="DE" style={styles.flagIcon} />
+                                <Text style={styles.modalButtonText}>Deutsch</Text>
+                            </TouchableOpacity>
+                        </ScrollView>
 
                         {/* Bouton de fermeture */}
                         <TouchableOpacity onPress={() => setLanguageModalVisible(false)} style={styles.closeButton}>
