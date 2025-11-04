@@ -37,5 +37,16 @@
     "word_invalid": "{{word}} 不是一个有效的单词。",
     "word_too_short_title": "单词太短",
     "word_too_short_message": "请选择至少三个字母。",
-    "word_check_error_message": "检查单词时发生错误。"
+    "word_check_error_message": "检查单词时发生错误。",
+    "tutorial_title": "如何游戏？",
+    "tutorial_step1_title": "选择字母",
+    "tutorial_step1_desc": "触摸第一个单词的字母来选择它们。字母必须是连续的。",
+    "tutorial_step2_title": "插入第二个单词",
+    "tutorial_step2_desc": "点击第二个单词字母之间的空格来插入你的选择。",
+    "tutorial_step3_title": "验证单词",
+    "tutorial_step3_desc": "在第二个单词中选择连续的字母并验证形成的单词来得分！",
+    "tutorial_step4_title": "注意时间！",
+    "tutorial_step4_desc": "你有有限的时间来找到最多的单词并消除第二个单词的所有字母。祝你好运！",
+    "play": "开始游戏",
+    "step": "步骤"
 }

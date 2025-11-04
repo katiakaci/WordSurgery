@@ -37,5 +37,16 @@
     "word_invalid": "{{word}} is not a valid word.",
     "word_too_short_title": "Word too short",
     "word_too_short_message": "Please select at least 3 letters.",
-    "word_check_error_message": "An error occurred while checking the word."
+    "word_check_error_message": "An error occurred while checking the word.",
+    "tutorial_title": "How to play?",
+    "tutorial_step1_title": "Select letters",
+    "tutorial_step1_desc": "Touch the letters of the first word to select them. The letters must be consecutive.",
+    "tutorial_step2_title": "Insert into second word",
+    "tutorial_step2_desc": "Click on a space between the letters of the second word to insert your selection.",
+    "tutorial_step3_title": "Validate a word",
+    "tutorial_step3_desc": "Select consecutive letters in the second word and validate the formed word to score points!",
+    "tutorial_step4_title": "Watch the time!",
+    "tutorial_step4_desc": "You have a limited time to find the maximum number of words and eliminate all letters from the second word. Good luck!",
+    "play": "Play",
+    "step": "Step"
 }

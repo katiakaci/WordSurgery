@@ -37,5 +37,16 @@
     "word_invalid": "{{word}} ist kein gültiges Wort.",
     "word_too_short_title": "Wort zu kurz",
     "word_too_short_message": "Bitte wähle mindestens 3 Buchstaben aus.",
-    "word_check_error_message": "Beim Überprüfen des Wortes ist ein Fehler aufgetreten."
+    "word_check_error_message": "Beim Überprüfen des Wortes ist ein Fehler aufgetreten.",
+    "tutorial_title": "Wie spielt man?",
+    "tutorial_step1_title": "Buchstaben auswählen",
+    "tutorial_step1_desc": "Berühre die Buchstaben des ersten Wortes, um sie auszuwählen. Die Buchstaben müssen aufeinanderfolgend sein.",
+    "tutorial_step2_title": "In zweites Wort einfügen",
+    "tutorial_step2_desc": "Klicke auf einen Platz zwischen den Buchstaben des zweiten Wortes, um deine Auswahl einzufügen.",
+    "tutorial_step3_title": "Ein Wort validieren",
+    "tutorial_step3_desc": "Wähle aufeinanderfolgende Buchstaben im zweiten Wort aus und validiere das gebildete Wort, um Punkte zu erzielen!",
+    "tutorial_step4_title": "Achtung auf die Zeit!",
+    "tutorial_step4_desc": "Du hast begrenzte Zeit, um die maximale Anzahl von Wörtern zu finden und alle Buchstaben des zweiten Wortes zu eliminieren. Viel Glück!",
+    "play": "Spielen",
+    "step": "Schritt"
 }

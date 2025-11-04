@@ -37,5 +37,16 @@
     "word_invalid": "{{word}} no es una palabra válida.",
     "word_too_short_title": "Palabra demasiado corta",
     "word_too_short_message": "Selecciona al menos 3 letras.",
-    "word_check_error_message": "Se produjo un error al verificar la palabra."
+    "word_check_error_message": "Se produjo un error al verificar la palabra.",
+    "tutorial_title": "¿Cómo jugar?",
+    "tutorial_step1_title": "Seleccionar letras",
+    "tutorial_step1_desc": "Toca las letras de la primera palabra para seleccionarlas. Las letras deben ser consecutivas.",
+    "tutorial_step2_title": "Insertar en segunda palabra",
+    "tutorial_step2_desc": "Haz clic en un espacio entre las letras de la segunda palabra para insertar tu selección.",
+    "tutorial_step3_title": "Validar una palabra",
+    "tutorial_step3_desc": "Selecciona letras consecutivas en la segunda palabra y valida la palabra formada para anotar puntos!",
+    "tutorial_step4_title": "¡Atención al tiempo!",
+    "tutorial_step4_desc": "Tienes un tiempo limitado para encontrar el máximo número de palabras y eliminar todas las letras de la segunda palabra. ¡Buena suerte!",
+    "play": "Jugar",
+    "step": "Paso"
 }

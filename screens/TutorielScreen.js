@@ -18,29 +18,29 @@ function TutorielScreen() {
     {
       id: '1',
       icon: 'hand-left-outline',
-      title: 'Sélectionner des lettres',
-      description: 'Touche les lettres du premier mot pour les sélectionner. Les lettres doivent être consécutives.',
+      title: i18n.t('tutorial_step1_title'),
+      description: i18n.t('tutorial_step1_desc'),
       color: '#9be69d',
     },
     {
       id: '2',
       icon: 'arrow-forward-circle-outline',
-      title: 'Insérer dans le second mot',
-      description: 'Clique sur un espace entre les lettres du second mot pour y insérer ta sélection.',
+      title: i18n.t('tutorial_step2_title'),
+      description: i18n.t('tutorial_step2_desc'),
       color: '#ffe270',
     },
     {
       id: '3',
       icon: 'checkmark-circle-outline',
-      title: 'Valider un mot',
-      description: 'Sélectionne des lettres consécutives dans le second mot et valide le mot formé pour marquer des points !',
+      title: i18n.t('tutorial_step3_title'),
+      description: i18n.t('tutorial_step3_desc'),
       color: '#fd9468',
     },
     {
       id: '4',
       icon: 'time-outline',
-      title: 'Attention au temps !',
-      description: 'Tu as un temps limité pour trouver le maximum de mots et éliminer toutes les lettres du second mot. Bonne chance!',
+      title: i18n.t('tutorial_step4_title'),
+      description: i18n.t('tutorial_step4_desc'),
       color: '#fe73c5',
     },
   ];
@@ -96,7 +96,7 @@ function TutorielScreen() {
             <View style={styles.iconContainer}>
               <Ionicons name={item.icon} size={60} color="white" />
             </View>
-            <Text style={styles.stepNumber}>Étape {index + 1}</Text>
+            <Text style={styles.stepNumber}>{i18n.t('step')} {index + 1}</Text>
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.description}>{item.description}</Text>
           </LinearGradient>
@@ -120,8 +120,7 @@ function TutorielScreen() {
 
       {/* Titre en haut */}
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Comment jouer ?</Text>
-        {/* <Text style={styles.headerSubtitle}>Découvre les règles de WordSurgery</Text> */}
+        <Text style={styles.headerTitle}>{i18n.t('tutorial_title')}</Text>
       </View>
 
       {/* Carousel */}
@@ -185,7 +184,7 @@ function TutorielScreen() {
         >
           {currentPage === tutorialSteps.length - 1 ? (
             <>
-              <Text style={styles.nextButtonText}>Jouer</Text>
+              <Text style={styles.nextButtonText}>{i18n.t('play')}</Text>
               <Ionicons name="play" size={24} color="white" />
             </>
           ) : (
@@ -219,11 +218,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 5,
-  },
-  headerSubtitle: {
-    fontSize: 14,
-    color: '#666',
-    textAlign: 'center',
   },
   slide: {
     flex: 1,
