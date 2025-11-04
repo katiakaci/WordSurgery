@@ -1,64 +1,198 @@
-import React, { useState } from 'react';
-import { View, Text, StatusBar, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, Text, StatusBar, StyleSheet, FlatList, TouchableOpacity, Dimensions, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import LottieView from 'lottie-react-native';
 import i18n from '../languages/i18n';
+
+const { width } = Dimensions.get('window');
 
 function TutorielScreen() {
   const navigation = useNavigation();
   const [currentPage, setCurrentPage] = useState(0);
+  const flatListRef = useRef(null);
+  const scrollX = useRef(new Animated.Value(0)).current;
 
-  const images = [
-    require('../assets/tutoriel/instruction 1.png'),
-    require('../assets/tutoriel/instruction 2.png'),
-    require('../assets/tutoriel/instruction 3.png'),
-    require('../assets/tutoriel/instruction 4.png'),
-    require('../assets/tutoriel/instruction 5.png'),
-    require('../assets/tutoriel/instruction 6.png')
+  const tutorialSteps = [
+    {
+      id: '1',
+      icon: 'hand-left-outline',
+      title: 'Sélectionner des lettres',
+      description: 'Touche les lettres du premier mot pour les sélectionner. Les lettres doivent être consécutives.',
+      color: '#9be69d',
+    },
+    {
+      id: '2',
+      icon: 'arrow-forward-circle-outline',
+      title: 'Insérer dans le second mot',
+      description: 'Clique sur un espace entre les lettres du second mot pour y insérer ta sélection.',
+      color: '#ffe270',
+    },
+    {
+      id: '3',
+      icon: 'checkmark-circle-outline',
+      title: 'Valider un mot',
+      description: 'Sélectionne des lettres consécutives dans le second mot et valide le mot formé pour marquer des points !',
+      color: '#fd9468',
+    },
+    {
+      id: '4',
+      icon: 'time-outline',
+      title: 'Attention au temps !',
+      description: 'Tu as un temps limité pour trouver le maximum de mots et éliminer toutes les lettres du second mot. Bonne chance!',
+      color: '#fe73c5',
+    },
   ];
 
-  const onViewableItemsChanged = ({ viewableItems }) => {
-    const currentIndex = viewableItems[0]?.index || 0;
-    setCurrentPage(currentIndex);
+  const onViewableItemsChanged = useRef(({ viewableItems }) => {
+    if (viewableItems.length > 0) {
+      setCurrentPage(viewableItems[0].index || 0);
+    }
+  }).current;
+
+  const goToNextPage = () => {
+    if (currentPage < tutorialSteps.length - 1) {
+      flatListRef.current?.scrollToIndex({ index: currentPage + 1, animated: true });
+    } else {
+      navigation.navigate("Accueil");
+    }
+  };
+
+  const goToPrevPage = () => {
+    if (currentPage > 0) {
+      flatListRef.current?.scrollToIndex({ index: currentPage - 1, animated: true });
+    }
+  };
+
+  const renderItem = ({ item, index }) => {
+    const inputRange = [
+      (index - 1) * width,
+      index * width,
+      (index + 1) * width,
+    ];
+
+    const scale = scrollX.interpolate({
+      inputRange,
+      outputRange: [0.8, 1, 0.8],
+      extrapolate: 'clamp',
+    });
+
+    const opacity = scrollX.interpolate({
+      inputRange,
+      outputRange: [0.3, 1, 0.3],
+      extrapolate: 'clamp',
+    });
+
+    return (
+      <View style={[styles.slide, { width }]}>
+        <Animated.View style={[styles.card, { transform: [{ scale }], opacity }]}>
+          <LinearGradient
+            colors={[item.color, `${item.color}CC`]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.cardGradient}
+          >
+            <View style={styles.iconContainer}>
+              <Ionicons name={item.icon} size={60} color="white" />
+            </View>
+            <Text style={styles.stepNumber}>Étape {index + 1}</Text>
+            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.description}>{item.description}</Text>
+          </LinearGradient>
+        </Animated.View>
+      </View>
+    );
   };
 
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
+      <StatusBar barStyle="dark-content" />
 
-      <FlatList
-        data={images}
-        renderItem={({ item }) => (
-          <Image source={item} style={styles.image} />
-        )}
-        keyExtractor={(item, index) => index.toString()}
-        horizontal
-        pagingEnabled
-        onViewableItemsChanged={onViewableItemsChanged}
-        viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}
-        showsHorizontalScrollIndicator={false}
-        snapToAlignment="center"
+      {/* Animation de fond */}
+      <LottieView
+        source={require('../assets/animation/HomePage.json')}
+        autoPlay
+        loop
+        style={styles.backgroundAnimation}
+        speed={0.5}
       />
 
-      <View style={styles.dotsContainer}>
-        {images.map((_, index) => (
-          <View
-            key={index}
-            style={[
-              styles.dot,
-              { backgroundColor: currentPage === index ? '#ed9125' : 'gray' },
-            ]}
-          />
-        ))}
+      {/* Titre en haut */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Comment jouer ?</Text>
+        {/* <Text style={styles.headerSubtitle}>Découvre les règles de WordSurgery</Text> */}
       </View>
 
-      {currentPage === 5 && (
+      {/* Carousel */}
+      <Animated.FlatList
+        ref={flatListRef}
+        data={tutorialSteps}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+          { useNativeDriver: true }
+        )}
+        onViewableItemsChanged={onViewableItemsChanged}
+        viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}
+        scrollEventThrottle={16}
+      />
+
+      {/* Indicateurs de page (dots) */}
+      <View style={styles.dotsContainer}>
+        {tutorialSteps.map((_, index) => {
+          const isActive = index === currentPage;
+
+          return (
+            <View
+              key={index}
+              style={[
+                styles.dot,
+                {
+                  backgroundColor: isActive ? tutorialSteps[currentPage].color : '#D1D5DB',
+                  opacity: isActive ? 1 : 0.4,
+                },
+              ]}
+            />
+          );
+        })}
+      </View>
+
+      {/* Boutons de navigation */}
+      <View style={styles.navigationContainer}>
+        {currentPage > 0 && (
+          <TouchableOpacity
+            style={[styles.navButton, { backgroundColor: tutorialSteps[currentPage].color }]}
+            onPress={goToPrevPage}
+          >
+            <Ionicons name="chevron-back" size={24} color="white" />
+          </TouchableOpacity>
+        )}
+
+        <View style={{ flex: 1 }} />
+
         <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate("Accueil")}
+          style={[
+            styles.navButton,
+            currentPage === tutorialSteps.length - 1 ? styles.playButton : styles.nextButton,
+            { backgroundColor: tutorialSteps[currentPage].color }
+          ]}
+          onPress={goToNextPage}
         >
-          <Text style={styles.buttonText}>{i18n.t('play')}</Text>
+          {currentPage === tutorialSteps.length - 1 ? (
+            <>
+              <Text style={styles.nextButtonText}>Jouer</Text>
+              <Ionicons name="play" size={24} color="white" />
+            </>
+          ) : (
+            <Ionicons name="chevron-forward" size={24} color="white" />
+          )}
         </TouchableOpacity>
-      )}
+      </View>
     </View>
   );
 }
@@ -66,41 +200,134 @@ function TutorielScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#ffffff',
+  },
+  backgroundAnimation: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    opacity: 0.3,
+  },
+  header: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+  },
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 5,
+  },
+  headerSubtitle: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+  },
+  slide: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fefff1',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
-  image: {
-    width: 400,
+  card: {
+    width: width - 60,
     height: 400,
-    marginHorizontal: 0,
-    resizeMode: 'contain',
-    alignSelf: 'center',
+    borderRadius: 30,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.3,
+    shadowRadius: 20,
+    // elevation: 10,
+  },
+  cardGradient: {
+    flex: 1,
+    padding: 17,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconContainer: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  stepNumber: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: 'rgba(255, 255, 255, 0.9)',
+    marginBottom: 8,
+    textTransform: 'uppercase',
+    letterSpacing: 2,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
+    marginBottom: 15,
+  },
+  description: {
+    fontSize: 14,
+    color: 'rgba(255, 255, 255, 0.95)',
+    textAlign: 'center',
+    lineHeight: 20,
+    paddingHorizontal: 5,
   },
   dotsContainer: {
-    position: 'absolute',
-    bottom: 30,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingVertical: 15,
   },
   dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    margin: 5,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginHorizontal: 4,
   },
-  button: {
-    position: 'absolute',
-    top: 500,
-    padding: 10,
-    backgroundColor: '#e8663d',
-    borderRadius: 5,
+  navigationContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 30,
+    paddingBottom: 40,
   },
-  buttonText: {
-    color: '#fff',
+  navButton: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  nextButton: {
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    width: 56,
+    height: 56,
+  },
+  playButton: {
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    width: 'auto',
+    minWidth: 56,
+  },
+  nextButtonText: {
+    color: 'white',
     fontSize: 18,
-    textAlign: 'center',
+    fontWeight: 'bold',
+    marginRight: 8,
   },
 });
 
