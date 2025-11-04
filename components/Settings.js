@@ -43,8 +43,7 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
     const shareGame = async () => {
         try {
             await Share.share({
-                // TODO: Revenir ici après l'avoir mis sur les store
-                message: 'Découvrez WordSurgery, un jeu passionnant ! Téléchargez-le ici : https://example.com',
+                message: 'Découvrez WordSurgery, un jeu passionnant! Téléchargez-le ici : https://play.google.com/store/apps/details?id=com.katiakaci.WordSurgery.',
             });
         } catch (error) {
             console.error('Erreur lors du partage :', error);
@@ -52,8 +51,7 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
     };
 
     const rateApp = () => {
-        // TODO: Revenir ici après l'avoir mis sur les store
-        Linking.openURL('https://play.google.com/store/apps/details?id=com.example.wordSurgery');
+        Linking.openURL('https://play.google.com/store/apps/details?id=com.katiakaci.WordSurgery');
     };
 
     const validateAndSaveUrl = async () => {
