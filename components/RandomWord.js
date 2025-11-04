@@ -320,7 +320,7 @@ const RandomWord = () => {
             {/* Animations background */}
             <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation} />
             <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation2} />
-
+            <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation3} />
             {/* Barre supérieure fixe */}
             <View style={styles.topBar}>
                 <TouchableOpacity onPress={() => {
@@ -502,21 +502,27 @@ const styles = StyleSheet.create({
         top: 0,
     },
     animation: {
-        width: '100%',
-        height: '100%',
+        width: '150%',
+        height: '150%',
         position: 'absolute',
-        top: 0,
-        left: 0,
-        resizeMode: 'cover',
+        top: -100,
+        left: -45,
     },
     animation2: {
-        width: '100%',
-        height: '100%',
+        width: '150%',
+        height: '150%',
         position: 'absolute',
-        top: 0,
-        left: 0,
-        resizeMode: 'cover',
-        transform: 'scaleX(-1)',
+        top: -100,
+        right: -110,
+        transform: [{ rotate: '180deg' }],
+    },
+    animation3: {
+        width: '150%',
+        height: '150%',
+        position: 'absolute',
+        top: -100,
+        right: -110,
+        transform: [{ rotate: '100deg' }],
     },
     topBar: {
         flexDirection: 'row',
@@ -525,7 +531,7 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingHorizontal: 16,
         paddingVertical: 10,
-        marginTop: 40,
+        marginTop: 25,
         zIndex: 10,
         backgroundColor: 'white',
     },
