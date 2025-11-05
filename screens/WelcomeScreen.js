@@ -32,8 +32,7 @@ function WelcomeScreen({ navigation, isMusicEnabled, setIsMusicEnabled }) {
       />
 
       {/* Titre et logo */}
-      <Image source={require('../assets/icon.png')} style={styles.image} />
-      <Text style={styles.title}>WordSurgery</Text>
+      <Image source={require('../assets/Logo_WordSurgery.png')} style={styles.image} />
 
       {/* Bouton play */}
       <TouchableOpacity onPress={() => navigation.navigate('Game')}>
@@ -72,15 +71,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    marginTop: 5
+    width: 250,
+    height: 250,
+    marginTop: 50
   },
   bottomButtonsContainer: {
     position: 'absolute',
