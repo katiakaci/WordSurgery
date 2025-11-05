@@ -32,7 +32,7 @@ function WelcomeScreen({ navigation, isMusicEnabled, setIsMusicEnabled }) {
       />
 
       {/* Titre et logo */}
-      <Image source={require('../assets/Logo_WordSurgery.png')} style={styles.image} />
+      <Image source={require('../assets/Logo/Logo_WordSurgery.png')} style={styles.image} />
 
       {/* Bouton play */}
       <TouchableOpacity onPress={() => navigation.navigate('Game')}>
