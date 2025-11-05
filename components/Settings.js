@@ -54,29 +54,29 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
         Linking.openURL('https://play.google.com/store/apps/details?id=com.katiakaci.WordSurgery');
     };
 
-    const validateAndSaveUrl = async () => {
-        try {
-            const response = await fetch(inputUrl);
-            const data = await response.json();
+    // const validateAndSaveUrl = async () => {
+    //     try {
+    //         const response = await fetch(inputUrl);
+    //         const data = await response.json();
 
-            // On accepte aussi une réponse avec 1 seul mot
-            const isValid = (
-                (Array.isArray(data) && data.length >= 1 && typeof data[0] === 'string') ||
-                (typeof data === 'string') // au cas où certains renvoient juste "mot"
-            );
+    //         // On accepte aussi une réponse avec 1 seul mot
+    //         const isValid = (
+    //             (Array.isArray(data) && data.length >= 1 && typeof data[0] === 'string') ||
+    //             (typeof data === 'string') // au cas où certains renvoient juste "mot"
+    //         );
 
-            if (isValid) {
-                await AsyncStorage.setItem('@custom_dict_url_' + i18n.language, inputUrl);
-                Alert.alert(i18n.t('success'), i18n.t('dictionary_saved'));
-                setModalVisible(false);
-            } else {
-                Alert.alert(i18n.t('error'), i18n.t('invalid_word_returned'));
-            }
-        } catch (e) {
-            Alert.alert(i18n.t('error'), i18n.t('invalid_url'));
-            console.log("Erreur validation URL dictionnaire :", e);
-        }
-    };
+    //         if (isValid) {
+    //             await AsyncStorage.setItem('@custom_dict_url_' + i18n.language, inputUrl);
+    //             Alert.alert(i18n.t('success'), i18n.t('dictionary_saved'));
+    //             setModalVisible(false);
+    //         } else {
+    //             Alert.alert(i18n.t('error'), i18n.t('invalid_word_returned'));
+    //         }
+    //     } catch (e) {
+    //         Alert.alert(i18n.t('error'), i18n.t('invalid_url'));
+    //         console.log("Erreur validation URL dictionnaire :", e);
+    //     }
+    // };
 
     return (
         <Modal animationType="fade" transparent visible={settingsModalVisible} onRequestClose={onClose}>
@@ -249,7 +249,7 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
             </Modal>
 
             {/* Fenetre modale pour le dictionnaire */}
-            <Modal visible={modalVisible} transparent animationType="slide">
+            {/* <Modal visible={modalVisible} transparent animationType="slide">
                 <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000aa' }}>
                         <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '80%' }}>
@@ -269,7 +269,7 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
-            </Modal>
+            </Modal> */}
 
             {/* Fenetre modale pour le timer */}
             <Modal visible={timerModalVisible} transparent animationType="slide">

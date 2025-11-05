@@ -29,32 +29,32 @@ const RandomWord = () => {
     const timerRef = useRef(null);
 
     const fetchRandomWords = async () => {
-        const customUrl = await AsyncStorage.getItem('@custom_dict_url_' + currentLanguage);
+        // const customUrl = await AsyncStorage.getItem('@custom_dict_url_' + currentLanguage);
         const currentLanguage = i18n.language;
         setLoading(true);
 
-        if (customUrl) {
-            try {
-                const response1 = await fetch(customUrl);
-                const word1Data = await response1.json();
-                const word1 = Array.isArray(word1Data) ? word1Data[0] : word1Data;
+        // if (customUrl) {
+        //     try {
+        //         const response1 = await fetch(customUrl);
+        //         const word1Data = await response1.json();
+        //         const word1 = Array.isArray(word1Data) ? word1Data[0] : word1Data;
 
-                const response2 = await fetch(customUrl);
-                const word2Data = await response2.json();
-                const word2 = Array.isArray(word2Data) ? word2Data[0] : word2Data;
+        //         const response2 = await fetch(customUrl);
+        //         const word2Data = await response2.json();
+        //         const word2 = Array.isArray(word2Data) ? word2Data[0] : word2Data;
 
-                if (typeof word1 === 'string' && typeof word2 === 'string') {
-                    setWords([word1, word2]);
-                    setSelectedIndices([]);
-                    setValidWordIndices([]);
-                    setHasInserted(false);
-                    setLoading(false);
-                    return;
-                }
-            } catch (err) {
-                console.warn("Erreur avec l'URL personnalisée, fallback sur les APIs par défaut");
-            }
-        }
+        //         if (typeof word1 === 'string' && typeof word2 === 'string') {
+        //             setWords([word1, word2]);
+        //             setSelectedIndices([]);
+        //             setValidWordIndices([]);
+        //             setHasInserted(false);
+        //             setLoading(false);
+        //             return;
+        //         }
+        //     } catch (err) {
+        //         console.warn("Erreur avec l'URL personnalisée, fallback sur les APIs par défaut");
+        //     }
+        // }
 
         try {
             if (currentLanguage === 'en') { // Anglais
