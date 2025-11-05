@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Accès Testeurs - WordSurgery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            text-align: center;
+            padding: 40px;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 10px;
+            width: 260px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #00b894;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        p.footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Demande d’accès à WordSurgery</h1>
+    <p>
+        L’application est actuellement en test privé sur le Play Store.<br>
+        Entrez votre adresse Gmail ci-dessous pour être ajouté à la liste des testeurs :
+    </p>
+
+    <form action="https://formspree.io/f/xzzkvpdw" method="POST" style="margin-top: 20px;">
+        <input type="text" name="nom" placeholder="Nom complet (optionnel)"><br>
+        <input type="email" name="gmail" placeholder="Adresse Gmail (obligatoire)" required><br>
+        <br>
+        <textarea name="commentaire" placeholder="Commentaire (optionnel)" rows="3"></textarea><br>
+        <button type="submit">Envoyer</button>
+    </form>
+
+    <p class="footer">
+        🔒 Vos informations ne seront utilisées que pour la distribution privée sur le Play Store.
+    </p>
+</body>
+
+</html>
