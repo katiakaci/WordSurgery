@@ -1,29 +1,26 @@
 <div align="center">
-
+   
 #  WordSurgery
 
 <img src="./assets/Logo/white_logo.png" alt="WordSurgery Logo" width="200" style="border-radius: 16px; margin: 20px 0;">
 
-> An innovative multilingual word puzzle game built with React Native and Expo
+An innovative multilingual word puzzle game built with React Native and Expo
 
 </div>
 
-[![React Native](https://img.shields.io/badge/React%20Native-0.79.6-blue.svg)](https://reactnative.dev/)
-[![Expo](https://img.shields.io/badge/Expo-~53.0.23-black.svg)](https://expo.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-~5.8.3-blue.svg)](https://www.typescriptlang.org/)
 
-## 📱 About
+## About
 
 WordSurgery is an engaging word puzzle game where players manipulate letters between two words to form valid words and score points. With its intuitive interface and challenging gameplay, it offers hours of brain-teasing entertainment.
 
-### 🎮 How to Play
+### How to play 
 
 1. **Select letters** from the first word (must be consecutive)
 2. **Insert** your selection into spaces within the second word
 3. **Validate words** by selecting consecutive letters in the modified word
-4. **Beat the clock** to find maximum words and eliminate all letters!
+4. **Beat the clock** to find maximum words and eliminate all letters of the second word!
 
-## 📸 Preview
+## Preview
 
 | 🏠 Home | 🎮 Game |
 |:-----------:|:------:|
@@ -33,24 +30,18 @@ WordSurgery is an engaging word puzzle game where players manipulate letters bet
 |:-----------:|:------:|
 | <img src="./assets/Screenshots/settings.jpg" width="200" style="border-radius: 8px;"> | <img src="./assets/Screenshots/tutoriel.jpg" width="200" style="border-radius: 8px;"> |
 
-## ✨ Features
-
-- 🌍 **9 Languages Supported**: French, English, German, Spanish, Italian, Japanese, Portuguese, Turkish, Chinese
-- ⚙️ **Customizable Settings**: Adjustable timer, sound, language switching
-- 📱 **Cross-Platform**: Runs on both iOS and Android
-- 🎵 **Audio Support**: Background music and sound effects
-- 💾 **Local Storage**: Persistent settings and game state
-
-## 🚀 Getting Started
+## Getting started
 
 The app will be available on Google Play Store soon 🎉
+
 *(Currently pending approval on Play Console, so only accessible via private distribution list for now.)*
 
-### 🧪 Tester Access
+### Tester access
+
 Want to try the app before its official release?
 Enter your Gmail address here to be added to the testers list on Play Store: [Fill out the access form](https://katiakaci.github.io/WordSurgery/access.html)
 
-### 💻 Local Installation for Development
+### Local installation for development
 
 1. **Clone the repository**
    ```bash
@@ -84,27 +75,21 @@ Enter your Gmail address here to be added to the testers list on Play Store: [Fi
    npm run web
    ```
 
-## 🔮 Future Improvements
+## Future improvements
 
 Here are the features planned for upcoming versions:
 
-### 🎮 Gameplay
-- **Multiplayer Mode** - Challenge your friends in real-time
-- **New Game Modes** - Survival mode, timed mode, zen mode
-- **Level System** - Progression with increasing difficulty
-- **Achievements** - Unlock successes and rewards
+### Gameplay 🎮
+- **Multiplayer mode** : Challenge your friends in real-time
+- **Level system** : Progression with increasing difficulty
+- **Achievements** : Unlock successes and rewards
+- **Daily Match** : A special game available each day
 
-### 🌐 Social & Cloud
-- **Global Leaderboards** - Compare your scores with players worldwide
-- **Cloud Save** - Sync your progress across all devices
+### Social & Cloud 🌐
+- **Global leaderboards** : Compare your scores with players worldwide
+- **Cloud Save** : Sync your progress across all devices with Firebase
 
-### 📚 Content
+### Content 📚
 - **More Languages** - Arabic, Russian, Hindi and others
 - **Specialized Dictionaries** - Thematic, technical, regional
-- **Educational Mode** - Learn while playing
-
----
-
-<p align="center">
-  <i>Built with ❤️ using React Native and Expo</i>
-</p>
+  
