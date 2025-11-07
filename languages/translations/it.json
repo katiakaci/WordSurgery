@@ -38,7 +38,6 @@
     "word_too_short_title": "Parola troppo corta",
     "word_too_short_message": "Seleziona almeno 3 lettere.",
     "word_check_error_message": "Si è verificato un errore durante il controllo della parola.",
-    "tutorial_title": "Come si gioca?",
     "tutorial_step1_title": "Seleziona lettere",
     "tutorial_step1_desc": "Tocca le lettere della prima parola per selezionarle. Le lettere devono essere consecutive.",
     "tutorial_step2_title": "Inserisci nella seconda parola",

@@ -38,7 +38,6 @@
     "word_too_short_title": "Kelime çok kısa",
     "word_too_short_message": "Lütfen en az 3 harf seçin.",
     "word_check_error_message": "Kelimeyi kontrol ederken bir hata oluştu.",
-    "tutorial_title": "Nasıl oynanır?",
     "tutorial_step1_title": "Harfleri seç",
     "tutorial_step1_desc": "İlk kelimenin harflerine dokunarak seçin. Harfler ardışık olmalıdır.",
     "tutorial_step2_title": "İkinci kelimeye ekle",

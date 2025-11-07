@@ -38,7 +38,6 @@
     "word_too_short_title": "Mot trop court",
     "word_too_short_message": "Veuillez sélectionner au moins 3 lettres.",
     "word_check_error_message": "Une erreur est survenue lors de la vérification du mot.",
-    "tutorial_title": "Comment jouer ?",
     "tutorial_step1_title": "Sélectionner des lettres",
     "tutorial_step1_desc": "Touche les lettres du premier mot pour les sélectionner. Les lettres doivent être consécutives.",
     "tutorial_step2_title": "Insérer dans le second mot",

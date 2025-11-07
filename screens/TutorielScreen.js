@@ -118,11 +118,6 @@ function TutorielScreen() {
         speed={0.5}
       />
 
-      {/* Titre en haut */}
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>{i18n.t('tutorial_title')}</Text>
-      </View>
-
       {/* Carousel */}
       <Animated.FlatList
         ref={flatListRef}

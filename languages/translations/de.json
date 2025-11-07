@@ -38,7 +38,6 @@
     "word_too_short_title": "Wort zu kurz",
     "word_too_short_message": "Bitte wähle mindestens 3 Buchstaben aus.",
     "word_check_error_message": "Beim Überprüfen des Wortes ist ein Fehler aufgetreten.",
-    "tutorial_title": "Wie spielt man?",
     "tutorial_step1_title": "Buchstaben auswählen",
     "tutorial_step1_desc": "Berühre die Buchstaben des ersten Wortes, um sie auszuwählen. Die Buchstaben müssen aufeinanderfolgend sein.",
     "tutorial_step2_title": "In zweites Wort einfügen",

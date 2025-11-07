@@ -38,7 +38,6 @@
     "word_too_short_title": "単語が短すぎます",
     "word_too_short_message": "3文字以上選択してください。",
     "word_check_error_message": "単語の確認中にエラーが発生しました。",
-    "tutorial_title": "遊び方",
     "tutorial_step1_title": "文字を選択",
     "tutorial_step1_desc": "最初の単語の文字をタッチして選択します。文字は連続している必要があります。",
     "tutorial_step2_title": "2番目の単語に挿入",

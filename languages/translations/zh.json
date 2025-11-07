@@ -38,7 +38,6 @@
     "word_too_short_title": "单词太短",
     "word_too_short_message": "请选择至少三个字母。",
     "word_check_error_message": "检查单词时发生错误。",
-    "tutorial_title": "如何游戏？",
     "tutorial_step1_title": "选择字母",
     "tutorial_step1_desc": "触摸第一个单词的字母来选择它们。字母必须是连续的。",
     "tutorial_step2_title": "插入第二个单词",
