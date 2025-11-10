@@ -1,296 +1,89 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal, TextInput, Alert, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
-import { Ionicons } from 'react-native-vector-icons';
+import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import i18n from '../languages/i18n';
-import { useColorScheme, Share, Linking } from 'react-native';
-import Flag from 'react-native-flags';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSettings } from '../hooks/useSettings';
+import { shareGame, rateApp } from '../utils/appUtils';
+import SettingsButton from './SettingsButton';
+import LanguageModal from './LanguageModal';
+import TimerModal from './TimerModal';
 
 export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusicEnabled }) {
     const [settingsModalVisible, setSettingsModalVisible] = useState(isVisible);
     const [languageModalVisible, setLanguageModalVisible] = useState(false);
-    const [darkMode, setDarkMode] = useState(useColorScheme() === 'dark');
-    const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
-    const [modalVisible, setModalVisible] = useState(false);
     const [timerModalVisible, setTimerModalVisible] = useState(false);
-    const [inputSeconds, setInputSeconds] = useState('');
+
+    const { currentLanguage, changeLanguage, toggleMusic } = useSettings(setIsMusicEnabled);
 
     useEffect(() => {
         setSettingsModalVisible(isVisible);
     }, [isVisible]);
 
-    // Charger les paramètres au démarrage
-    useEffect(() => {
-        loadSettings();
-    }, []);
-
-    const loadSettings = async () => {
-        try {
-            // Charger la langue sauvegardée
-            const savedLanguage = await AsyncStorage.getItem('@app_language');
-            if (savedLanguage) {
-                i18n.changeLanguage(savedLanguage);
-                setCurrentLanguage(savedLanguage);
-            }
-
-            // Charger l'état de la musique
-            const savedMusicState = await AsyncStorage.getItem('@music_enabled');
-            if (savedMusicState !== null) {
-                setIsMusicEnabled(savedMusicState === 'true');
-            }
-        } catch (error) {
-            console.error('Erreur lors du chargement des paramètres:', error);
-        }
-    };
-
-    const changeLanguage = async (language) => {
-        try {
-            i18n.changeLanguage(language);
-            setCurrentLanguage(language);
-            await AsyncStorage.setItem('@app_language', language);
-        } catch (error) {
-            console.error('Erreur lors de la sauvegarde de la langue:', error);
-        }
-    };
-
-    const changeDictionnary = () => {
-        setModalVisible(true);
-        console.log('Changer dictionnaire');
-    };
-
-    const toggleMusic = async () => {
-        try {
-            const newMusicState = !isMusicEnabled;
-            setIsMusicEnabled(newMusicState);
-            await AsyncStorage.setItem('@music_enabled', newMusicState.toString());
-        } catch (error) {
-            console.error('Erreur lors de la sauvegarde de l\'état de la musique:', error);
-        }
-    };
-
-    const toggleDarkMode = () => {
-        // TODO
-        setDarkMode(!darkMode);
-        console.log(darkMode ? 'Mode clair activé' : 'Mode sombre activé');
-    };
-
-    const shareGame = async () => {
-        try {
-            await Share.share({
-                message: 'Découvrez WordSurgery, un jeu passionnant! Téléchargez-le ici : https://play.google.com/store/apps/details?id=com.katiakaci.WordSurgery.',
-            });
-        } catch (error) {
-            console.error('Erreur lors du partage :', error);
-        }
-    };
-
-    const rateApp = () => {
-        Linking.openURL('https://play.google.com/store/apps/details?id=com.katiakaci.WordSurgery');
+    const handleToggleMusic = () => {
+        toggleMusic(isMusicEnabled);
     };
 
     return (
-        <Modal animationType="fade" transparent visible={settingsModalVisible} onRequestClose={onClose}>
-            <View style={styles.modalBackground}>
-                <View style={styles.modalContainer}>
-                    <Text style={styles.modalTitle}>{i18n.t('settings')}</Text>
-
-                    {/* Changer la langue */}
-                    <TouchableOpacity style={styles.modalButton} onPress={() => setLanguageModalVisible(true)}>
-                        <Ionicons name="language" size={24} color="#fff" style={styles.icon} />
-                        <Text style={styles.modalButtonText}>{i18n.t('language')}</Text>
-                    </TouchableOpacity>
-
-                    {/* Activer/désactiver la musique */}
-                    <TouchableOpacity style={styles.modalButton} onPress={toggleMusic}>
-                        <Ionicons name={isMusicEnabled ? "volume-high" : "volume-mute"} size={24} color="#fff" style={styles.icon} />
-                        <Text style={styles.modalButtonText}>{isMusicEnabled ? i18n.t('disableMusic') : i18n.t('enableMusic')}</Text>
-                    </TouchableOpacity>
-
-                    {/* Modifier le timer */}
-                    <TouchableOpacity style={styles.modalButton} onPress={() => setTimerModalVisible(true)}>
-                        <Ionicons name="time" size={24} color="#fff" style={styles.icon} />
-                        <Text style={styles.modalButtonText}>{i18n.t('edit_timer')}</Text>
-                    </TouchableOpacity>
-
-                    {/* Activer/désactiver le mode sombre */}
-                    {/* <TouchableOpacity style={styles.modalButton} onPress={toggleDarkMode}>
-                        <Ionicons name={darkMode ? "moon" : "sunny"} size={24} color="#fff" style={styles.icon} />
-                        <Text style={styles.modalButtonText}>{darkMode ? i18n.t('disableDarkMode') : i18n.t('enableDarkMode')}</Text>
-                    </TouchableOpacity> */}
-
-                    {/* Partager le jeu */}
-                    <TouchableOpacity style={styles.modalButton} onPress={shareGame}>
-                        <Ionicons name="share-social" size={24} color="#fff" style={styles.icon} />
-                        <Text style={styles.modalButtonText}>{i18n.t('shareApp')}</Text>
-                    </TouchableOpacity>
-
-                    {/* Noter l'application */}
-                    <TouchableOpacity style={styles.modalButton} onPress={rateApp}>
-                        <Ionicons name="star" size={24} color="#fff" style={styles.icon} />
-                        <Text style={styles.modalButtonText}>{i18n.t('rateApp')}</Text>
-                    </TouchableOpacity>
-
-                    {/* Bouton de fermeture */}
-                    <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-                        <Ionicons name="close" size={30} color="#000" />
-                    </TouchableOpacity>
-                </View>
-            </View>
-
-            {/* Fenêtre modale de sélection de langue */}
-            <Modal animationType="fade" transparent visible={languageModalVisible} onRequestClose={() => setLanguageModalVisible(false)}>
+        <>
+            <Modal 
+                animationType="fade" 
+                transparent 
+                visible={settingsModalVisible} 
+                onRequestClose={onClose}
+            >
                 <View style={styles.modalBackground}>
-                    <View style={[styles.modalContainer, { maxHeight: '80%' }]}>
-                        <Text style={styles.modalTitle}>{i18n.t('language')}</Text>
+                    <View style={styles.modalContainer}>
+                        <Text style={styles.modalTitle}>{i18n.t('settings')}</Text>
 
-                        <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false}>
-                            {/* Francais */}
-                            <TouchableOpacity
-                                style={[styles.modalButton, currentLanguage === 'fr' && { backgroundColor: '#9be69d' }]}
-                                onPress={() => changeLanguage('fr')}
-                            >
-                                <Flag code="FR" style={styles.flagIcon} />
-                                <Text style={styles.modalButtonText}>Français</Text>
-                            </TouchableOpacity>
+                        <SettingsButton
+                            iconName="language"
+                            text={i18n.t('language')}
+                            onPress={() => setLanguageModalVisible(true)}
+                        />
 
-                            {/* Anglais */}
-                            <TouchableOpacity
-                                style={[styles.modalButton, currentLanguage === 'en' && { backgroundColor: '#9be69d' }]}
-                                onPress={() => changeLanguage('en')}
-                            >
-                                <Flag code="GB" style={styles.flagIcon} />
-                                <Text style={styles.modalButtonText}>English</Text>
-                            </TouchableOpacity>
+                        <SettingsButton
+                            iconName={isMusicEnabled ? "volume-high" : "volume-mute"}
+                            text={isMusicEnabled ? i18n.t('disableMusic') : i18n.t('enableMusic')}
+                            onPress={handleToggleMusic}
+                        />
 
-                            {/* Espagnol */}
-                            <TouchableOpacity
-                                style={[styles.modalButton, currentLanguage === 'es' && { backgroundColor: '#9be69d' }]}
-                                onPress={() => changeLanguage('es')}
-                            >
-                                <Flag code="ES" style={styles.flagIcon} />
-                                <Text style={styles.modalButtonText}>Español</Text>
-                            </TouchableOpacity>
+                        <SettingsButton
+                            iconName="time"
+                            text={i18n.t('edit_timer')}
+                            onPress={() => setTimerModalVisible(true)}
+                        />
 
-                            {/* Russe */}
-                            {/* <TouchableOpacity
-                            style={[styles.modalButton, currentLanguage === 'ru' && { backgroundColor: '#9be69d' }]}
-                            onPress={() => changeLanguage('ru')}
-                        >
-                            <Flag code="RU" style={styles.flagIcon} />
-                            <Text style={styles.modalButtonText}>Русский</Text>
-                        </TouchableOpacity> */}
+                        <SettingsButton
+                            iconName="share-social"
+                            text={i18n.t('shareApp')}
+                            onPress={shareGame}
+                        />
 
-                            {/* Arabe */}
-                            {/* <TouchableOpacity
-                            style={[styles.modalButton, currentLanguage === 'ar' && { backgroundColor: '#9be69d' }]}
-                            onPress={() => changeLanguage('ar')}
-                        >
-                            <Flag code="SA" style={styles.flagIcon} />
-                            <Text style={styles.modalButtonText}>عربي</Text>
-                        </TouchableOpacity> */}
+                        <SettingsButton
+                            iconName="star"
+                            text={i18n.t('rateApp')}
+                            onPress={rateApp}
+                        />
 
-                            {/* Japonais */}
-                            <TouchableOpacity
-                                style={[styles.modalButton, currentLanguage === 'ja' && { backgroundColor: '#9be69d' }]}
-                                onPress={() => changeLanguage('ja')}
-                            >
-                                <Flag code="JP" style={styles.flagIcon} />
-                                <Text style={styles.modalButtonText}>日本語</Text>
-                            </TouchableOpacity>
-
-                            {/* Turc */}
-                            <TouchableOpacity
-                                style={[styles.modalButton, currentLanguage === 'tr' && { backgroundColor: '#9be69d' }]}
-                                onPress={() => changeLanguage('tr')}
-                            >
-                                <Flag code="TR" style={styles.flagIcon} />
-                                <Text style={styles.modalButtonText}>Türkçe</Text>
-                            </TouchableOpacity>
-
-                            {/* Chinois */}
-                            <TouchableOpacity
-                                style={[styles.modalButton, currentLanguage === 'zh' && { backgroundColor: '#9be69d' }]}
-                                onPress={() => changeLanguage('zh')}
-                            >
-                                <Flag code="CN" style={styles.flagIcon} />
-                                <Text style={styles.modalButtonText}>中文</Text>
-                            </TouchableOpacity>
-
-                            {/* Portugais brézilien */}
-                            <TouchableOpacity
-                                style={[styles.modalButton, currentLanguage === 'pt_br' && { backgroundColor: '#9be69d' }]}
-                                onPress={() => changeLanguage('pt_br')}
-                            >
-                                <Flag code="BR" style={styles.flagIcon} />
-                                <Text style={styles.modalButtonText}>Português</Text>
-                            </TouchableOpacity>
-
-                            {/* Italien */}
-                            <TouchableOpacity
-                                style={[styles.modalButton, currentLanguage === 'it' && { backgroundColor: '#9be69d' }]}
-                                onPress={() => changeLanguage('it')}
-                            >
-                                <Flag code="IT" style={styles.flagIcon} />
-                                <Text style={styles.modalButtonText}>Italiano</Text>
-                            </TouchableOpacity>
-
-                            {/* Allemand */}
-                            <TouchableOpacity
-                                style={[styles.modalButton, currentLanguage === 'de' && { backgroundColor: '#9be69d' }]}
-                                onPress={() => changeLanguage('de')}
-                            >
-                                <Flag code="DE" style={styles.flagIcon} />
-                                <Text style={styles.modalButtonText}>Deutsch</Text>
-                            </TouchableOpacity>
-                        </ScrollView>
-
-                        {/* Bouton de fermeture */}
-                        <TouchableOpacity onPress={() => setLanguageModalVisible(false)} style={styles.closeButton}>
+                        <TouchableOpacity onPress={onClose} style={styles.closeButton}>
                             <Ionicons name="close" size={30} color="#000" />
                         </TouchableOpacity>
                     </View>
                 </View>
             </Modal>
 
-            {/* Fenetre modale pour le timer */}
-            <Modal visible={timerModalVisible} transparent animationType="slide">
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000aa' }}>
-                        <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '80%' }}>
-                            <Text style={{ marginBottom: 10 }}>{i18n.t('enter_timer_duration')}</Text>
-                            <TextInput
-                                keyboardType="numeric"
-                                value={inputSeconds}
-                                onChangeText={setInputSeconds}
-                                placeholder="Ex: 120"
-                                style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 6, padding: 10, marginBottom: 10 }}
-                            />
-                            <TouchableOpacity
-                                onPress={async () => {
-                                    const value = parseInt(inputSeconds);
-                                    if (isNaN(value) || value <= 5) {
-                                        Alert.alert(i18n.t('error'), i18n.t('enter_valid_number'));
-                                        return;
-                                    }
-                                    await AsyncStorage.setItem('@game_timer_seconds', value.toString());
-                                    Alert.alert(i18n.t('success'), i18n.t('timer_set', { value }));
-                                    setTimerModalVisible(false);
-                                }}
-                                style={styles.modalButton}
-                            >
-                                <Text style={styles.modalButtonText}>{i18n.t('save')}</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => setTimerModalVisible(false)}
-                                style={[styles.modalButton, { backgroundColor: '#ccc' }]}
-                            >
-                                <Text style={styles.modalButtonText}>{i18n.t('undo')}</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </TouchableWithoutFeedback>
-            </Modal>
-        </Modal>
+            <LanguageModal
+                visible={languageModalVisible}
+                onClose={() => setLanguageModalVisible(false)}
+                currentLanguage={currentLanguage}
+                onSelectLanguage={changeLanguage}
+            />
+
+            <TimerModal
+                visible={timerModalVisible}
+                onClose={() => setTimerModalVisible(false)}
+            />
+        </>
     );
 }
 
@@ -313,31 +106,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 15,
     },
-    modalButton: {
-        width: '100%',
-        padding: 15,
-        backgroundColor: '#fdb441',
-        borderRadius: 5,
-        alignItems: 'center',
-        marginVertical: 5,
-        flexDirection: 'row',
-    },
-    modalButtonText: {
-        color: '#fff',
-        fontSize: 18,
-        fontWeight: 'bold',
-        flex: 1,
-        textAlign: 'center',
-    },
     closeButton: {
         marginTop: 10,
-    },
-    icon: {
-        marginRight: 10,
-    },
-    flagIcon: {
-        width: 30,
-        height: 20,
-        marginRight: 10,
     },
 });
