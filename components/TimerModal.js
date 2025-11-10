@@ -26,6 +26,16 @@ const TimerModal = ({ visible, onClose }) => {
             });
             return;
         }
+        else if (value > 600) {
+            setAlertConfig({
+                visible: true,
+                title: i18n.t('error'),
+                message: i18n.t('timer_too_high'),
+                type: 'error',
+                buttons: [],
+            });
+            return;
+        }
         await AsyncStorage.setItem('@game_timer_seconds', value.toString());
         setAlertConfig({
             visible: true,

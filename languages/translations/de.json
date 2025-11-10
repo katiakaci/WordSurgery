@@ -28,6 +28,7 @@
     "edit_timer": "Timer bearbeiten",
     "error": "Fehler",
     "enter_valid_number": "Bitte geben Sie eine gültige Zahl größer als 5 ein.",
+    "timer_too_high": "Bitte geben Sie einen Wert kleiner als 600 Sekunden ein.",
     "dictionary_saved": "Das Wörterbuch wurde gespeichert.",
     "invalid_word_returned": "Die URL scheint kein gültiges Wort zurückzugeben.",
     "invalid_url": "Die angegebene URL ist ungültig.",

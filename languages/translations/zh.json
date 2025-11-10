@@ -28,6 +28,7 @@
     "edit_timer": "修改计时器",
     "error": "错误",
     "enter_valid_number": "请输入大于5的有效数字。",
+    "timer_too_high": "请输入小于600秒的值。",
     "dictionary_saved": "词典已保存。",
     "invalid_word_returned": "该网址似乎没有返回有效的单词。",
     "invalid_url": "您提供的链接无效。",

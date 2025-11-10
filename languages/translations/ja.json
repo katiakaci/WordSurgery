@@ -28,6 +28,7 @@
     "edit_timer": "タイマーを編集",
     "error": "エラー",
     "enter_valid_number": "5より大きい有効な数字を入力してください。",
+    "timer_too_high": "600秒未満の値を入力してください。",
     "dictionary_saved": "辞書が保存されました。",
     "invalid_word_returned": "URLが有効な単語を返していないようです。",
     "invalid_url": "入力されたURLは無効です。",

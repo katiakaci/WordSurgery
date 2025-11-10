@@ -28,6 +28,7 @@
     "edit_timer": "Modifier le timer",
     "error": "Erreur",
     "enter_valid_number": "Veuillez entrer un nombre valide supérieur à 5.",
+    "timer_too_high": "Veuillez entrer une valeur inférieure à 600 secondes.",
     "dictionary_saved": "Le dictionnaire a été enregistré.",
     "invalid_word_returned": "L'URL ne semble pas retourner un mot valide.",
     "invalid_url": "L'URL que vous avez fournie n'est pas valide.",

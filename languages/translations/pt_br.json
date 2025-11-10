@@ -28,6 +28,7 @@
     "edit_timer": "Editar o cronômetro",
     "error": "Erro",
     "enter_valid_number": "Por favor, insira um número válido maior que 5.",
+    "timer_too_high": "Por favor, insira um valor menor que 600 segundos.",
     "dictionary_saved": "O dicionário foi salvo.",
     "invalid_word_returned": "A URL não parece retornar uma palavra válida.",
     "invalid_url": "A URL fornecida não é válida.",

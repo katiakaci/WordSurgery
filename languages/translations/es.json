@@ -28,6 +28,7 @@
     "edit_timer": "Modificar el temporizador",
     "error": "Error",
     "enter_valid_number": "Por favor, introduce un número válido mayor que 5.",
+    "timer_too_high": "Por favor, introduce un valor inferior a 600 segundos.",
     "dictionary_saved": "El diccionario ha sido guardado.",
     "invalid_word_returned": "La URL no parece devolver una palabra válida.",
     "invalid_url": "La URL que proporcionaste no es válida.",
