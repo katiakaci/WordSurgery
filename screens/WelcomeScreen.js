@@ -12,24 +12,9 @@ function WelcomeScreen({ navigation, isMusicEnabled, setIsMusicEnabled }) {
     <View style={styles.container}>
 
       {/* Animation bulles background */}
-      <LottieView 
-        source={require('../assets/animation/HomePage.json')} 
-        autoPlay loop 
-        style={styles.animation}
-        speed={1}
-      />
-      <LottieView 
-        source={require('../assets/animation/HomePage.json')} 
-        autoPlay loop 
-        style={styles.animation3}
-        speed={1}
-      />
-      <LottieView 
-        source={require('../assets/animation/HomePage.json')} 
-        autoPlay loop 
-        style={styles.animation2}
-        speed={0.8}
-      />
+      <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation} speed={1} />
+      <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation2} speed={0.8} />
+      <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation3} />
 
       {/* Titre et logo */}
       <Image source={require('../assets/Logo/Logo_WordSurgery.png')} style={styles.image} />
@@ -109,13 +94,13 @@ const styles = StyleSheet.create({
     right: -110,
     transform: [{ rotate: '180deg' }],
   },
-    animation3: {
+  animation3: {
     width: '150%',
     height: '150%',
     position: 'absolute',
     top: -100,
     right: -110,
-    transform: [{ rotate: '100deg' }],
+    transform: [{ rotate: '80deg' }],
   },
 });
 
