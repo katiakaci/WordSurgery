@@ -19,9 +19,38 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
         setSettingsModalVisible(isVisible);
     }, [isVisible]);
 
-    const changeLanguage = (language) => {
-        i18n.changeLanguage(language);
-        setCurrentLanguage(language);
+    // Charger les paramètres au démarrage
+    useEffect(() => {
+        loadSettings();
+    }, []);
+
+    const loadSettings = async () => {
+        try {
+            // Charger la langue sauvegardée
+            const savedLanguage = await AsyncStorage.getItem('@app_language');
+            if (savedLanguage) {
+                i18n.changeLanguage(savedLanguage);
+                setCurrentLanguage(savedLanguage);
+            }
+
+            // Charger l'état de la musique
+            const savedMusicState = await AsyncStorage.getItem('@music_enabled');
+            if (savedMusicState !== null) {
+                setIsMusicEnabled(savedMusicState === 'true');
+            }
+        } catch (error) {
+            console.error('Erreur lors du chargement des paramètres:', error);
+        }
+    };
+
+    const changeLanguage = async (language) => {
+        try {
+            i18n.changeLanguage(language);
+            setCurrentLanguage(language);
+            await AsyncStorage.setItem('@app_language', language);
+        } catch (error) {
+            console.error('Erreur lors de la sauvegarde de la langue:', error);
+        }
     };
 
     const changeDictionnary = () => {
@@ -29,8 +58,14 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
         console.log('Changer dictionnaire');
     };
 
-    const toggleMusic = () => {
-        setIsMusicEnabled(!isMusicEnabled);
+    const toggleMusic = async () => {
+        try {
+            const newMusicState = !isMusicEnabled;
+            setIsMusicEnabled(newMusicState);
+            await AsyncStorage.setItem('@music_enabled', newMusicState.toString());
+        } catch (error) {
+            console.error('Erreur lors de la sauvegarde de l\'état de la musique:', error);
+        }
     };
 
     const toggleDarkMode = () => {
