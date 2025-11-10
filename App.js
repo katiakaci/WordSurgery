@@ -57,7 +57,7 @@ export default function App() {
       <View style={styles.container}>
         <LottieView source={require('./assets/animation/splash_screen.json')} autoPlay loop style={styles.animation} />
         <View style={styles.overlay}>
-          <Image source={require('./assets/icon.png')} style={styles.image} />
+          <Image source={require('./assets/Logo/Logo_WordSurgery.png')} style={styles.image} />
         </View>
       </View>
     );
