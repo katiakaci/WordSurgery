@@ -25,10 +25,10 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
 
     return (
         <>
-            <Modal 
-                animationType="fade" 
-                transparent 
-                visible={settingsModalVisible} 
+            <Modal
+                animationType="fade"
+                transparent
+                visible={settingsModalVisible}
                 onRequestClose={onClose}
             >
                 <View style={styles.modalBackground}>

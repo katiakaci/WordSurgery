@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     width: '150%',
     height: '150%',
     position: 'absolute',
-    top: -100,
+    top: -110,
     left: -45,
   },
   animation2: {
