@@ -12,7 +12,6 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
     const [darkMode, setDarkMode] = useState(useColorScheme() === 'dark');
     const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
     const [modalVisible, setModalVisible] = useState(false);
-    const [inputUrl, setInputUrl] = useState('');
     const [timerModalVisible, setTimerModalVisible] = useState(false);
     const [inputSeconds, setInputSeconds] = useState('');
 
@@ -54,30 +53,6 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
         Linking.openURL('https://play.google.com/store/apps/details?id=com.katiakaci.WordSurgery');
     };
 
-    // const validateAndSaveUrl = async () => {
-    //     try {
-    //         const response = await fetch(inputUrl);
-    //         const data = await response.json();
-
-    //         // On accepte aussi une réponse avec 1 seul mot
-    //         const isValid = (
-    //             (Array.isArray(data) && data.length >= 1 && typeof data[0] === 'string') ||
-    //             (typeof data === 'string') // au cas où certains renvoient juste "mot"
-    //         );
-
-    //         if (isValid) {
-    //             await AsyncStorage.setItem('@custom_dict_url_' + i18n.language, inputUrl);
-    //             Alert.alert(i18n.t('success'), i18n.t('dictionary_saved'));
-    //             setModalVisible(false);
-    //         } else {
-    //             Alert.alert(i18n.t('error'), i18n.t('invalid_word_returned'));
-    //         }
-    //     } catch (e) {
-    //         Alert.alert(i18n.t('error'), i18n.t('invalid_url'));
-    //         console.log("Erreur validation URL dictionnaire :", e);
-    //     }
-    // };
-
     return (
         <Modal animationType="fade" transparent visible={settingsModalVisible} onRequestClose={onClose}>
             <View style={styles.modalBackground}>
@@ -89,12 +64,6 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                         <Ionicons name="language" size={24} color="#fff" style={styles.icon} />
                         <Text style={styles.modalButtonText}>{i18n.t('language')}</Text>
                     </TouchableOpacity>
-
-                    {/* Changer le dictionnaire */}
-                    {/* <TouchableOpacity style={styles.modalButton} onPress={changeDictionnary}>
-                        <Ionicons name="book" size={24} color="#fff" style={styles.icon} />
-                        <Text style={styles.modalButtonText}>{i18n.t('dictionnary')}</Text>
-                    </TouchableOpacity> */}
 
                     {/* Activer/désactiver la musique */}
                     <TouchableOpacity style={styles.modalButton} onPress={toggleMusic}>
@@ -247,29 +216,6 @@ export default function Settings({ isVisible, onClose, isMusicEnabled, setIsMusi
                     </View>
                 </View>
             </Modal>
-
-            {/* Fenetre modale pour le dictionnaire */}
-            {/* <Modal visible={modalVisible} transparent animationType="slide">
-                <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000aa' }}>
-                        <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '80%' }}>
-                            <Text style={{ marginBottom: 10 }}>{i18n.t('enter_your_dictionnary')} ({i18n.language}) :</Text>
-                            <TextInput
-                                value={inputUrl}
-                                onChangeText={setInputUrl}
-                                placeholder="https://exemple.com/dict.json"
-                                style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 6, padding: 10, marginBottom: 10 }}
-                            />
-                            <TouchableOpacity onPress={validateAndSaveUrl} style={styles.modalButton}>
-                                <Text style={styles.modalButtonText}>{i18n.t('save')}</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => setModalVisible(false)} style={[styles.modalButton, { backgroundColor: '#ccc' }]}>
-                                <Text style={styles.modalButtonText}>{i18n.t('undo')}</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </TouchableWithoutFeedback>
-            </Modal> */}
 
             {/* Fenetre modale pour le timer */}
             <Modal visible={timerModalVisible} transparent animationType="slide">
