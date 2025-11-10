@@ -83,7 +83,6 @@ export default function App() {
           component={TutorielScreen}
           options={{
             headerStyle: {
-              backgroundColor: '#fefff1',
               elevation: 0,
               shadowOpacity: 0,
             },

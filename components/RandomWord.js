@@ -107,15 +107,7 @@ const RandomWord = () => {
     return (
         <View style={styles.container}>
             <BackgroundAnimations />
-
-            <TopBar
-                score={score}
-                timeLeft={timeLeft}
-                onBack={handleBack}
-                onUndo={undoLastAction}
-                onRefresh={handleNewGame}
-            />
-
+            <TopBar score={score} timeLeft={timeLeft} onBack={handleBack} onUndo={undoLastAction} onRefresh={handleNewGame} />
             {loading ? (
                 <LottieView
                     source={require('../assets/animation/loading.json')}

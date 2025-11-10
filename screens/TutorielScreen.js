@@ -109,14 +109,10 @@ function TutorielScreen() {
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
 
-      {/* Animation de fond */}
-      <LottieView
-        source={require('../assets/animation/HomePage.json')}
-        autoPlay
-        loop
-        style={styles.backgroundAnimation}
-        speed={0.5}
-      />
+      {/* Animation bulles background */}
+      <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation} speed={0.5} />
+      <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation2} speed={0.5} />
+      <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation3} speed={0.5} />
 
       {/* Carousel */}
       <Animated.FlatList
@@ -196,10 +192,30 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
   },
-  backgroundAnimation: {
+  animation: {
+    width: '150%',
+    height: '150%',
     position: 'absolute',
-    width: '100%',
-    height: '100%',
+    top: -110,
+    left: -45,
+    opacity: 0.3,
+  },
+  animation2: {
+    width: '150%',
+    height: '150%',
+    position: 'absolute',
+    top: -100,
+    right: -50,
+    transform: [{ rotate: '180deg' }],
+    opacity: 0.3,
+  },
+  animation3: {
+    width: '150%',
+    height: '150%',
+    position: 'absolute',
+    top: -100,
+    right: -110,
+    transform: [{ rotate: '80deg' }],
     opacity: 0.3,
   },
   header: {
@@ -220,6 +236,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 10,
+    paddingTop: 40,
   },
   card: {
     width: width - 60,
@@ -230,7 +247,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.3,
     shadowRadius: 20,
-    // elevation: 10,
   },
   cardGradient: {
     flex: 1,
