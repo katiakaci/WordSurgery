@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import i18n from '../languages/i18n';
 import LottieView from 'lottie-react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
@@ -10,9 +10,17 @@ import TopBar from './TopBar';
 import { FirstWordColumn, SecondWordColumn } from './WordColumn';
 import WordHistory from './WordHistory';
 import BackgroundAnimations from './BackgroundAnimations';
+import CustomAlert from './CustomAlert';
 
 const RandomWord = () => {
     const [loading, setLoading] = useState(false);
+    const [winAlertConfig, setWinAlertConfig] = useState({
+        visible: false,
+        title: '',
+        message: '',
+        type: 'info',
+        buttons: [],
+    });
     const navigation = useNavigation();
 
     const {
@@ -24,6 +32,8 @@ const RandomWord = () => {
         validatedWords,
         hasInserted,
         insertionPosition,
+        alertConfig: gameAlertConfig,
+        hideAlert: hideGameAlert,
         selectLettersFirstWord,
         insertLetters,
         selectLettersSecondWord,
@@ -42,6 +52,8 @@ const RandomWord = () => {
     const {
         timeLeft,
         timerRef,
+        alertConfig: timerAlertConfig,
+        hideAlert: hideTimerAlert,
         loadTimerSetting,
         startTimer,
         stopTimer,
@@ -72,9 +84,13 @@ const RandomWord = () => {
 
     useEffect(() => {
         if (!loading && words.length > 1 && words[1].length === 0) {
-            Alert.alert(i18n.t('you_won'), i18n.t('you_found_everything'), [
-                { text: i18n.t('new_game'), onPress: handleNewGame }
-            ]);
+            setWinAlertConfig({
+                visible: true,
+                title: i18n.t('you_won'),
+                message: i18n.t('you_found_everything'),
+                type: 'success',
+                buttons: [{ text: i18n.t('new_game'), onPress: handleNewGame }],
+            });
         }
     }, [words, loading, handleNewGame]);
 
@@ -137,6 +153,33 @@ const RandomWord = () => {
             <TouchableOpacity style={styles.checkButton} onPress={checkWord}>
                 <Text style={styles.buttonText}>{i18n.t('word_found')}</Text>
             </TouchableOpacity>
+
+            <CustomAlert
+                visible={gameAlertConfig.visible}
+                title={gameAlertConfig.title}
+                message={gameAlertConfig.message}
+                type={gameAlertConfig.type}
+                buttons={gameAlertConfig.buttons}
+                onClose={hideGameAlert}
+            />
+
+            <CustomAlert
+                visible={timerAlertConfig.visible}
+                title={timerAlertConfig.title}
+                message={timerAlertConfig.message}
+                type={timerAlertConfig.type}
+                buttons={timerAlertConfig.buttons}
+                onClose={hideTimerAlert}
+            />
+
+            <CustomAlert
+                visible={winAlertConfig.visible}
+                title={winAlertConfig.title}
+                message={winAlertConfig.message}
+                type={winAlertConfig.type}
+                buttons={winAlertConfig.buttons}
+                onClose={() => setWinAlertConfig(prev => ({ ...prev, visible: false }))}
+            />
         </View>
     );
 };

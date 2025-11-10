@@ -1,5 +1,4 @@
 import { useState, useCallback } from 'react';
-import { Alert } from 'react-native';
 import i18n from '../languages/i18n';
 import { getWordsForLanguage } from '../utils/wordUtils';
 
@@ -13,6 +12,13 @@ export const useWordGame = () => {
     const [validatedWords, setValidatedWords] = useState([]);
     const [hasInserted, setHasInserted] = useState(false);
     const [insertionPosition, setInsertionPosition] = useState(null);
+    const [alertConfig, setAlertConfig] = useState({
+        visible: false,
+        title: '',
+        message: '',
+        type: 'info',
+        buttons: [],
+    });
 
     const selectLettersFirstWord = useCallback((index) => {
         setSelectedIndices((prev) => {
@@ -70,17 +76,31 @@ export const useWordGame = () => {
         });
     }, [hasInserted]);
 
+    const showAlert = useCallback((title, message, type = 'info', buttons = []) => {
+        setAlertConfig({
+            visible: true,
+            title,
+            message,
+            type,
+            buttons,
+        });
+    }, []);
+
+    const hideAlert = useCallback(() => {
+        setAlertConfig(prev => ({ ...prev, visible: false }));
+    }, []);
+
     const checkWord = useCallback(() => {
         const secondWord = words[1];
         const selectedLetters = validWordIndices.map(i => secondWord[i]).join('');
 
         if (selectedLetters.length === 0) {
-            Alert.alert(i18n.t('no_selection_title'), i18n.t('no_selection_message'));
+            showAlert(i18n.t('no_selection_title'), i18n.t('no_selection_message'), 'warning');
             return;
         }
 
         if (selectedLetters.length < 3) {
-            Alert.alert(i18n.t('word_too_short_title'), i18n.t('word_too_short_message'));
+            showAlert(i18n.t('word_too_short_title'), i18n.t('word_too_short_message'), 'warning');
             return;
         }
 
@@ -88,7 +108,7 @@ export const useWordGame = () => {
         const isValid = wordList.includes(selectedLetters.toLowerCase());
 
         if (isValid) {
-            Alert.alert(i18n.t('word_found_title'), i18n.t('word_valid', { word: selectedLetters }));
+            showAlert(i18n.t('word_found_title'), i18n.t('word_valid', { word: selectedLetters }), 'success');
             const newScore = score + selectedLetters.length;
             setScore(newScore);
             setValidatedWords(prev => [...prev, selectedLetters]);
@@ -99,11 +119,11 @@ export const useWordGame = () => {
                 .join('');
             setWords([words[0], newSecondWord]);
         } else {
-            Alert.alert(i18n.t('word_not_valid_title'), i18n.t('word_invalid', { word: selectedLetters }));
+            showAlert(i18n.t('word_not_valid_title'), i18n.t('word_invalid', { word: selectedLetters }), 'error');
         }
 
         setValidWordIndices([]);
-    }, [words, validWordIndices, score]);
+    }, [words, validWordIndices, score, showAlert]);
 
     const undoLastAction = useCallback(() => {
         if (history.length === 0) return;
@@ -135,6 +155,8 @@ export const useWordGame = () => {
         validatedWords,
         hasInserted,
         insertionPosition,
+        alertConfig,
+        hideAlert,
         selectLettersFirstWord,
         insertLetters,
         selectLettersSecondWord,

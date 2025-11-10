@@ -1,21 +1,47 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal, TextInput, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Modal, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import i18n from '../languages/i18n';
+import CustomAlert from './CustomAlert';
 
 const TimerModal = ({ visible, onClose }) => {
     const [inputSeconds, setInputSeconds] = useState('');
+    const [alertConfig, setAlertConfig] = useState({
+        visible: false,
+        title: '',
+        message: '',
+        type: 'info',
+        buttons: [],
+    });
 
     const handleSave = async () => {
         const value = parseInt(inputSeconds);
         if (isNaN(value) || value <= 5) {
-            Alert.alert(i18n.t('error'), i18n.t('enter_valid_number'));
+            setAlertConfig({
+                visible: true,
+                title: i18n.t('error'),
+                message: i18n.t('enter_valid_number'),
+                type: 'error',
+                buttons: [],
+            });
             return;
         }
         await AsyncStorage.setItem('@game_timer_seconds', value.toString());
-        Alert.alert(i18n.t('success'), i18n.t('timer_set', { value }));
-        setInputSeconds('');
-        onClose();
+        setAlertConfig({
+            visible: true,
+            title: i18n.t('success'),
+            message: i18n.t('timer_set', { value }),
+            type: 'success',
+            buttons: [
+                {
+                    text: 'OK',
+                    onPress: () => {
+                        setInputSeconds('');
+                        onClose();
+                    }
+                }
+            ],
+        });
     };
 
     const handleClose = () => {
@@ -43,6 +69,15 @@ const TimerModal = ({ visible, onClose }) => {
                             <Text style={styles.buttonText}>{i18n.t('undo')}</Text>
                         </TouchableOpacity>
                     </View>
+
+                    <CustomAlert
+                        visible={alertConfig.visible}
+                        title={alertConfig.title}
+                        message={alertConfig.message}
+                        type={alertConfig.type}
+                        buttons={alertConfig.buttons}
+                        onClose={() => setAlertConfig(prev => ({ ...prev, visible: false }))}
+                    />
                 </View>
             </TouchableWithoutFeedback>
         </Modal>
