@@ -297,6 +297,7 @@ const RandomWord = () => {
             <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation} />
             <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation2} />
             <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation3} />
+
             {/* Barre supérieure fixe */}
             <View style={styles.topBar}>
                 <TouchableOpacity onPress={() => {
@@ -507,7 +508,6 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingHorizontal: 16,
         paddingVertical: 10,
-        marginTop: 25,
         zIndex: 10,
         backgroundColor: 'white',
     },
@@ -541,7 +541,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     timerWrapper: {
-        width: 40,
+        width: 45,
         alignItems: 'center',
         marginRight: 8
     },
