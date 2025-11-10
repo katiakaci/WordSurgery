@@ -37,7 +37,7 @@
     "word_invalid": "{{word}} no es una palabra válida.",
     "word_too_short_title": "Palabra demasiado corta",
     "word_too_short_message": "Selecciona al menos 3 letras.",
-    "word_check_error_message": "Se produjo un error al verificar la palabra.",,
+    "word_check_error_message": "Se produjo un error al verificar la palabra.",
     "tutorial_step1_title": "Seleccionar letras",
     "tutorial_step1_desc": "Toca las letras de la primera palabra para seleccionarlas. Las letras deben ser consecutivas.",
     "tutorial_step2_title": "Insertar en segunda palabra",
