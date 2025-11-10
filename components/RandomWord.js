@@ -185,6 +185,12 @@ const RandomWord = () => {
         const secondWord = words[1];
         const selectedLetters = validWordIndices.map(i => secondWord[i]).join('');
 
+        // Demander à l'utilisateur de sélectionner des lettres si aucune sélection
+        if (selectedLetters.length === 0) {
+            Alert.alert(i18n.t('no_selection_title'), i18n.t('no_selection_message'));
+            return;
+        }
+
         if (selectedLetters.length < 3) {
             Alert.alert(i18n.t('word_too_short_title'), i18n.t('word_too_short_message'));
             return;

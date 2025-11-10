@@ -37,6 +37,8 @@
     "word_invalid": "{{word}} is not a valid word.",
     "word_too_short_title": "Word too short",
     "word_too_short_message": "Please select at least 3 letters.",
+    "no_selection_title": "No selection",
+    "no_selection_message": "Please select letters in the second word.",
     "word_check_error_message": "An error occurred while checking the word.",
     "tutorial_step1_title": "Select letters",
     "tutorial_step1_desc": "Touch the letters of the first word to select them. The letters must be consecutive.",
