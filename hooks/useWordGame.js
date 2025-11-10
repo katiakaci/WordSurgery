@@ -108,7 +108,6 @@ export const useWordGame = () => {
         const isValid = wordList.includes(selectedLetters.toLowerCase());
 
         if (isValid) {
-            showAlert(i18n.t('word_found_title'), i18n.t('word_valid', { word: selectedLetters }), 'success');
             const newScore = score + selectedLetters.length;
             setScore(newScore);
             setValidatedWords(prev => [...prev, selectedLetters]);
@@ -118,6 +117,11 @@ export const useWordGame = () => {
                 .filter((_, i) => !validWordIndices.includes(i))
                 .join('');
             setWords([words[0], newSecondWord]);
+            
+            // N'afficher l'alerte que si le jeu n'est pas terminé (il reste des lettres)
+            if (newSecondWord.length > 0) {
+                showAlert(i18n.t('word_found_title'), i18n.t('word_valid', { word: selectedLetters }), 'success');
+            }
         } else {
             showAlert(i18n.t('word_not_valid_title'), i18n.t('word_invalid', { word: selectedLetters }), 'error');
         }
