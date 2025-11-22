@@ -4,6 +4,7 @@ import { getWordsForLanguage } from '../utils/wordUtils';
 
 export const useWordGame = () => {
     const [words, setWords] = useState([]);
+    const [originalWords, setOriginalWords] = useState([]);
     const [selectedIndices, setSelectedIndices] = useState([]);
     const [validWordIndices, setValidWordIndices] = useState([]);
     const [history, setHistory] = useState([]);
@@ -34,11 +35,21 @@ export const useWordGame = () => {
     const insertLetters = useCallback((position) => {
         if (selectedIndices.length === 0) return;
 
-        setInsertionPosition(position);
-        setTimeout(() => setInsertionPosition(null), 1500);
-
         const firstWord = words[0]?.split('');
         const secondWord = words[1]?.split('');
+
+        // Vérifier qu'on ne déplace pas TOUTES les lettres du premier mot (si aucune insertion n'a été faite)
+        if (!hasInserted && selectedIndices.length === firstWord.length) {
+            showAlert(
+                i18n.t('cannot_move_all_letters_title'),
+                i18n.t('cannot_move_all_letters_message'),
+                'warning'
+            );
+            return;
+        }
+
+        setInsertionPosition(position);
+        setTimeout(() => setInsertionPosition(null), 1500);
 
         const selectedLetters = selectedIndices.map(i => firstWord[i]);
         const newFirstWord = firstWord.filter((_, i) => !selectedIndices.includes(i));
@@ -104,6 +115,13 @@ export const useWordGame = () => {
             return;
         }
 
+        // Vérifier si c'est un des mots originaux
+        if (originalWords.some(word => word.toLowerCase() === selectedLetters.toLowerCase())) {
+            showAlert(i18n.t('original_word_title'), i18n.t('original_word_message'), 'warning');
+            setValidWordIndices([]);
+            return;
+        }
+
         const wordList = getWordsForLanguage(i18n.language);
         const isValid = wordList.includes(selectedLetters.toLowerCase());
 
@@ -148,11 +166,20 @@ export const useWordGame = () => {
         setSelectedIndices([]);
         setValidWordIndices([]);
         setHasInserted(false);
+        setOriginalWords([]);
     }, []);
+
+    const setWordsWithOriginal = useCallback((newWords) => {
+        setWords(newWords);
+        // Sauvegarder les mots originaux seulement lors de l'initialisation
+        if (originalWords.length === 0 && newWords.length > 0) {
+            setOriginalWords([...newWords]);
+        }
+    }, [originalWords]);
 
     return {
         words,
-        setWords,
+        setWords: setWordsWithOriginal,
         selectedIndices,
         validWordIndices,
         score,
