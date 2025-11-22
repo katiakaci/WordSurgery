@@ -13,9 +13,29 @@ const Stack = createStackNavigator();
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(true);
   const [sound, setSound] = useState();
-  const [isMusicEnabled, setIsMusicEnabled] = useState(true)
+  const [isMusicEnabled, setIsMusicEnabled] = useState(true);
+  const [settingsLoaded, setSettingsLoaded] = useState(false);
 
   useEffect(() => {
+    const loadMusicSettings = async () => {
+      try {
+        const AsyncStorage = require('@react-native-async-storage/async-storage').default;
+        const savedMusicState = await AsyncStorage.getItem('@music_enabled');
+        if (savedMusicState !== null) {
+          setIsMusicEnabled(savedMusicState === 'true');
+        }
+        setSettingsLoaded(true);
+      } catch (error) {
+        console.error('Erreur lors du chargement des paramètres:', error);
+        setSettingsLoaded(true);
+      }
+    };
+    loadMusicSettings();
+  }, []);
+
+  useEffect(() => {
+    if (!settingsLoaded) return;
+
     const loadSound = async () => {
       try {
         if (isMusicEnabled) {
@@ -44,7 +64,7 @@ export default function App() {
         sound.unloadAsync();
       }
     };
-  }, [isMusicEnabled]);
+  }, [isMusicEnabled, settingsLoaded]);
 
   useEffect(() => {
     setTimeout(() => {
