@@ -103,7 +103,7 @@ android {
             keyPassword 'android'
         }
         release {
-            storeFile file('../upload-keystore.jks')
+            storeFile file('keystore.jks')
             storePassword 'wordsurgery'
             keyAlias 'upload'
             keyPassword 'wordsurgery'
