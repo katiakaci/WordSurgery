@@ -1,43 +1,62 @@
 import frenchWords from '../assets/dictionaries/fr.json';
 import englishWords from '../assets/dictionaries/en.json';
 import spanishWords from '../assets/dictionaries/es.json';
-import italiensWords from '../assets/dictionaries/it.json';
-import deutchWords from '../assets/dictionaries/de.json';
+import italianWords from '../assets/dictionaries/it.json';
+import germanWords from '../assets/dictionaries/de.json';
+import turkishWords from '../assets/dictionaries/tr.json';
 
 export const getWordsForLanguage = (lang) => {
+    if (lang.startsWith('en')) return englishWords;
     if (lang.startsWith('fr')) return frenchWords;
-    else if (lang.startsWith('es')) return spanishWords;
-    else if (lang.startsWith('it')) return italiensWords;
-    else if (lang.startsWith('de')) return deutchWords;
+    if (lang.startsWith('es')) return spanishWords;
+    if (lang.startsWith('it')) return italianWords;
+    if (lang.startsWith('de')) return germanWords;
+    if (lang.startsWith('tr')) return turkishWords;
+
+    // Default fallback to English
     return englishWords;
 };
 
 export const fetchRandomWords = async (currentLanguage) => {
     try {
+        // English
         if (currentLanguage === 'en') {
             const response = await fetch('https://random-word-api.vercel.app/api?words=2');
             const data = await response.json();
             return data;
         }
-        else if (currentLanguage === 'fr') {
+
+        // French
+        if (currentLanguage === 'fr') {
             const response = await fetch('https://trouve-mot.fr/api/random/2');
             const data = await response.json();
             return data.map(item => item.name);
         }
-        else if (currentLanguage === 'it' || currentLanguage === 'pt_br') {
-            const apiLanguage = currentLanguage === "pt_br" ? "pt-br" : currentLanguage;
-            const response = await fetch(`https://random-word-api.herokuapp.com/word?lang=${apiLanguage}&number=2`);
+
+        // Italian
+        if (currentLanguage === 'it') {
+            const response = await fetch('https://random-word-api.herokuapp.com/word?lang=it&number=2');
             const data = await response.json();
             return data;
         }
-        else {
-            let apiUrl = "https://random-words-api.vercel.app/word";
-            if (currentLanguage === 'es') apiUrl += "/spanish";
-            else if (currentLanguage === 'de') apiUrl += "/dutch";
-            else if (currentLanguage === 'zh') apiUrl += "/chinese";
-            else if (currentLanguage === 'ja') apiUrl += "/japanese";
-            else if (currentLanguage === 'tr') apiUrl += "/turkish";
 
+        // Spanish
+        if (currentLanguage === 'es') {
+            const response = await fetch('https://random-word-api.herokuapp.com/word?lang=es&number=2');
+            const data = await response.json();
+            return data;
+        }
+
+        // German
+        if (currentLanguage === 'de') {
+            const response = await fetch('https://random-word-api.herokuapp.com/word?lang=de&number=2');
+            const data = await response.json();
+            return data;
+        }
+
+        // Turkish
+        if (currentLanguage === 'tr') {
+            let apiUrl = "https://random-words-api.vercel.app/word/turkish";
             const response1 = await fetch(apiUrl);
             const data1 = await response1.json();
             const word1 = data1[0]?.word;
@@ -48,10 +67,17 @@ export const fetchRandomWords = async (currentLanguage) => {
 
             return [word1, word2];
         }
+
+        // Unsupported language, fallback to English
+        const response = await fetch('https://random-word-api.vercel.app/api?words=2');
+        const data = await response.json();
+        return data;
+
     } catch (error) {
         console.error('Erreur récupération des mots:', error);
         console.error('On bascule en anglais');
 
+        // Fallback to English on error
         const response = await fetch('https://random-word-api.vercel.app/api?words=2');
         const data = await response.json();
         return data;

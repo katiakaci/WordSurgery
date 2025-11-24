@@ -1,6 +1,6 @@
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
-import { en, fr, es, pt_br, it, zh, de, ja, tr } from "./translations"; // ar, ru
+import { en, fr, es, it, de, tr } from "./translations"; // ar, ru, pt_br, zh, ja
 const resources = {
   en: {
     translation: en,
@@ -11,24 +11,24 @@ const resources = {
   es: {
     translation: es,
   },
-  pt_br: {
-    translation: pt_br
-  },
+  // pt_br: {
+  //   translation: pt_br
+  // },
   it: {
     translation: it,
   },
-  zh: {
-    translation: zh,
-  },
+  // zh: {
+  //   translation: zh,
+  // },
   de: {
     translation: de,
   },
   tr: {
     translation: tr,
   },
-  ja: {
-    translation: ja,
-  },
+  // ja: {
+  //   translation: ja,
+  // },
   // ar: {
   //   translation: ar,
   // },
@@ -41,8 +41,8 @@ i18next
   .use(initReactI18next).init({
     debug: true,
     resources,
-    lng: 'fr', // Langue par défaut
-    fallbackLng: 'fr',
+    lng: 'en', // Langue par défaut
+    fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
     },

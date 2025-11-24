@@ -5,15 +5,15 @@ import Flag from 'react-native-flags';
 import i18n from '../languages/i18n';
 
 const LANGUAGES = [
-    { code: 'fr', flag: 'FR', name: 'Français' },
     { code: 'en', flag: 'GB', name: 'English' },
+    { code: 'fr', flag: 'FR', name: 'Français' },
     { code: 'es', flag: 'ES', name: 'Español' },
-    { code: 'ja', flag: 'JP', name: '日本語' },
-    { code: 'tr', flag: 'TR', name: 'Türkçe' },
-    { code: 'zh', flag: 'CN', name: '中文' },
-    { code: 'pt_br', flag: 'BR', name: 'Português' },
     { code: 'it', flag: 'IT', name: 'Italiano' },
     { code: 'de', flag: 'DE', name: 'Deutsch' },
+    { code: 'tr', flag: 'TR', name: 'Türkçe' },
+    // { code: 'ja', flag: 'JP', name: '日本語' },
+    // { code: 'zh', flag: 'CN', name: '中文' },
+    // { code: 'pt_br', flag: 'BR', name: 'Português' },
 ];
 
 const LanguageModal = ({ visible, onClose, currentLanguage, onSelectLanguage }) => {
