@@ -5,7 +5,7 @@ import LottieView from 'lottie-react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useGameTimer } from '../hooks/useGameTimer';
 import { useWordGame } from '../hooks/useWordGame';
-import { useLevelProgress } from '../hooks/useLevelProgress';
+// import { useLevelProgress } from '../hooks/useLevelProgress';
 import { fetchRandomWords, getLetterBoxSize, getLetterFontSize } from '../utils/wordUtils';
 import { sendGameData } from '../utils/dataCollection';
 import TopBar from './TopBar';
@@ -13,8 +13,8 @@ import { FirstWordColumn, SecondWordColumn } from './WordColumn';
 import WordHistory from './WordHistory';
 import BackgroundAnimations from './BackgroundAnimations';
 import CustomAlert from './CustomAlert';
-import LevelBadge from './LevelBadge';
-import HintButton from './HintButton';
+// import LevelBadge from './LevelBadge';
+// import HintButton from './HintButton';
 
 const RandomWord = () => {
     const [loading, setLoading] = useState(false);
@@ -28,14 +28,14 @@ const RandomWord = () => {
     const navigation = useNavigation();
 
     // Level progression hook
-    const {
-        currentLevel,
-        totalLevels,
-        isBonusMode,
-        isLoadingProgress,
-        completeLevel,
-        getCurrentLevelData
-    } = useLevelProgress(i18n.language);
+    // const {
+    //     currentLevel,
+    //     totalLevels,
+    //     isBonusMode,
+    //     isLoadingProgress,
+    //     completeLevel,
+    //     getCurrentLevelData
+    // } = useLevelProgress(i18n.language);
 
     const {
         words,
@@ -53,8 +53,8 @@ const RandomWord = () => {
         selectLettersSecondWord,
         checkWord,
         undoLastAction,
-        resetGame,
-        originalWords
+        resetGame
+        // originalWords
     } = useWordGame();
 
     const handleNewGame = useCallback(async () => {
@@ -62,7 +62,8 @@ const RandomWord = () => {
         resetGame();
         await loadWords();
         await resetTimer();
-    }, [stopTimer, resetGame, loadWords, resetTimer]);
+    }, []); 
+    // }, [stopTimer, resetGame, loadWords, resetTimer]);
 
     const {
         timeLeft,
@@ -77,28 +78,15 @@ const RandomWord = () => {
 
     const loadWords = useCallback(async () => {
         setLoading(true);
-
-        // Check if we're in level mode or bonus mode
-        const levelData = getCurrentLevelData();
-
-        if (levelData) {
-            // Level mode: use predefined words
-            setWords(levelData.words);
-        } else {
-            // Bonus mode: fetch random words from API
-            const newWords = await fetchRandomWords(i18n.language);
-            setWords(newWords);
-        }
-
+        const newWords = await fetchRandomWords(i18n.language);
+        setWords(newWords);
         setLoading(false);
-    }, [setWords, getCurrentLevelData]);
+    }, [setWords]);
 
     useEffect(() => {
-        if (!loading && !isLoadingProgress) {
-            loadWords();
-        }
+        loadWords();
         return () => stopTimer();
-    }, [i18n.language, currentLevel, isLoadingProgress]);
+    }, [i18n.language]);
 
     useFocusEffect(
         useCallback(() => {
@@ -112,54 +100,28 @@ const RandomWord = () => {
 
     useEffect(() => {
         if (!loading && words.length > 1 && words[1].length === 0) {
-            // Level completed!
-            if (!isBonusMode) {
-                // Complete current level and move to next
-                completeLevel().then((nextLevel) => {
-                    const isNowBonus = nextLevel > totalLevels;
+            // Bonus mode win - collect game data
+            const gameData = {
+                language: i18n.language,
+                // originalWords: originalWords,
+                formedWords: validatedWords,
+                score: score,
+                // isBonusMode: true,
+                timestamp: new Date().toISOString()
+            };
 
-                    setWinAlertConfig({
-                        visible: true,
-                        title: i18n.t('level_complete'),
-                        message: isNowBonus
-                            ? i18n.t('all_levels_complete')
-                            : i18n.t('level_complete_message', { level: currentLevel }),
-                        type: 'success',
-                        buttons: [{
-                            text: isNowBonus ? i18n.t('play_bonus') : i18n.t('next_level'),
-                            onPress: () => {
-                                // Don't call handleNewGame, just reset and the level will auto-load
-                                stopTimer();
-                                resetGame();
-                                resetTimer();
-                            }
-                        }],
-                    });
-                });
-            } else {
-                // Bonus mode win - collect game data
-                const gameData = {
-                    language: i18n.language,
-                    originalWords: originalWords,
-                    formedWords: validatedWords,
-                    score: score,
-                    isBonusMode: true,
-                    timestamp: new Date().toISOString()
-                };
-
-                // Send data to backend (async, non-blocking)
+            // Send data to backend (async, non-blocking)
                 sendGameData(gameData);
 
-                setWinAlertConfig({
-                    visible: true,
-                    title: i18n.t('you_won'),
-                    message: i18n.t('you_found_everything'),
-                    type: 'success',
-                    buttons: [{ text: i18n.t('new_game'), onPress: handleNewGame }],
-                });
-            }
+            setWinAlertConfig({
+                visible: true,
+                title: i18n.t('you_won'),
+                message: i18n.t('you_found_everything'),
+                type: 'success',
+                buttons: [{ text: i18n.t('new_game'), onPress: handleNewGame }],
+            });
         }
-    }, [words, loading, handleNewGame, isBonusMode, completeLevel, totalLevels, currentLevel, stopTimer, resetGame, resetTimer]);
+    }, [words, loading, handleNewGame]);
 
     const handleBack = () => {
         navigation.navigate("Accueil");
@@ -171,9 +133,6 @@ const RandomWord = () => {
     const boxSize = getLetterBoxSize(maxLetters);
     const fontSize = getLetterFontSize(boxSize);
 
-    // Get current level data for hint
-    const currentLevelData = getCurrentLevelData();
-
     return (
         <View style={styles.container}>
             <BackgroundAnimations />
@@ -183,26 +142,7 @@ const RandomWord = () => {
                 onBack={handleBack}
                 onUndo={undoLastAction}
                 onRefresh={handleNewGame}
-                isLevelMode={!isBonusMode}
             />
-
-            {/* Level Badge */}
-            {i18n.language.startsWith('fr') && (
-                <LevelBadge
-                    currentLevel={currentLevel}
-                    totalLevels={totalLevels}
-                    isBonusMode={isBonusMode}
-                />
-            )}
-
-            {/* Hint Button (only in level mode) */}
-            {i18n.language.startsWith('fr') && (
-                <HintButton
-                    hint={currentLevelData?.hint}
-                    disabled={isBonusMode}
-                />
-            )}
-
             {loading ? (
                 <LottieView
                     source={require('../assets/animation/loading.json')}

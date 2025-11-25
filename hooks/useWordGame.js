@@ -193,7 +193,6 @@ export const useWordGame = () => {
         selectLettersSecondWord,
         checkWord,
         undoLastAction,
-        resetGame,
-        originalWords
+        resetGame
     };
 };
