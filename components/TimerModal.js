@@ -60,7 +60,7 @@ const TimerModal = ({ visible, onClose }) => {
     };
 
     return (
-        <Modal visible={visible} transparent animationType="slide">
+        <Modal visible={visible} transparent animationType="fade">
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.modalBackground}>
                     <View style={styles.modalContainer}>
