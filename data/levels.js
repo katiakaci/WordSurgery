@@ -70,6 +70,18 @@ export const LEVELS = {
             words: ["moment", "classe"],
             hint: "Ajoute MENT (du premier mot) à la fin du second",
             solutions: ["classement"]
+        },
+        {
+            level: 12,
+            words: ["Gardien", "Demeurer"],
+            hint: "Ajoute GAR avant D",
+            solutions: ["meure", "garder"]
+        },
+        {
+            level: 13,
+            words: ["bétail", "manufacture"],
+            hint: "Déplace L après NU",
+            solutions: ["nul", "mat", "facture"]
         }
     ],
     en: [
