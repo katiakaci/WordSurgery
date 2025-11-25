@@ -20,7 +20,6 @@
     "i18next": "^25.4.1",
     "lottie-react-native": "7.2.2",
     "react": "19.0.0",
-    "react-dom": "19.0.0",
     "react-i18next": "^15.4.1",
     "react-native": "0.79.5",
     "react-native-flags": "^1.0.0",
@@ -32,7 +31,6 @@
   },
   "devDependencies": {
     "@types/react": "^19.1.11",
-    "@types/react-native": "^0.72.8",
     "typescript": "^5.3.3"
   },
   "private": true
