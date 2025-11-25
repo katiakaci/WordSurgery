@@ -135,7 +135,7 @@ export const useWordGame = () => {
                 .filter((_, i) => !validWordIndices.includes(i))
                 .join('');
             setWords([words[0], newSecondWord]);
-            
+
             // N'afficher l'alerte que si le jeu n'est pas terminé (il reste des lettres)
             if (newSecondWord.length > 0) {
                 showAlert(i18n.t('word_found_title'), i18n.t('word_valid', { word: selectedLetters }), 'success');
@@ -193,6 +193,7 @@ export const useWordGame = () => {
         selectLettersSecondWord,
         checkWord,
         undoLastAction,
-        resetGame
+        resetGame,
+        originalWords
     };
 };

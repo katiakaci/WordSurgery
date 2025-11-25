@@ -7,6 +7,7 @@ import { useGameTimer } from '../hooks/useGameTimer';
 import { useWordGame } from '../hooks/useWordGame';
 import { useLevelProgress } from '../hooks/useLevelProgress';
 import { fetchRandomWords, getLetterBoxSize, getLetterFontSize } from '../utils/wordUtils';
+import { sendGameData } from '../utils/dataCollection';
 import TopBar from './TopBar';
 import { FirstWordColumn, SecondWordColumn } from './WordColumn';
 import WordHistory from './WordHistory';
@@ -52,7 +53,8 @@ const RandomWord = () => {
         selectLettersSecondWord,
         checkWord,
         undoLastAction,
-        resetGame
+        resetGame,
+        originalWords
     } = useWordGame();
 
     const handleNewGame = useCallback(async () => {
@@ -135,7 +137,19 @@ const RandomWord = () => {
                     });
                 });
             } else {
-                // Bonus mode win
+                // Bonus mode win - collect game data
+                const gameData = {
+                    language: i18n.language,
+                    originalWords: originalWords,
+                    formedWords: validatedWords,
+                    score: score,
+                    isBonusMode: true,
+                    timestamp: new Date().toISOString()
+                };
+
+                // Send data to backend (async, non-blocking)
+                sendGameData(gameData);
+
                 setWinAlertConfig({
                     visible: true,
                     title: i18n.t('you_won'),
