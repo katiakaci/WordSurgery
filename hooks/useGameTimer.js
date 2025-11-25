@@ -49,12 +49,14 @@ export const useGameTimer = (onTimeExpired) => {
                 return prevTime - 1;
             });
         }, 1000);
+        timerRef.current = timer;
         return timer;
     }, [onTimeExpired, showAlert]);
 
     const stopTimer = useCallback(() => {
         if (timerRef.current) {
             clearInterval(timerRef.current);
+            timerRef.current = null;
         }
     }, []);
 

@@ -140,11 +140,14 @@ const RandomWord = () => {
                             onPress: async () => {
                                 console.log('➡️ [RandomWord] Going to next level...');
                                 setWinAlertConfig(prev => ({ ...prev, visible: false }));
+
+                                // Arrêter complètement le timer avant de continuer
                                 stopTimer();
+                                // Attendre un peu pour être sûr que le timer est arrêté
+                                await new Promise(resolve => setTimeout(resolve, 100));
                                 resetGame();
                                 await goToNextLevel();
                                 await resetTimer();
-                                timerRef.current = startTimer();
                             }
                         }],
                     });
@@ -161,10 +164,12 @@ const RandomWord = () => {
                             onPress: async () => {
                                 setWinAlertConfig(prev => ({ ...prev, visible: false }));
                                 stopTimer();
+
+                                // Attendre un peu pour être sûr que le timer est arrêté
+                                await new Promise(resolve => setTimeout(resolve, 100));
                                 resetGame();
                                 await goToNextLevel(); // Passe en mode bonus
                                 await resetTimer();
-                                timerRef.current = startTimer();
                             }
                         }],
                     });
