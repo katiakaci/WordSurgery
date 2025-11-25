@@ -168,6 +168,7 @@ export const useWordGame = () => {
         setWords(lastState.words);
         setSelectedIndices(lastState.selectedIndices);
         setValidatedWords(lastState.validatedWords);
+        setValidWordIndices([]);
         setHistory(history.slice(0, -1));
         setScore(scoreHistory[scoreHistory.length - 2] || 0);
         setScoreHistory(scoreHistory.slice(0, -1));
