@@ -103,7 +103,12 @@ export const LEVELS = {
         }
     ],
     en: [
-        // TODO
+        {
+            level: 1,
+            words: ["essential", "body"],
+            hint: "A after O in the second word",
+            solutions: ["boat", "dye"]
+        }
     ]
 };
 

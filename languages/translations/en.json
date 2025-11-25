@@ -54,5 +54,13 @@
     "tutorial_step4_title": "Watch the time!",
     "tutorial_step4_desc": "You have a limited time to find the maximum number of words and eliminate all letters from the second word. Good luck!",
     "play": "Play",
-    "step": "Step"
+    "step": "Step",
+    "level": "Level",
+    "bonus_mode": "Bonus Mode",
+    "hint": "Hint",
+    "level_complete": "Level completed!",
+    "level_complete_message": "Congratulations! You have completed level {{level}}.",
+    "all_levels_complete": "Amazing! You have completed all levels! You can now play bonus mode with random words. Stay tuned for new levels in upcoming updates!",
+    "next_level": "Next level",
+    "play_bonus": "Play Bonus Mode"
 }
