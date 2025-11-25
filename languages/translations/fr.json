@@ -54,5 +54,13 @@
     "tutorial_step4_title": "Attention au temps !",
     "tutorial_step4_desc": "Tu as un temps limité pour trouver le maximum de mots et éliminer toutes les lettres du second mot. Bonne chance!",
     "play": "Jouer",
-    "step": "Étape"
+    "step": "Étape",
+    "level": "Niveau",
+    "bonus_mode": "Mode Bonus",
+    "hint": "Indice",
+    "level_complete": "Niveau terminé !",
+    "level_complete_message": "Félicitations ! Vous avez terminé le niveau {{level}}.",
+    "all_levels_complete": "Incroyable ! Vous avez terminé tous les niveaux ! Vous pouvez maintenant jouer au mode bonus avec des mots aléatoires. Restez connecté pour de nouveaux niveaux dans les prochaines mises à jour !",
+    "next_level": "Niveau suivant",
+    "play_bonus": "Jouer en mode Bonus"
 }
