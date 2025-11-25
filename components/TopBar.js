@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import i18n from '../languages/i18n';
 
-const TopBar = ({ score, timeLeft, onBack, onUndo, onRefresh }) => {
+const TopBar = ({ score, timeLeft, onBack, onUndo, onRefresh, isBonusMode }) => {
     return (
         <View style={styles.topBar}>
             <TouchableOpacity onPress={onBack}>
@@ -24,9 +24,11 @@ const TopBar = ({ score, timeLeft, onBack, onUndo, onRefresh }) => {
                     <Ionicons name="arrow-undo" size={28} color="black" />
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={onRefresh}>
-                    <Ionicons name="refresh" size={28} color="black" />
-                </TouchableOpacity>
+                {isBonusMode && (
+                    <TouchableOpacity onPress={onRefresh}>
+                        <Ionicons name="refresh" size={28} color="black" />
+                    </TouchableOpacity>
+                )}
             </View>
         </View>
     );

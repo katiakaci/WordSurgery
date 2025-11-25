@@ -206,6 +206,7 @@ const RandomWord = () => {
                 onBack={handleBack}
                 onUndo={undoLastAction}
                 onRefresh={handleNewGame}
+                isBonusMode={isBonusMode}
             />
 
             {/* Badge de niveau */}
