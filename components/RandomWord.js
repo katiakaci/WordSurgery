@@ -53,8 +53,8 @@ const RandomWord = () => {
         selectLettersSecondWord,
         checkWord,
         undoLastAction,
-        resetGame
-        // originalWords
+        resetGame,
+        originalWords
     } = useWordGame();
 
     const handleNewGame = useCallback(async () => {
@@ -62,7 +62,7 @@ const RandomWord = () => {
         resetGame();
         await loadWords();
         await resetTimer();
-    }, []); 
+    }, []);
     // }, [stopTimer, resetGame, loadWords, resetTimer]);
 
     const {
@@ -103,7 +103,7 @@ const RandomWord = () => {
             // Bonus mode win - collect game data
             const gameData = {
                 language: i18n.language,
-                // originalWords: originalWords,
+                originalWords: originalWords && originalWords.length > 0 ? originalWords : words,
                 formedWords: validatedWords,
                 score: score,
                 // isBonusMode: true,
@@ -111,7 +111,7 @@ const RandomWord = () => {
             };
 
             // Send data to backend (async, non-blocking)
-                sendGameData(gameData);
+            sendGameData(gameData);
 
             setWinAlertConfig({
                 visible: true,
@@ -121,7 +121,7 @@ const RandomWord = () => {
                 buttons: [{ text: i18n.t('new_game'), onPress: handleNewGame }],
             });
         }
-    }, [words, loading, handleNewGame]);
+    }, [words, loading, handleNewGame, originalWords, validatedWords, score]);
 
     const handleBack = () => {
         navigation.navigate("Accueil");

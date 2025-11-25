@@ -166,16 +166,15 @@ export const useWordGame = () => {
         setSelectedIndices([]);
         setValidWordIndices([]);
         setHasInserted(false);
-        setOriginalWords([]);
     }, []);
 
     const setWordsWithOriginal = useCallback((newWords) => {
         setWords(newWords);
         // Sauvegarder les mots originaux seulement lors de l'initialisation
-        if (originalWords.length === 0 && newWords.length > 0) {
+        if (newWords.length > 0) {
             setOriginalWords([...newWords]);
         }
-    }, [originalWords]);
+    }, []);
 
     return {
         words,
@@ -193,6 +192,7 @@ export const useWordGame = () => {
         selectLettersSecondWord,
         checkWord,
         undoLastAction,
-        resetGame
+        resetGame,
+        originalWords
     };
 };
