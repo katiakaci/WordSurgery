@@ -82,6 +82,24 @@ export const LEVELS = {
             words: ["bétail", "manufacture"],
             hint: "Déplace L après NU",
             solutions: ["nul", "mat", "facture"]
+        },
+        {
+            level: 14,
+            words: ["salade", "poli"],
+            hint: "S entre P et O",
+            solutions: ["sol", "pile"]
+        },
+        {
+            level: 15,
+            words: ["diminuer", "fruit"],
+            hint: "N entre R et U",
+            solutions: ["nuit", "frire"]
+        },
+        {
+            level: 16,
+            words: ["estime", "vitesse"],
+            hint: "M entre T et E",
+            solutions: ["messe", "vite"]
         }
     ],
     en: [
