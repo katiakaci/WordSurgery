@@ -209,7 +209,7 @@ const RandomWord = () => {
             />
 
             {/* Badge de niveau */}
-            {levelsReady && (
+            {levelsReady && availableLevels.length > 0 && (
                 <LevelBadge
                     currentLevel={currentLevel}
                     totalLevels={availableLevels.length}
