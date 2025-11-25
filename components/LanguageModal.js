@@ -5,8 +5,8 @@ import Flag from 'react-native-flags';
 import i18n from '../languages/i18n';
 
 const LANGUAGES = [
-    { code: 'en', flag: 'GB', name: 'English' },
     { code: 'fr', flag: 'FR', name: 'Français' },
+    { code: 'en', flag: 'GB', name: 'English' },
     { code: 'es', flag: 'ES', name: 'Español' },
     { code: 'it', flag: 'IT', name: 'Italiano' },
     { code: 'de', flag: 'DE', name: 'Deutsch' },
