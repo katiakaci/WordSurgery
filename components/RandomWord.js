@@ -74,22 +74,16 @@ const RandomWord = () => {
     } = useGameTimer(handleNewGame);
 
     const loadWords = useCallback(async () => {
-        console.log('🔄 [RandomWord] loadWords called');
         setLoading(true);
 
         // Charger les mots du niveau ou du mode bonus
         const levelWords = loadLevelWords();
 
         if (levelWords && levelWords.length > 0) {
-            // Mode niveau : utiliser les mots prédéfinis
-            console.log('📚 [RandomWord] Loading level words:', levelWords);
-            console.log(`🎮 [RandomWord] Current level: ${currentLevel}, Bonus: ${isBonusMode}`);
             setWords(levelWords);
         } else {
             // Mode bonus : charger des mots aléatoires
-            console.log('🎲 [RandomWord] Loading random words for bonus mode');
             const newWords = await fetchRandomWords(i18n.language);
-            console.log('🎲 [RandomWord] Random words loaded:', newWords);
             setWords(newWords);
         }
 
@@ -101,7 +95,6 @@ const RandomWord = () => {
             console.log('⏳ [RandomWord] Waiting for levels to be ready...');
             return;
         }
-        console.log('🌐 [RandomWord] Language or level changed, reloading words...');
         console.log(`📊 [RandomWord] Level: ${currentLevel}, Bonus: ${isBonusMode}, Lang: ${i18n.language}`);
         loadWords();
         return () => stopTimer();
@@ -119,10 +112,7 @@ const RandomWord = () => {
 
     useEffect(() => {
         if (!loading && words.length > 1 && words[1].length === 0 && originalWords.length > 0) {
-            console.log('🏆 [RandomWord] Level/Game completed!');
-            console.log(`📊 [RandomWord] Current level: ${currentLevel}, Bonus: ${isBonusMode}`);
-            console.log(`📝 [RandomWord] Original words:`, originalWords);
-            console.log(`📝 [RandomWord] Current words:`, words);
+            console.log('🏆 [RandomWord] Level completed!');
 
             const gameData = {
                 language: i18n.language,
@@ -139,7 +129,7 @@ const RandomWord = () => {
                 // Mode niveau : vérifier s'il y a encore des niveaux
                 if (currentLevel < availableLevels.length) {
                     // Il reste des niveaux
-                    console.log(`✨ [RandomWord] Level ${currentLevel} completed! Moving to level ${currentLevel + 1}`);
+                    console.log(`✨ [RandomWord] Level ${currentLevel} completed!}`);
                     setWinAlertConfig({
                         visible: true,
                         title: i18n.t('level_complete'),
@@ -169,7 +159,6 @@ const RandomWord = () => {
                         buttons: [{
                             text: i18n.t('play_bonus'),
                             onPress: async () => {
-                                console.log('🎁 [RandomWord] Switching to bonus mode...');
                                 setWinAlertConfig(prev => ({ ...prev, visible: false }));
                                 stopTimer();
                                 resetGame();
@@ -181,8 +170,7 @@ const RandomWord = () => {
                     });
                 }
             } else {
-                // Mode bonus : message classique
-                console.log('🎲 [RandomWord] Bonus game completed!');
+                // Mode bonus
                 setWinAlertConfig({
                     visible: true,
                     title: i18n.t('you_won'),
