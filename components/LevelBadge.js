@@ -9,7 +9,7 @@ const LevelBadge = ({ currentLevel, totalLevels, isBonusMode }) => {
                 <Text style={styles.badgeText}>
                     {isBonusMode 
                         ? i18n.t('bonus_mode')
-                        : `${i18n.t('level')} ${currentLevel}/${totalLevels}`
+                        : `${i18n.t('level')} ${currentLevel}`
                     }
                 </Text>
             </View>
