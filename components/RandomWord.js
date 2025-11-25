@@ -5,7 +5,6 @@ import LottieView from 'lottie-react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useGameTimer } from '../hooks/useGameTimer';
 import { useWordGame } from '../hooks/useWordGame';
-// import { useLevelProgress } from '../hooks/useLevelProgress';
 import { fetchRandomWords, getLetterBoxSize, getLetterFontSize } from '../utils/wordUtils';
 import { sendGameData } from '../utils/dataCollection';
 import TopBar from './TopBar';
@@ -13,8 +12,6 @@ import { FirstWordColumn, SecondWordColumn } from './WordColumn';
 import WordHistory from './WordHistory';
 import BackgroundAnimations from './BackgroundAnimations';
 import CustomAlert from './CustomAlert';
-// import LevelBadge from './LevelBadge';
-// import HintButton from './HintButton';
 
 const RandomWord = () => {
     const [loading, setLoading] = useState(false);
@@ -26,16 +23,6 @@ const RandomWord = () => {
         buttons: [],
     });
     const navigation = useNavigation();
-
-    // Level progression hook
-    // const {
-    //     currentLevel,
-    //     totalLevels,
-    //     isBonusMode,
-    //     isLoadingProgress,
-    //     completeLevel,
-    //     getCurrentLevelData
-    // } = useLevelProgress(i18n.language);
 
     const {
         words,
@@ -62,8 +49,7 @@ const RandomWord = () => {
         resetGame();
         await loadWords();
         await resetTimer();
-    }, []);
-    // }, [stopTimer, resetGame, loadWords, resetTimer]);
+    }, [stopTimer, resetGame, loadWords, resetTimer]);
 
     const {
         timeLeft,
@@ -100,17 +86,14 @@ const RandomWord = () => {
 
     useEffect(() => {
         if (!loading && words.length > 1 && words[1].length === 0) {
-            // Bonus mode win - collect game data
             const gameData = {
                 language: i18n.language,
                 originalWords: originalWords && originalWords.length > 0 ? originalWords : words,
                 formedWords: validatedWords,
                 score: score,
-                // isBonusMode: true,
                 timestamp: new Date().toISOString()
             };
 
-            // Send data to backend (async, non-blocking)
             sendGameData(gameData);
 
             setWinAlertConfig({

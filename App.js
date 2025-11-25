@@ -2,74 +2,24 @@ import { StyleSheet, View, Image } from 'react-native';
 import { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Audio } from 'expo-av';
 import WelcomeScreen from './screens/WelcomeScreen';
 import GameScreen from './screens/GameScreen';
 import TutorielScreen from './screens/TutorielScreen';
-import i18n from './languages/i18n';
 import LottieView from 'lottie-react-native';
+import { useAudio } from './hooks/useAudio';
+
 const Stack = createStackNavigator();
 
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(true);
-  const [sound, setSound] = useState();
-  const [isMusicEnabled, setIsMusicEnabled] = useState(true);
-  const [settingsLoaded, setSettingsLoaded] = useState(false);
+  const { isMusicEnabled, setIsMusicEnabled, isLoaded } = useAudio();
 
   useEffect(() => {
-    const loadMusicSettings = async () => {
-      try {
-        const AsyncStorage = require('@react-native-async-storage/async-storage').default;
-        const savedMusicState = await AsyncStorage.getItem('@music_enabled');
-        if (savedMusicState !== null) {
-          setIsMusicEnabled(savedMusicState === 'true');
-        }
-        setSettingsLoaded(true);
-      } catch (error) {
-        console.error('Erreur lors du chargement des paramètres:', error);
-        setSettingsLoaded(true);
-      }
-    };
-    loadMusicSettings();
-  }, []);
-
-  useEffect(() => {
-    if (!settingsLoaded) return;
-
-    const loadSound = async () => {
-      try {
-        if (isMusicEnabled) {
-          // Si la musique est activée, on la charge et on la joue
-          const { sound } = await Audio.Sound.createAsync(
-            require('./assets/music.mp3'),
-            { shouldPlay: true, isLooping: true }
-          );
-          console.log('Audio loaded', sound);
-          setSound(sound);
-        } else {
-          // Si la musique est désactivée, on la décharge
-          if (sound) {
-            await sound.stopAsync();
-            await sound.unloadAsync();
-          }
-        }
-      } catch (error) {
-        console.error('Erreur de lecture audio:', error);
-      }
-    };
-
-    loadSound();
-    return () => {
-      if (sound) {
-        sound.unloadAsync();
-      }
-    };
-  }, [isMusicEnabled, settingsLoaded]);
-
-  useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setShowWelcome(false);
     }, 1600);
+
+    return () => clearTimeout(timer);
   }, []);
 
   if (showWelcome) {
@@ -86,18 +36,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="Accueil"
-          options={{ headerShown: false }}
-        >
+        <Stack.Screen name="Accueil" options={{ headerShown: false }}>
           {(props) => <WelcomeScreen {...props} isMusicEnabled={isMusicEnabled} setIsMusicEnabled={setIsMusicEnabled} />}
         </Stack.Screen>
 
-        <Stack.Screen
-          name="Game"
-          component={GameScreen}
-          options={{ headerShown: false }}
-        />
+        <Stack.Screen name="Game" component={GameScreen} options={{ headerShown: false }}/>
         <Stack.Screen
           name="Tutoriel"
           component={TutorielScreen}

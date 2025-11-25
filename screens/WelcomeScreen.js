@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import LottieView from 'lottie-react-native';
 import tw from 'twrnc';
-import { Ionicons } from 'react-native-vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import Settings from '../components/Settings';
 
 function WelcomeScreen({ navigation, isMusicEnabled, setIsMusicEnabled }) {

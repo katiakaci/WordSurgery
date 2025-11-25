@@ -72,7 +72,7 @@ export const useWordGame = () => {
         setHistory(newHistory);
         setScoreHistory([...scoreHistory, score]);
         setHasInserted(true);
-    }, [selectedIndices, words, history, score, scoreHistory, validatedWords]);
+    }, [selectedIndices, words, history, score, scoreHistory, validatedWords, hasInserted, showAlert]);
 
     const selectLettersSecondWord = useCallback((index) => {
         if (!hasInserted) return;
@@ -159,7 +159,7 @@ export const useWordGame = () => {
         }
 
         setValidWordIndices([]);
-    }, [words, validWordIndices, score, validatedWords, history, scoreHistory, selectedIndices, showAlert]);
+    }, [words, validWordIndices, score, validatedWords, history, scoreHistory, selectedIndices, originalWords, showAlert]);
 
     const undoLastAction = useCallback(() => {
         if (history.length === 0) return;
