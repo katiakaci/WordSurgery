@@ -60,7 +60,11 @@ export const useWordGame = () => {
         ];
 
         const newWords = [newFirstWord.join(''), newSecondWord.join('')];
-        const newHistory = [...history, { words: [...words], selectedIndices: [...selectedIndices] }];
+        const newHistory = [...history, {
+            words: [...words],
+            selectedIndices: [...selectedIndices],
+            validatedWords: [...validatedWords]
+        }];
 
         setWords(newWords);
         setSelectedIndices([]);
@@ -68,7 +72,7 @@ export const useWordGame = () => {
         setHistory(newHistory);
         setScoreHistory([...scoreHistory, score]);
         setHasInserted(true);
-    }, [selectedIndices, words, history, score, scoreHistory]);
+    }, [selectedIndices, words, history, score, scoreHistory, validatedWords]);
 
     const selectLettersSecondWord = useCallback((index) => {
         if (!hasInserted) return;
@@ -126,6 +130,13 @@ export const useWordGame = () => {
         const isValid = wordList.includes(selectedLetters.toLowerCase());
 
         if (isValid) {
+            // Sauvegarder l'état avant la validation du mot
+            const newHistory = [...history, {
+                words: [...words],
+                selectedIndices: [...selectedIndices],
+                validatedWords: [...validatedWords]
+            }];
+
             const newScore = score + selectedLetters.length;
             setScore(newScore);
             setValidatedWords(prev => [...prev, selectedLetters]);
@@ -136,6 +147,9 @@ export const useWordGame = () => {
                 .join('');
             setWords([words[0], newSecondWord]);
 
+            setHistory(newHistory);
+            setScoreHistory([...scoreHistory, score]);
+
             // N'afficher l'alerte que si le jeu n'est pas terminé (il reste des lettres)
             if (newSecondWord.length > 0) {
                 showAlert(i18n.t('word_found_title'), i18n.t('word_valid', { word: selectedLetters }), 'success');
@@ -145,7 +159,7 @@ export const useWordGame = () => {
         }
 
         setValidWordIndices([]);
-    }, [words, validWordIndices, score, showAlert]);
+    }, [words, validWordIndices, score, validatedWords, history, scoreHistory, selectedIndices, showAlert]);
 
     const undoLastAction = useCallback(() => {
         if (history.length === 0) return;
@@ -153,6 +167,7 @@ export const useWordGame = () => {
         const lastState = history[history.length - 1];
         setWords(lastState.words);
         setSelectedIndices(lastState.selectedIndices);
+        setValidatedWords(lastState.validatedWords);
         setHistory(history.slice(0, -1));
         setScore(scoreHistory[scoreHistory.length - 2] || 0);
         setScoreHistory(scoreHistory.slice(0, -1));
