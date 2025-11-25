@@ -151,35 +151,37 @@ const RandomWord = () => {
                     style={styles.loadingAnimation}
                 />
             ) : (
-                <View style={styles.wordsContainer}>
-                    <FirstWordColumn
-                        word={words[0]}
-                        selectedIndices={selectedIndices}
-                        onSelectLetter={selectLettersFirstWord}
-                    />
+                <>
+                    <View style={styles.wordsContainer}>
+                        <FirstWordColumn
+                            word={words[0]}
+                            selectedIndices={selectedIndices}
+                            onSelectLetter={selectLettersFirstWord}
+                        />
 
-                    {insertionPosition !== null && (
-                        <View style={styles.insertionArrow}>
-                            <Text style={styles.arrowText}>→</Text>
-                        </View>
-                    )}
+                        {insertionPosition !== null && (
+                            <View style={styles.insertionArrow}>
+                                <Text style={styles.arrowText}>→</Text>
+                            </View>
+                        )}
 
-                    <SecondWordColumn
-                        word={words[1]}
-                        validWordIndices={validWordIndices}
-                        boxSize={boxSize}
-                        fontSize={fontSize}
-                        onSelectLetter={selectLettersSecondWord}
-                        onInsertLetters={insertLetters}
-                    />
-                </View>
+                        <SecondWordColumn
+                            word={words[1]}
+                            validWordIndices={validWordIndices}
+                            boxSize={boxSize}
+                            fontSize={fontSize}
+                            onSelectLetter={selectLettersSecondWord}
+                            onInsertLetters={insertLetters}
+                        />
+                    </View>
+
+                    <WordHistory validatedWords={validatedWords} />
+
+                    <TouchableOpacity style={styles.checkButton} onPress={checkWord}>
+                        <Text style={styles.buttonText}>{i18n.t('word_found')}</Text>
+                    </TouchableOpacity>
+                </>
             )}
-
-            <WordHistory validatedWords={validatedWords} />
-
-            <TouchableOpacity style={styles.checkButton} onPress={checkWord}>
-                <Text style={styles.buttonText}>{i18n.t('word_found')}</Text>
-            </TouchableOpacity>
 
             <CustomAlert
                 visible={gameAlertConfig.visible}
