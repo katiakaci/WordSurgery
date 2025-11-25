@@ -11,7 +11,6 @@ const PENDING_DATA_KEY = '@pending_game_data';
  * @param {Array<string>} gameData.originalWords - The two original words [word1, word2]
  * @param {Array<string>} gameData.formedWords - All valid words formed during the game
  * @param {number} gameData.score - Final score
- * @param {boolean} gameData.isBonusMode - Whether this was bonus mode
  * @param {string} gameData.timestamp - ISO timestamp of completion
  */
 export const sendGameData = async (gameData) => {
