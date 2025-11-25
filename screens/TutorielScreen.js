@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import LottieView from 'lottie-react-native';
 import i18n from '../languages/i18n';
+import BackgroundAnimations from '../components/BackgroundAnimations';
 
 const { width } = Dimensions.get('window');
 
@@ -110,9 +111,7 @@ function TutorielScreen() {
       <StatusBar barStyle="dark-content" />
 
       {/* Animation bulles background */}
-      <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation} speed={0.5} />
-      <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation2} speed={0.5} />
-      <LottieView source={require('../assets/animation/HomePage.json')} autoPlay loop style={styles.animation3} speed={0.5} />
+      <BackgroundAnimations />
 
       {/* Carousel */}
       <Animated.FlatList
@@ -191,32 +190,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
-  },
-  animation: {
-    width: '150%',
-    height: '150%',
-    position: 'absolute',
-    top: -110,
-    left: -45,
-    opacity: 0.3,
-  },
-  animation2: {
-    width: '150%',
-    height: '150%',
-    position: 'absolute',
-    top: -100,
-    right: -50,
-    transform: [{ rotate: '180deg' }],
-    opacity: 0.3,
-  },
-  animation3: {
-    width: '150%',
-    height: '150%',
-    position: 'absolute',
-    top: -100,
-    right: -110,
-    transform: [{ rotate: '80deg' }],
-    opacity: 0.3,
   },
   header: {
     paddingTop: 10,
