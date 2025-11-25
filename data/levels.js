@@ -119,26 +119,6 @@ export const LEVELS = {
  */
 export const getLevelsForLanguage = (lang) => {
     if (lang.startsWith('fr')) return LEVELS.fr;
-    // if (lang.startsWith('en')) return LEVELS.en;
+    if (lang.startsWith('en')) return LEVELS.en;
     return []; // No levels defined, go to bonus mode
-};
-
-/**
- * Get a specific level for a language
- * @param {string} lang - Language code
- * @param {number} levelNumber - Level number (1-based)
- * @returns {Object|null} Level object or null if not found
- */
-export const getLevel = (lang, levelNumber) => {
-    const levels = getLevelsForLanguage(lang);
-    return levels[levelNumber - 1] || null;
-};
-
-/**
- * Get total number of levels for a language
- * @param {string} lang - Language code
- * @returns {number} Total levels available
- */
-export const getTotalLevels = (lang) => {
-    return getLevelsForLanguage(lang).length;
 };

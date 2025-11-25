@@ -1,6 +1,8 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import i18n from '../languages/i18n';
 import { getWordsForLanguage } from '../utils/wordUtils';
+import { getLevelsForLanguage } from '../data/levels';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const useWordGame = () => {
     const [words, setWords] = useState([]);
@@ -20,6 +22,13 @@ export const useWordGame = () => {
         type: 'info',
         buttons: [],
     });
+
+    // States pour le système de niveaux
+    const [currentLevel, setCurrentLevel] = useState(1);
+    const [isBonusMode, setIsBonusMode] = useState(false);
+    const [currentHint, setCurrentHint] = useState(null);
+    const [availableLevels, setAvailableLevels] = useState([]);
+    const [levelsReady, setLevelsReady] = useState(false);
 
     const selectLettersFirstWord = useCallback((index) => {
         setSelectedIndices((prev) => {
@@ -175,6 +184,7 @@ export const useWordGame = () => {
     }, [history, scoreHistory]);
 
     const resetGame = useCallback(() => {
+        console.log('🔄 [useWordGame] Reset game');
         setScore(0);
         setValidatedWords([]);
         setHistory([]);
@@ -182,7 +192,118 @@ export const useWordGame = () => {
         setSelectedIndices([]);
         setValidWordIndices([]);
         setHasInserted(false);
+        setWords([]); // Important: vider complètement les mots
     }, []);
+
+    // Charger la progression sauvegardée
+    const loadProgress = useCallback(async () => {
+        try {
+            setLevelsReady(false);
+            const language = i18n.language;
+            console.log(`📖 [useWordGame] Loading progress for language: ${language}`);
+
+            const levels = getLevelsForLanguage(language);
+            setAvailableLevels(levels);
+            console.log(`📚 [useWordGame] Available levels for ${language}:`, levels.length);
+
+            if (levels.length === 0) {
+                // Pas de niveaux pour cette langue, mode bonus direct
+                console.log('🎁 [useWordGame] No levels available, entering bonus mode');
+                setIsBonusMode(true);
+                setCurrentLevel(0);
+                setCurrentHint(null);
+                setLevelsReady(true);
+                console.log('✅ [useWordGame] Levels ready (bonus mode)');
+                return;
+            }
+
+            // Charger le niveau sauvegardé
+            const savedLevel = await AsyncStorage.getItem(`@level_progress_${language}`);
+            const levelToLoad = savedLevel ? parseInt(savedLevel, 10) : 1;
+
+            console.log(`💾 [useWordGame] Saved level: ${savedLevel}, Loading level: ${levelToLoad}`);
+
+            // Vérifier si tous les niveaux sont complétés
+            if (levelToLoad > levels.length) {
+                console.log('🎊 [useWordGame] All levels completed! Entering bonus mode');
+                setIsBonusMode(true);
+                setCurrentLevel(levels.length + 1);
+                setCurrentHint(null);
+            } else {
+                console.log(`🎮 [useWordGame] Loading level ${levelToLoad}/${levels.length}`);
+                setIsBonusMode(false);
+                setCurrentLevel(levelToLoad);
+                const levelData = levels[levelToLoad - 1];
+                setCurrentHint(levelData?.hint || null);
+                console.log(`💡 [useWordGame] Hint for level ${levelToLoad}:`, levelData?.hint);
+            }
+
+            setLevelsReady(true);
+            console.log('✅ [useWordGame] Levels ready');
+        } catch (error) {
+            console.error('❌ [useWordGame] Error loading progress:', error);
+            setLevelsReady(true);
+        }
+    }, []);
+
+    // Sauvegarder la progression
+    const saveProgress = useCallback(async (level) => {
+        try {
+            const language = i18n.language;
+            await AsyncStorage.setItem(`@level_progress_${language}`, level.toString());
+            console.log(`💾 [useWordGame] Progress saved: Level ${level} for ${language}`);
+        } catch (error) {
+            console.error('❌ [useWordGame] Error saving progress:', error);
+        }
+    }, []);
+
+    // Passer au niveau suivant
+    const goToNextLevel = useCallback(async () => {
+        const nextLevel = currentLevel + 1;
+        console.log(`⬆️ [useWordGame] Going to next level: ${nextLevel}`);
+
+        if (nextLevel > availableLevels.length) {
+            console.log('🎁 [useWordGame] All levels completed! Switching to bonus mode');
+            setIsBonusMode(true);
+            setCurrentLevel(nextLevel);
+            setCurrentHint(null);
+            await saveProgress(nextLevel);
+        } else {
+            console.log(`🎮 [useWordGame] Loading level ${nextLevel}/${availableLevels.length}`);
+            setCurrentLevel(nextLevel);
+            const levelData = availableLevels[nextLevel - 1];
+            setCurrentHint(levelData?.hint || null);
+            setIsBonusMode(false);
+            await saveProgress(nextLevel);
+            console.log(`💡 [useWordGame] Hint for level ${nextLevel}:`, levelData?.hint);
+        }
+    }, [currentLevel, availableLevels, saveProgress]);
+
+    // Charger les mots du niveau actuel ou du mode bonus
+    const loadLevelWords = useCallback(() => {
+        console.log(`🎯 [useWordGame] Loading words - Level: ${currentLevel}, Bonus: ${isBonusMode}`);
+
+        if (isBonusMode || availableLevels.length === 0) {
+            console.log('🎲 [useWordGame] Loading random words for bonus mode');
+            return null; // Signale qu'on doit charger des mots aléatoires
+        }
+
+        const levelData = availableLevels[currentLevel - 1];
+        if (levelData && levelData.words) {
+            console.log(`📝 [useWordGame] Loading level ${currentLevel} words:`, levelData.words);
+            console.log(`💡 [useWordGame] Hint:`, levelData.hint);
+            return levelData.words;
+        }
+
+        console.log('⚠️ [useWordGame] No level data found, falling back to random words');
+        return null;
+    }, [currentLevel, isBonusMode, availableLevels]);
+
+    // Charger la progression au démarrage
+    useEffect(() => {
+        console.log('🚀 [useWordGame] Component mounted, loading progress...');
+        loadProgress();
+    }, [loadProgress]);
 
     const setWordsWithOriginal = useCallback((newWords) => {
         setWords(newWords);
@@ -209,6 +330,15 @@ export const useWordGame = () => {
         checkWord,
         undoLastAction,
         resetGame,
-        originalWords
+        originalWords,
+        // Système de niveaux
+        currentLevel,
+        isBonusMode,
+        currentHint,
+        availableLevels,
+        levelsReady,
+        loadProgress,
+        goToNextLevel,
+        loadLevelWords
     };
 };

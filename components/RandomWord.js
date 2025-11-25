@@ -12,6 +12,8 @@ import { FirstWordColumn, SecondWordColumn } from './WordColumn';
 import WordHistory from './WordHistory';
 import BackgroundAnimations from './BackgroundAnimations';
 import CustomAlert from './CustomAlert';
+import LevelBadge from './LevelBadge';
+import HintButton from './HintButton';
 
 const RandomWord = () => {
     const [loading, setLoading] = useState(false);
@@ -41,7 +43,16 @@ const RandomWord = () => {
         checkWord,
         undoLastAction,
         resetGame,
-        originalWords
+        originalWords,
+        // Système de niveaux
+        currentLevel,
+        isBonusMode,
+        currentHint,
+        availableLevels,
+        levelsReady,
+        loadProgress,
+        goToNextLevel,
+        loadLevelWords
     } = useWordGame();
 
     const handleNewGame = useCallback(async () => {
@@ -63,16 +74,38 @@ const RandomWord = () => {
     } = useGameTimer(handleNewGame);
 
     const loadWords = useCallback(async () => {
+        console.log('🔄 [RandomWord] loadWords called');
         setLoading(true);
-        const newWords = await fetchRandomWords(i18n.language);
-        setWords(newWords);
+
+        // Charger les mots du niveau ou du mode bonus
+        const levelWords = loadLevelWords();
+
+        if (levelWords && levelWords.length > 0) {
+            // Mode niveau : utiliser les mots prédéfinis
+            console.log('📚 [RandomWord] Loading level words:', levelWords);
+            console.log(`🎮 [RandomWord] Current level: ${currentLevel}, Bonus: ${isBonusMode}`);
+            setWords(levelWords);
+        } else {
+            // Mode bonus : charger des mots aléatoires
+            console.log('🎲 [RandomWord] Loading random words for bonus mode');
+            const newWords = await fetchRandomWords(i18n.language);
+            console.log('🎲 [RandomWord] Random words loaded:', newWords);
+            setWords(newWords);
+        }
+
         setLoading(false);
-    }, [setWords]);
+    }, [setWords, loadLevelWords, currentLevel, isBonusMode]);
 
     useEffect(() => {
+        if (!levelsReady) {
+            console.log('⏳ [RandomWord] Waiting for levels to be ready...');
+            return;
+        }
+        console.log('🌐 [RandomWord] Language or level changed, reloading words...');
+        console.log(`📊 [RandomWord] Level: ${currentLevel}, Bonus: ${isBonusMode}, Lang: ${i18n.language}`);
         loadWords();
         return () => stopTimer();
-    }, [i18n.language]);
+    }, [i18n.language, currentLevel, isBonusMode, levelsReady]);
 
     useFocusEffect(
         useCallback(() => {
@@ -85,7 +118,12 @@ const RandomWord = () => {
     );
 
     useEffect(() => {
-        if (!loading && words.length > 1 && words[1].length === 0) {
+        if (!loading && words.length > 1 && words[1].length === 0 && originalWords.length > 0) {
+            console.log('🏆 [RandomWord] Level/Game completed!');
+            console.log(`📊 [RandomWord] Current level: ${currentLevel}, Bonus: ${isBonusMode}`);
+            console.log(`📝 [RandomWord] Original words:`, originalWords);
+            console.log(`📝 [RandomWord] Current words:`, words);
+
             const gameData = {
                 language: i18n.language,
                 originalWords: originalWords && originalWords.length > 0 ? originalWords : words,
@@ -96,15 +134,65 @@ const RandomWord = () => {
 
             sendGameData(gameData);
 
-            setWinAlertConfig({
-                visible: true,
-                title: i18n.t('you_won'),
-                message: i18n.t('you_found_everything'),
-                type: 'success',
-                buttons: [{ text: i18n.t('new_game'), onPress: handleNewGame }],
-            });
+            // Vérifier si on est en mode niveau ou bonus
+            if (!isBonusMode && availableLevels.length > 0) {
+                // Mode niveau : vérifier s'il y a encore des niveaux
+                if (currentLevel < availableLevels.length) {
+                    // Il reste des niveaux
+                    console.log(`✨ [RandomWord] Level ${currentLevel} completed! Moving to level ${currentLevel + 1}`);
+                    setWinAlertConfig({
+                        visible: true,
+                        title: i18n.t('level_complete'),
+                        message: i18n.t('level_complete_message', { level: currentLevel }),
+                        type: 'success',
+                        buttons: [{
+                            text: i18n.t('next_level'),
+                            onPress: async () => {
+                                console.log('➡️ [RandomWord] Going to next level...');
+                                setWinAlertConfig(prev => ({ ...prev, visible: false }));
+                                stopTimer();
+                                resetGame();
+                                await goToNextLevel();
+                                await resetTimer();
+                                timerRef.current = startTimer();
+                            }
+                        }],
+                    });
+                } else {
+                    // Dernier niveau complété, passage en mode bonus
+                    console.log('🎊 [RandomWord] Last level completed! Entering bonus mode');
+                    setWinAlertConfig({
+                        visible: true,
+                        title: i18n.t('level_complete'),
+                        message: i18n.t('all_levels_complete'),
+                        type: 'success',
+                        buttons: [{
+                            text: i18n.t('play_bonus'),
+                            onPress: async () => {
+                                console.log('🎁 [RandomWord] Switching to bonus mode...');
+                                setWinAlertConfig(prev => ({ ...prev, visible: false }));
+                                stopTimer();
+                                resetGame();
+                                await goToNextLevel(); // Passe en mode bonus
+                                await resetTimer();
+                                timerRef.current = startTimer();
+                            }
+                        }],
+                    });
+                }
+            } else {
+                // Mode bonus : message classique
+                console.log('🎲 [RandomWord] Bonus game completed!');
+                setWinAlertConfig({
+                    visible: true,
+                    title: i18n.t('you_won'),
+                    message: i18n.t('you_found_everything'),
+                    type: 'success',
+                    buttons: [{ text: i18n.t('new_game'), onPress: handleNewGame }],
+                });
+            }
         }
-    }, [words, loading, handleNewGame, originalWords, validatedWords, score]);
+    }, [words, loading, handleNewGame, originalWords, validatedWords, score, currentLevel, isBonusMode, availableLevels, goToNextLevel, resetGame, stopTimer, resetTimer, timerRef, startTimer]);
 
     const handleBack = () => {
         navigation.navigate("Accueil");
@@ -126,6 +214,22 @@ const RandomWord = () => {
                 onUndo={undoLastAction}
                 onRefresh={handleNewGame}
             />
+
+            {/* Badge de niveau */}
+            {levelsReady && (
+                <LevelBadge
+                    currentLevel={currentLevel}
+                    totalLevels={availableLevels.length}
+                    isBonusMode={isBonusMode}
+                />
+            )}
+
+            {/* Bouton d'indice */}
+            <HintButton
+                hint={currentHint}
+                disabled={isBonusMode}
+            />
+
             {loading ? (
                 <LottieView
                     source={require('../assets/animation/loading.json')}
