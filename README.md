@@ -4,10 +4,11 @@
 
 <img src="./assets/Logo/white_logo.png" alt="WordSurgery Logo" width="200" style="border-radius: 16px; margin: 20px 0;">
 
-An innovative multilingual word puzzle game built with React Native and Expo
+An innovative multilingual word puzzle game built with React Native and Expo.
+
+Available on Google Play Store: [Download the app](https://play.google.com/store/apps/details?id=com.katiakaci.WordSurgery&hl=fr_CA)
 
 </div>
-
 
 ## About
 
@@ -30,60 +31,24 @@ WordSurgery is an engaging word puzzle game where players manipulate letters bet
 |:-----------:|:------:|
 | <img src="./assets/Screenshots/settings.jpg" width="200" style="border-radius: 8px;"> | <img src="./assets/Screenshots/tutoriel.jpg" width="200" style="border-radius: 8px;"> |
 
-## Getting started
+### Level System
 
-The app will be available on Google Play Store soon 🎉
-
-*(Currently pending approval on Play Console, so only accessible via private distribution list for now.)*
-
-### Tester access
-
-Want to try the app before its official release?
-Enter your Gmail address here to be added to the testers list on Play Store: [Fill out the access form](https://katiakaci.github.io/WordSurgery/access.html)
-
-### Local installation for development
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/katiakaci/WordSurgery.git
-   cd WordSurgery
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-3. **Start the development server**
-   ```bash
-   npm start
-   # or
-   expo start
-   ```
-
-4. **Run on device/simulator**
-   ```bash
-   # For Android
-   npm run android
-   
-   # For iOS
-   npm run ios
-   
-   # For web
-   npm run web
-   ```
+The game features a progressive level system:
+- **Currently available**: English and French
+- **Coming soon**: Level system for German, Spanish, Italian, and Turkish
 
 ## Future improvements
 
 Here are the features planned for upcoming versions:
 
 ### Gameplay 🎮
+- **Free mode vs Level mode** : Choose between casual play or structured progression
+- **Daily challenges** : Special games available each day with unique rewards
+- **Notification system** : Daily reminders for daily challenges
+- **Coin system** : Earn coins based on your score (e.g., score of 10 = 10 coins), spend coins on hints
+- **Complete tutorial** : Full onboarding experience for first-time users
 - **Multiplayer mode** : Challenge your friends in real-time
-- **Level system** : Progression with increasing difficulty
 - **Achievements** : Unlock successes and rewards
-- **Daily Match** : A special game available each day
 
 ### Social & Cloud 🌐
 - **Global leaderboards** : Compare your scores with players worldwide
@@ -92,4 +57,3 @@ Here are the features planned for upcoming versions:
 ### Content 📚
 - **More Languages** - Arabic, Russian, Hindi and others
 - **Specialized Dictionaries** - Thematic, technical, regional
-  
