@@ -16,9 +16,11 @@ const TopBar = ({ score, timeLeft, onBack, onUndo, onRefresh, isBonusMode }) => 
             </View>
 
             <View style={styles.rightTop}>
-                <View style={styles.timerWrapper}>
-                    <Text style={styles.timerText}>{timeLeft}</Text>
-                </View>
+                {isBonusMode && (
+                    <View style={styles.timerWrapper}>
+                        <Text style={styles.timerText}>{timeLeft}</Text>
+                    </View>
+                )}
 
                 <TouchableOpacity onPress={onUndo}>
                     <Ionicons name="arrow-undo" size={28} color="black" />

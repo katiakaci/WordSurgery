@@ -102,12 +102,16 @@ const RandomWord = () => {
 
     useFocusEffect(
         useCallback(() => {
-            loadTimerSetting().then(() => {
-                timerRef.current = startTimer();
-            });
+            if (isBonusMode) {
+                loadTimerSetting().then(() => {
+                    timerRef.current = startTimer();
+                });
+            } else {
+                stopTimer();
+            }
 
             return () => stopTimer();
-        }, [])
+        }, [isBonusMode])
     );
 
     useEffect(() => {
@@ -139,7 +143,6 @@ const RandomWord = () => {
                                 await new Promise(resolve => setTimeout(resolve, 100));
                                 resetGame();
                                 await goToNextLevel();
-                                await resetTimer();
                             }
                         }],
                     });
@@ -161,7 +164,9 @@ const RandomWord = () => {
                                 await new Promise(resolve => setTimeout(resolve, 100));
                                 resetGame();
                                 await goToNextLevel(); // Passe en mode bonus
-                                await resetTimer();
+                                // Démarrer le timer en mode bonus
+                                await loadTimerSetting();
+                                timerRef.current = startTimer();
                             }
                         }],
                     });
