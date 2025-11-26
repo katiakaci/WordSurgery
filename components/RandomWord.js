@@ -114,15 +114,7 @@ const RandomWord = () => {
         if (!loading && words.length > 1 && words[1].length === 0 && originalWords.length > 0) {
             console.log('🏆 [RandomWord] Level completed!');
 
-            const gameData = {
-                language: i18n.language,
-                originalWords: originalWords && originalWords.length > 0 ? originalWords : words,
-                formedWords: validatedWords,
-                score: score,
-                timestamp: new Date().toISOString()
-            };
 
-            sendGameData(gameData);
 
             // Vérifier si on est en mode niveau ou bonus
             if (!isBonusMode && availableLevels.length > 0) {
@@ -174,8 +166,16 @@ const RandomWord = () => {
                         }],
                     });
                 }
-            } else {
-                // Mode bonus
+            } else { // Mode bonus
+                const gameData = {
+                    language: i18n.language,
+                    originalWords: originalWords && originalWords.length > 0 ? originalWords : words,
+                    formedWords: validatedWords,
+                    score: score,
+                    timestamp: new Date().toISOString()
+                };
+                sendGameData(gameData);
+
                 setWinAlertConfig({
                     visible: true,
                     title: i18n.t('you_won'),
