@@ -100,6 +100,18 @@ export const LEVELS = {
             words: ["estime", "vitesse"],
             hint: "M entre T et E",
             solutions: ["messe", "vite"]
+        },
+        {
+            level: 17,
+            words: ["file", "plusieurs"],
+            hint: "FI avant E dans le second mot",
+            solutions: ["fie", "plus", "leurs"]
+        },
+        {
+            level: 18,
+            words: ["absolument", "trompeur"],
+            hint: "M AVANT UR dans le second mot",
+            solutions: ["mur", "trompe"]
         }
     ],
     en: [
